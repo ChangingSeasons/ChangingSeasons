@@ -22,14 +22,15 @@
 
 
 <body>
-<form action="/Lab03/SignupServlet" name = "signup" method="post">
-		<h4>Fill out the following form in order to register with changingseasons</h4>
-		<h4>We will save the details you provide in order to facilitate your purchases on our website.</h4>
+<form action="/Lab03/SignupServlet" name = "vendor" method="post">
+		<h4>Fill out the following form in order to register with ChangingSeasons</h4>
 		Username: <input type="text" name="username" placeholder="userid">
-		<input type="submit" value="Check Username Availability" name="check">
-		<br>FirstName: <input type="text" name="firstname" placeholder="firstname"></br>
+		<input type="submit" value="Check Username Availability" name="check"></br>
+		Company Name: <input type="text" name="companyname" placeholder="company name"></br>
+		FirstName: <input type="text" name="firstname" placeholder="firstname"></br>
 		LastName: <input type="text" name="lastname" placeholder="lastname"></br>
 		Address: <input type="text" name="address" placeholder="Street name,apt no,state,city-pincode"></br>
+		Phone number: <input type="text" name="phone" placeholder="123-456-7890"></br>
 		Email: <input type="text" name="email" placeholder="example@xyz.com"></br>
 		Password: <input type="password" name="password" placeholder="password"></br>
 		Confirm Password: <input type="password" name="cpassword" placeholder="password"></br>

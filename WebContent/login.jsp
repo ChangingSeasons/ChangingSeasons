@@ -13,7 +13,7 @@ if(loggedIn!=null){
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>001217131 - Lab03</title>
+<title>ChangingSeasons</title>
 
 <% String msg = (String)request.getAttribute("msg");
 	if(msg == null)
@@ -27,11 +27,17 @@ if(loggedIn!=null){
 if(loggedIn==null){
 	
 %>
-<body><a href = "signup.jsp">SignUp</a>
+<jsp:include page="/nav.jsp" />
+
 	<form action="/Lab03/LoginServlet" method="post">
+	<h2>Changing Seasons</h2>
 		Username: <input type="text" name="username"></br>
 		Password: <input type="password" name="password"></br>
-		<input type="submit" value="Login" name="submit">
+		<input type="submit" value="Login" name="submit"></br></br>
+		<a href="forgot.jsp">Forgot Password</a> </br></br></br></br>
+	
+		For new Changing Seasons customer <a href="signup.jsp">Signup</a></br></br>
+		For new Changing Seasons vendor <a href="vendor.jsp"> Create Account</a>
 	</form>
 </body>
 <% }%>
