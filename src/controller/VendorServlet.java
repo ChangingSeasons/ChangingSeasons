@@ -174,7 +174,9 @@ public class VendorServlet extends HttpServlet {
 		}
 		
 		
-		if(username.length()!=0 && firstname.length()!=0 && lastname.length()!=0
+		if(username.length()!=0 && firstname.length()!=0 && lastname.length()!=0 && middlename.length()!=0
+				&& address.length()!=0 && phone.length()!=0 && companyname.length()!=0 && accno.length()!=0
+				&& routno.length()!=0 && paypalid.length()!=0 && email.length()!=0
 				&& password.length()!=0 && cpassword.length()!=0 && password.equals(cpassword))
 			flag = 1;
 			
@@ -183,7 +185,9 @@ public class VendorServlet extends HttpServlet {
 			userId = enterNewuser(username, cpassword);
 			
 			if(userId > 0){
-				status = enterUsernameSeller(userId, firstname, lastname);
+				double phno = Double.parseDouble(phone);
+
+				status = enterUsernameSeller(userId, phno, false, companyname, address, email, url, accno, routno, firstname, middlename, lastname);
 				
 				if(status == true){
 					msg = "Account Created Successfully";

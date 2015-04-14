@@ -134,14 +134,28 @@ public class AuthDAO {
 		return -1;
 	}
 	
-	public static boolean enterUsernameSeller(int userID, String firstname, String lastname){
+	public static boolean enterUsernameSeller(int userID, double phone, boolean authorized, String... args){
 		Connect();
 		try{
-			String q1 = "INSERT into user_profile (userId, firstName, lastName)" + " values (?, ?, ?)";
+			String companyName = args[0], address = args[1],
+					email = args[2], URL = args[3],
+					bankAccount = args[4], routingNumber = args[5],
+					firstname = args[6], middlename = args[7], lastname = args[8];
+
+			String q1 = "INSERT into Seller (id, companyName, address, email, phone, authorized, URL, bankAccount, routingNumber, firstname, middlename, lastname)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = cn.prepareStatement(q1);
 			ps.setInt(1, userID);
-			ps.setString (2, firstname);
-			ps.setString (3, lastname);
+			ps.setString(2, companyName);
+			ps.setString(3, address);
+			ps.setString(4, email);
+			ps.setDouble(5, phone);
+			ps.setBoolean(6, authorized);
+			ps.setString(7, URL);
+			ps.setString(8, bankAccount);
+			ps.setString(9, routingNumber);
+			ps.setString (10, firstname);
+			ps.setString(11, middlename);
+			ps.setString (12, lastname);
 			ps.executeUpdate();
 			ps.close();
 			return true;
