@@ -12,6 +12,7 @@ public class AuthDAO {
 	
 	public static void Connect(){
 		try{
+			
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = DriverManager.getConnection("jdbc:mysql://localhost/SEProject", "root", "pass");
 		}catch(SQLException sql){
