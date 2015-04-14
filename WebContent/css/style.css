@@ -3,6 +3,11 @@ span.header {
   font-size: 2rem;
 }
 
+span.title {
+    font-family: "Lobster", Georgia, serif;
+  font-size: 4rem;
+}
+
   h1 {
         text-align: center;
     }
