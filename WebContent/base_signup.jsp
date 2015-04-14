@@ -8,7 +8,7 @@
 		<fieldset>
 
 			<!-- Form Name -->
-			<legend>Form Name</legend>
+			<legend>User Sign Up</legend>
 
 			<!-- Text input-->
 			<div class="form-group">
