@@ -14,14 +14,14 @@ import static model.AuthDAO.*;
 /**
  * Servlet implementation class SignupServlet
  */
-@WebServlet("/SignupServlet")
-public class SignupServlet extends HttpServlet {
+@WebServlet("/VendorServlet")
+public class VendorServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SignupServlet() {
+    public VendorServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,11 +41,14 @@ public class SignupServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String check = request.getParameter("check"); //Check button for username
 		String username = request.getParameter("username");
+		String companyname = request.getParameter("companyname");
 		String firstname = request.getParameter("firstname");
 		String middlename = request.getParameter("middlename");
 		String lastname = request.getParameter("lastname");
 		String address = request.getParameter("address");
 		String phone = request.getParameter("phone");
+		String accno = request.getParameter("accno");
+		String routno = request.getParameter("routno");
 		String paypalid = request.getParameter("paypalid");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
@@ -77,6 +80,13 @@ public class SignupServlet extends HttpServlet {
 					flag=0;
 				}
 			}
+		}
+
+		if(companyname.length()==0){
+			url = "/signup.jsp";
+			msg = msg + "\nPlease fill-in Company name";
+			request.setAttribute("msg", msg);
+			flag=0;
 		}
 		
 		if(firstname.length()==0){
@@ -110,6 +120,20 @@ public class SignupServlet extends HttpServlet {
 		if(phone.length()==0){
 			url = "/signup.jsp";
 			msg = msg + "\nPlease fill-in Phone Number";
+			request.setAttribute("msg", msg);
+			flag=0;
+		}
+		
+		if(accno.length()==0){
+			url = "/signup.jsp";
+			msg = msg + "\nPlease fill-in Bank Account Number";
+			request.setAttribute("msg", msg);
+			flag=0;
+		}
+		
+		if(routno.length()==0){
+			url = "/signup.jsp";
+			msg = msg + "\nPlease fill-in Routing Number";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
