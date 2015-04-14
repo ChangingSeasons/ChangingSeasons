@@ -12,10 +12,8 @@ public class AuthDAO {
 	
 	public static void Connect(){
 		try{
-			if(cn==null){
-				Class.forName("com.mysql.jdbc.Driver");
-				cn = DriverManager.getConnection("jdbc:mysql://localhost/SEProject", "root", "pass");
-			}
+			Class.forName("com.mysql.jdbc.Driver");
+			cn = DriverManager.getConnection("jdbc:mysql://localhost/SEProject", "root", "pass");
 		}catch(SQLException sql){
 			System.err.println(sql.getMessage());
 			sql.printStackTrace();
@@ -55,14 +53,14 @@ public class AuthDAO {
 			String q0="SELECT type FROM User WHERE id="+userID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-			while(rs.next()){
-				type = rs.getString("type");
-		    }
+//			while(rs.next()){
+//				type = rs.getString("type");
+//		    }
 		    rs.close();
 		    st.close();
 			
-		    
-			if(type.equalsIgnoreCase("seller")){
+		    type = "buyer";
+			if(type.equalsIgnoreCase("buyer")){
 				q0="SELECT * FROM Customer WHERE id="+userID;
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
@@ -74,7 +72,7 @@ public class AuthDAO {
 			    st.close();
 			}
 			
-			else if (type.equalsIgnoreCase("buyer")){
+			else if (type.equalsIgnoreCase("seller")){
 				q0="SELECT * FROM Seller WHERE id="+userID;
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
@@ -115,8 +113,13 @@ public class AuthDAO {
 				ResultSet rs = st.executeQuery(q0);
 				
 				rs.last();
-				ID = Integer.parseInt(rs.getString("id"));
-				ID++; //As its auto-increment, getting ID of last row, and updating accordingly!
+				if(rs.next()){
+					ID = rs.getInt("id");
+					ID++;
+				}
+				else
+					ID = 1;
+				
 				rs.close();
 				st.close();
 				
@@ -134,8 +137,8 @@ public class AuthDAO {
 			e.printStackTrace();
 		}		
 		DB_close();
-		if(userId!=-1)
-			return userId;
+		if(ID!=-1)
+			return ID;
 		return -1;
 	}
 	
@@ -175,7 +178,7 @@ public class AuthDAO {
 	public static boolean enterUsernameBuyer(int userID, String firstname, String lastname, String address, String email, double phone, String payPalID, String middlename){
 		Connect();
 		try{
-			String q1 = "INSERT into Customer (userId, firstName, lastName, address, email, phone, payPalID, middlename)" + " values (?, ?, ?, ?, ?, ?, ?, ?)";
+			String q1 = "INSERT into Customer (id, firstName, lastName, address, email, phone, payPalID, middlename)" + " values (?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = cn.prepareStatement(q1);
 			ps.setInt(1, userID);
 			ps.setString (2, firstname);

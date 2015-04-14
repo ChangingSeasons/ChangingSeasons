@@ -36,8 +36,8 @@ if(loggedIn==null){
 		<input type="submit" value="Login" name="submit"></br></br>
 		<a href="forgot.jsp">Forgot Password</a> </br></br></br></br>
 	
-		For new Changing Seasons customer <a href="signup.jsp">Signup</a></br></br>
-		For new Changing Seasons vendor <a href="vendor.jsp"> Create Account</a>
+		For new Changing Seasons <b>Customer</b> <a href="signup.jsp">Signup</a></br></br>
+		For new Changing Seasons <b>Vendor <a href="vendor.jsp"> Create Account</a>
 	</form>
 </body>
 <% }%>

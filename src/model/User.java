@@ -3,23 +3,15 @@ package model;
 import java.io.Serializable;
 
 public class User implements Serializable{
-	private String username, firstname, lastname;
+	private String firstname, lastname;
 	
 	public User() {
 		super();
 		this.firstname="";
 		this.lastname="";
-		this.username="";
+		//this.username="";
 	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
+	
 	public String getFirstname() {
 		return firstname;
 	}
