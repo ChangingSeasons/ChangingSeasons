@@ -12,8 +12,10 @@ public class AuthDAO {
 	
 	public static void Connect(){
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			cn = DriverManager.getConnection("jdbc:mysql://localhost/SEProject", "root", "pass");
+			if(cn==null){
+				Class.forName("com.mysql.jdbc.Driver");
+				cn = DriverManager.getConnection("jdbc:mysql://localhost/SEProject", "root", "pass");
+			}
 		}catch(SQLException sql){
 			System.err.println(sql.getMessage());
 			sql.printStackTrace();
@@ -46,7 +48,7 @@ public class AuthDAO {
 	}
 	
 	public static User getUserbyId(int userID){
-		String username="", firstname="", lastname="", type="";
+		String firstname="", lastname="", type="";
 		Connect();
 		try{
 			
@@ -66,7 +68,8 @@ public class AuthDAO {
 				rs = st.executeQuery(q0);
 				while(rs.next()){
 					firstname = rs.getString("firstname");
-					lastname = rs.getString("lastname");			    }
+					lastname = rs.getString("lastname");			    
+				}
 			    rs.close();
 			    st.close();
 			}
@@ -77,7 +80,8 @@ public class AuthDAO {
 				rs = st.executeQuery(q0);
 				while(rs.next()){
 					firstname = rs.getString("firstname");
-					lastname = rs.getString("lastname");			    }
+					lastname = rs.getString("lastname");			    
+				}
 			    rs.close();
 			    st.close();
 			}
@@ -104,7 +108,8 @@ public class AuthDAO {
 		Connect();
 		try{
 			if(isUsernameAvailable(username)==true){
-				
+				Class.forName("com.mysql.jdbc.Driver");
+				cn = DriverManager.getConnection("jdbc:mysql://localhost/SEProject", "root", "pass");
 				String q0 = "Select id from User";
 				Statement st = cn.createStatement();
 				ResultSet rs = st.executeQuery(q0);
@@ -216,7 +221,7 @@ public class AuthDAO {
 		try{
 			if(cn!=null)
 				cn.close();
-		}catch(Exception e){
+		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}

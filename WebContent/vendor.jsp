@@ -22,8 +22,7 @@
 
 
 <body>
-<form action="/Lab03/VendorServlet" name = "vendor" method="post">
-<form action="/ChangingSeasons/SignupServlet" name = "vendor" method="post">
+<form action="/ChangingSeasons/VendorServlet" name = "vendor" method="post">
 
 		<h4>Fill out the following form in order to register with ChangingSeasons</h4>
 		Username: <input type="text" name="username" placeholder="userid">
@@ -36,7 +35,7 @@
 		Phone number: <input type="text" name="phone" placeholder="123-456-7890"></br>
 		Bank account number: <input type="text" name="accno" placeholder="1234567890"></br>
 		Routing number: <input type="text" name="routno" placeholder="SHIFT123"></br>
-		PayPal ID: <insput type="text" name="paypalid" placeholder="doe@xyz.com"></br>
+		PayPal ID: <input type="text" name="paypalid" placeholder="doe@xyz.com"></br>
 		Email: <input type="text" name="email" placeholder="example@xyz.com"></br>
 		Password: <input type="password" name="password" placeholder="password"></br>
 		Confirm Password: <input type="password" name="cpassword" placeholder="password"></br>
