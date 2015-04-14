@@ -3,7 +3,7 @@
 <%@ include file="header.jsp"%>
 <%@ include file="navbar.jsp"%>
 
-<div class="container" style="width: 35em">
+<div class="container" style="width: 40em">
 	<form class="form-horizontal">
 		<fieldset>
 
