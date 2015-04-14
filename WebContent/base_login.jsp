@@ -40,10 +40,35 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="submit"></label>
 				<div class="col-md-4">
-					<button type="submit" id="submit" name="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" id="submit" name="submit" class="btn btn-default">Submit</button>
 				</div>
 			</div>
 			
+			<hr/>
+			
+			<!-- Multiple Radios (inline) -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="signupradio">Sign Up As</label>
+  <div class="col-md-4"> 
+    <label class="radio-inline" for="signupradio-0">
+      <input type="radio" name="signupradio" id="signupradio-0" value="Buyer" checked="checked">
+      Buyer
+    </label> 
+    <label class="radio-inline" for="signupradio-1">
+      <input type="radio" name="signupradio" id="signupradio-1" value="Seller">
+      Seller
+    </label>
+   
+  </div>
+</div>
+
+<!-- Button -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="signup"></label>
+				<div class="col-md-4">
+					 <button type="button" id="signup" name="signup" class="btn btn-primary">Sign Up</button>
+				</div>
+			</div>
 			
 		</fieldset>
 	</form>
