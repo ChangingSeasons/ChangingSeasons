@@ -150,8 +150,9 @@ public class SignupServlet extends HttpServlet {
 		}
 		
 		
-		if(username.length()!=0 && firstname.length()!=0 && lastname.length()!=0
-				&& password.length()!=0 && cpassword.length()!=0 && password.equals(cpassword))
+		if(username.length()!=0 && firstname.length()!=0 && middlename.length()!=0 &&
+				lastname.length()!=0 && address.length()!=0 && phone.length()!=0 && paypalid.length()!=0 &&
+				email.length()!=0 && password.length()!=0 && cpassword.length()!=0 && password.equals(cpassword))
 			flag = 1;
 			
 		if(flag == 1){ //Everything is filled in
@@ -159,7 +160,8 @@ public class SignupServlet extends HttpServlet {
 			userId = enterNewuser(username, cpassword);
 			
 			if(userId > 0){
-				status = enterUsername(userId, firstname, lastname);
+				double phno = Double.parseDouble(phone);
+				status = enterUsernameBuyer(userId, firstname, lastname, address, email, phno, paypalid, middlename);
 				
 				if(status == true){
 					msg = "Account Created Successfully";

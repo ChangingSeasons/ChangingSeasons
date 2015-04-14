@@ -46,20 +46,45 @@ public class AuthDAO {
 	}
 	
 	public static User getUserbyId(int userID){
-		String username="", firstname="", lastname="";
+		String username="", firstname="", lastname="", type="";
 		Connect();
 		try{
-			String q="SELECT firstName, lastName, username FROM user JOIN user_profile ON user.userId=user_profile.userId WHERE user.userId="+userID;
-		
+			
+			String q0="SELECT type FROM User WHERE id="+userID;
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery(q);
+			ResultSet rs = st.executeQuery(q0);
 			while(rs.next()){
-				username = rs.getString("username");
-				firstname = rs.getString("firstName");
-				lastname = rs.getString("lastName");
+				type = rs.getString("type");
 		    }
 		    rs.close();
 		    st.close();
+			
+		    
+			if(type.equalsIgnoreCase("seller")){
+				q0="SELECT * FROM Customer WHERE id="+userID;
+				st = cn.createStatement();
+				rs = st.executeQuery(q0);
+				while(rs.next()){
+					firstname = rs.getString("firstname");
+					lastname = rs.getString("lastname");			    }
+			    rs.close();
+			    st.close();
+			}
+			
+			else if (type.equalsIgnoreCase("buyer")){
+				q0="SELECT * FROM Seller WHERE id="+userID;
+				st = cn.createStatement();
+				rs = st.executeQuery(q0);
+				while(rs.next()){
+					firstname = rs.getString("firstname");
+					lastname = rs.getString("lastname");			    }
+			    rs.close();
+			    st.close();
+			}
+			else{ // Admin
+				
+			}
+			
 		}catch(Exception e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
@@ -69,7 +94,6 @@ public class AuthDAO {
 		User u = new User();
 		u.setFirstname(firstname);
 		u.setLastname(lastname);
-		u.setUsername(username);
 		
 		return u;
 	}
@@ -99,14 +123,6 @@ public class AuthDAO {
 				ps.executeUpdate();
 				ps.close();
 				
-//				String q2 = "SELECT userId FROM user WHERE username='"+username+"'";
-//				st = cn.createStatement();
-//				rs = st.executeQuery(q2);
-//				while(rs.next()){
-//					userId = Integer.parseInt(rs.getString("userId"));
-//			    }
-//			    rs.close();
-//			    st.close();
 			}
 		}catch(Exception e){
 			System.err.println(e.getMessage());
@@ -118,7 +134,7 @@ public class AuthDAO {
 		return -1;
 	}
 	
-	public static boolean enterUsername(int userID, String firstname, String lastname){
+	public static boolean enterUsernameSeller(int userID, String firstname, String lastname){
 		Connect();
 		try{
 			String q1 = "INSERT into user_profile (userId, firstName, lastName)" + " values (?, ?, ?)";
@@ -126,6 +142,30 @@ public class AuthDAO {
 			ps.setInt(1, userID);
 			ps.setString (2, firstname);
 			ps.setString (3, lastname);
+			ps.executeUpdate();
+			ps.close();
+			return true;
+		}catch(Exception e){
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+		DB_close();
+		return false;
+	}
+	
+	public static boolean enterUsernameBuyer(int userID, String firstname, String lastname, String address, String email, double phone, String payPalID, String middlename){
+		Connect();
+		try{
+			String q1 = "INSERT into Customer (userId, firstName, lastName, address, email, phone, payPalID, middlename)" + " values (?, ?, ?, ?, ?, ?, ?, ?)";
+			PreparedStatement ps = cn.prepareStatement(q1);
+			ps.setInt(1, userID);
+			ps.setString (2, firstname);
+			ps.setString (3, lastname);
+			ps.setString(4, address);
+			ps.setString(5, email);
+			ps.setDouble(6, phone);
+			ps.setString(7, payPalID);
+			ps.setString(8, middlename);
 			ps.executeUpdate();
 			ps.close();
 			return true;
