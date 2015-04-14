@@ -27,11 +27,11 @@ public class AuthDAO {
 		int userId=-1;
 		Connect();
 		try{
-			String q="SELECT userId FROM user WHERE username='"+username+"' AND password='"+password+"'";
+			String q="SELECT id FROM User WHERE username='"+username+"' AND password='"+password+"'";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q);
 			while(rs.next()){
-				userId = Integer.parseInt(rs.getString("userId"));
+				userId = Integer.parseInt(rs.getString("id"));
 		    }
 		    rs.close();
 		    st.close();
@@ -81,17 +81,17 @@ public class AuthDAO {
 		try{
 			if(isUsernameAvailable(username)==true){
 				
-				String q0 = "Select userId from user";
+				String q0 = "Select id from User";
 				Statement st = cn.createStatement();
 				ResultSet rs = st.executeQuery(q0);
 				
 				rs.last();
-				ID = Integer.parseInt(rs.getString("userId"));
+				ID = Integer.parseInt(rs.getString("id"));
 				ID++; //As its auto-increment, getting ID of last row, and updating accordingly!
 				rs.close();
 				st.close();
 				
-				String q1 = "INSERT into user (userId, username, password)" + " values (?, ?, ?)";
+				String q1 = "INSERT into User (id, username, password)" + " values (?, ?, ?)";
 				PreparedStatement ps = cn.prepareStatement(q1);
 				ps.setInt(1, ID);
 				ps.setString (2,username);
@@ -99,14 +99,14 @@ public class AuthDAO {
 				ps.executeUpdate();
 				ps.close();
 				
-				String q2 = "SELECT userId FROM user WHERE username='"+username+"'";
-				st = cn.createStatement();
-				rs = st.executeQuery(q2);
-				while(rs.next()){
-					userId = Integer.parseInt(rs.getString("userId"));
-			    }
-			    rs.close();
-			    st.close();
+//				String q2 = "SELECT userId FROM user WHERE username='"+username+"'";
+//				st = cn.createStatement();
+//				rs = st.executeQuery(q2);
+//				while(rs.next()){
+//					userId = Integer.parseInt(rs.getString("userId"));
+//			    }
+//			    rs.close();
+//			    st.close();
 			}
 		}catch(Exception e){
 			System.err.println(e.getMessage());
@@ -140,7 +140,7 @@ public class AuthDAO {
 	public static boolean isUsernameAvailable(String username){
 		Connect();
 		try{
-			String q="SELECT username FROM user";
+			String q="SELECT username FROM User";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q);
 			while(rs.next()){
