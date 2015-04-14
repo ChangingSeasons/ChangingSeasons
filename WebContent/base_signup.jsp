@@ -54,8 +54,4 @@
 </div>
 <!-- /container -->
 
-
-
-
-
 <%@ include file="footer.jsp"%>
