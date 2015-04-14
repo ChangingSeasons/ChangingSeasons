@@ -29,7 +29,7 @@ if(loggedIn==null){
 %>
 <jsp:include page="/nav.jsp" />
 
-	<form action="/Lab03/LoginServlet" method="post">
+	<form action="/ChangingSeasons/LoginServlet" method="post">
 	<h2>Changing Seasons</h2>
 		Username: <input type="text" name="username"></br>
 		Password: <input type="password" name="password"></br>

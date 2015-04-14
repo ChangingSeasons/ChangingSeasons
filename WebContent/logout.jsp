@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <div id = "logout">
-	<form action="/Lab03/LogoutServlet" method="post">
+	<form action="/ChangingSeasons/LogoutServlet" method="post">
 		<input type="submit" value="Logout" name="logout">
 	</form>
 </div>

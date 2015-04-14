@@ -22,7 +22,7 @@
 
 
 <body>
-<form action="/Lab03/SignupServlet" name = "vendor" method="post">
+<form action="/ChangingSeasons/SignupServlet" name = "vendor" method="post">
 		<h4>Fill out the following form in order to register with ChangingSeasons</h4>
 		Username: <input type="text" name="username" placeholder="userid">
 		<input type="submit" value="Check Username Availability" name="check"></br>
