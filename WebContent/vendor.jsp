@@ -22,9 +22,7 @@
 
 
 <body>
-<<<<<<< HEAD
 <form action="/Lab03/VendorServlet" name = "vendor" method="post">
-=======
 <form action="/ChangingSeasons/SignupServlet" name = "vendor" method="post">
 
 		<h4>Fill out the following form in order to register with ChangingSeasons</h4>
@@ -44,7 +42,7 @@
 		Confirm Password: <input type="password" name="cpassword" placeholder="password"></br>
 		<input type="submit" value="Sign Up" name="submit">
 		<input type="reset" value="Reset" name="reset"></br></br>
-		Already registered!! <a href="login.jsp">Login Here</a>
+		<b>Already registered!!</b> <a href="login.jsp">Login Here</a>
 	</form>
 
 </body>

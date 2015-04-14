@@ -38,7 +38,7 @@
 		Confirm Password: <input type="password" name="cpassword" placeholder="password"></br>
 		<input type="submit" value="Sign Up" name="submit">
 		<input type="reset" value="Reset" name="reset"></br></br>
-		Already registered!! <a href="login.jsp">Login Here</a>
+		<b>Already registered!!</b> <a href="login.jsp">Login Here</a>
 	</form>
 
 </body>
