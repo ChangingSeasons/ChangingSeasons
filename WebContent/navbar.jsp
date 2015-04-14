@@ -10,8 +10,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Changing Seasons</a>
+      <a class="navbar-brand" href="#"><span class="header"><img src="imgs/logo.jpg" alt="logo" width="50"/>    Changing Seasons</span></a>
     </div>
+    
+    <% String loggedIn = (String) session.getAttribute("loggedIn"); 
+    
+	if(loggedIn!=null){
+	
+%>
+  
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -51,5 +58,8 @@
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
+     <%
+	}
+     %>
   </div><!-- /.container-fluid -->
 </nav>
