@@ -41,6 +41,7 @@ public class ForgotPassServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String phno = request.getParameter("phone");
 		String msg = "", url = "";
+		
 		if(username.length()==0){
 			url = "/forgot.jsp";
 			msg = msg + "Please fill-in Username";
