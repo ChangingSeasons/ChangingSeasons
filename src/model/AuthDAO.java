@@ -9,10 +9,10 @@ import java.sql.Statement;
 
 public class AuthDAO {
 	static Connection cn;
-	
+
 	public static void Connect(){
 		try{
-			
+
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = DriverManager.getConnection("jdbc:mysql://localhost/SEProject", "root", "pass");
 		}catch(SQLException sql){
@@ -23,7 +23,7 @@ public class AuthDAO {
 			c.printStackTrace();
 		}
 	}
-	
+
 	public static int checkUserpass(String username, String password){
 		int userId=-1;
 		Connect();
@@ -33,9 +33,9 @@ public class AuthDAO {
 			ResultSet rs = st.executeQuery(q);
 			while(rs.next()){
 				userId = Integer.parseInt(rs.getString("id"));
-		    }
-		    rs.close();
-		    st.close();
+			}
+			rs.close();
+			st.close();
 		}catch(Exception e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
@@ -45,22 +45,22 @@ public class AuthDAO {
 			return userId;
 		return -1;
 	}
-	
+
 	public static User getUserbyId(int userID){
 		String firstname="", lastname="", type="";
 		Connect();
 		try{
-			
+
 			String q0="SELECT type FROM User WHERE id="+userID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-//			while(rs.next()){
-//				type = rs.getString("type");
-//		    }
-		    rs.close();
-		    st.close();
-			
-		    type = "buyer";
+			//			while(rs.next()){
+			//				type = rs.getString("type");
+			//		    }
+			rs.close();
+			st.close();
+
+			type = "buyer";
 			if(type.equalsIgnoreCase("buyer")){
 				q0="SELECT * FROM Customer WHERE id="+userID;
 				st = cn.createStatement();
@@ -69,10 +69,10 @@ public class AuthDAO {
 					firstname = rs.getString("firstname");
 					lastname = rs.getString("lastname");			    
 				}
-			    rs.close();
-			    st.close();
+				rs.close();
+				st.close();
 			}
-			
+
 			else if (type.equalsIgnoreCase("seller")){
 				q0="SELECT * FROM Seller WHERE id="+userID;
 				st = cn.createStatement();
@@ -81,26 +81,26 @@ public class AuthDAO {
 					firstname = rs.getString("firstname");
 					lastname = rs.getString("lastname");			    
 				}
-			    rs.close();
-			    st.close();
+				rs.close();
+				st.close();
 			}
 			else{ // Admin
-				
+
 			}
-			
+
 		}catch(Exception e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
 		DB_close();
-		
+
 		User u = new User();
 		u.setFirstname(firstname);
 		u.setLastname(lastname);
-		
+
 		return u;
 	}
-	
+
 	public static int enterNewuser(String username, String password){
 		int userId=-1;
 		int ID=0;
@@ -112,7 +112,7 @@ public class AuthDAO {
 				String q0 = "Select id from User";
 				Statement st = cn.createStatement();
 				ResultSet rs = st.executeQuery(q0);
-				
+
 				rs.last();
 				if(rs.next()){
 					ID = rs.getInt("id");
@@ -120,10 +120,10 @@ public class AuthDAO {
 				}
 				else
 					ID = 1;
-				
+
 				rs.close();
 				st.close();
-				
+
 				String q1 = "INSERT into User (id, username, password)" + " values (?, ?, ?)";
 				PreparedStatement ps = cn.prepareStatement(q1);
 				ps.setInt(1, ID);
@@ -131,7 +131,7 @@ public class AuthDAO {
 				ps.setString (3,password);
 				ps.executeUpdate();
 				ps.close();
-				
+
 			}
 		}catch(Exception e){
 			System.err.println(e.getMessage());
@@ -142,7 +142,7 @@ public class AuthDAO {
 			return ID;
 		return -1;
 	}
-	
+
 	public static boolean enterUsernameSeller(int userID, double phone, boolean authorized, String... args){
 		Connect();
 		try{
@@ -175,7 +175,7 @@ public class AuthDAO {
 		DB_close();
 		return false;
 	}
-	
+
 	public static boolean enterUsernameBuyer(int userID, String firstname, String lastname, String address, String email, double phone, String payPalID, String middlename){
 		Connect();
 		try{
@@ -199,7 +199,7 @@ public class AuthDAO {
 		DB_close();
 		return false;
 	}
-	
+
 	public static boolean isUsernameAvailable(String username){
 		Connect();
 		try{
@@ -211,8 +211,8 @@ public class AuthDAO {
 					return false;
 				}
 			}
-		    rs.close();
-		    st.close();
+			rs.close();
+			st.close();
 		}catch(Exception e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
@@ -220,7 +220,37 @@ public class AuthDAO {
 		DB_close();
 		return true;
 	}
-	
+
+	public static String getPassword (String email, double phone){
+		Connect();
+		String password = "";
+		int id = -1;
+		try{
+			String q = "SELECT id FROM Customer WHERE email='"+email+"' AND phone="+phone;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q);
+			while(rs.next()){
+				id = Integer.parseInt(rs.getString("id"));
+			}
+			if(id != -1){
+				String q1 = "SELECT password FROM User WHERE id='"+id+"'";
+				st = cn.createStatement();
+				rs = st.executeQuery(q1);
+				while(rs.next()){
+					password = rs.getString("password");
+				}
+				rs.close();
+				st.close();
+				return password;
+			}
+		}catch(SQLException e){
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+		DB_close();
+		return null;
+	}
+
 	public static void DB_close(){
 		try{
 			if(cn!=null)
@@ -231,4 +261,3 @@ public class AuthDAO {
 		}
 	}
 }
- 

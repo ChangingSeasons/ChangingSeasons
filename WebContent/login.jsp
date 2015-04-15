@@ -35,7 +35,7 @@ if(loggedIn==null){
 		Password: <input type="password" name="password"></br>
 		<input type="submit" value="Login" name="submit"></br></br>
 		<a href="forgot.jsp">Forgot Password</a> </br></br></br></br>
-	
+		
 		For new Changing Seasons <b>Customer</b> <a href="signup.jsp">Signup</a></br></br>
 		For new Changing Seasons <b>Vendor <a href="vendor.jsp"> Create Account</a>
 	</form>

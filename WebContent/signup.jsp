@@ -31,7 +31,7 @@
 		MiddleName: <input type="text" name="middlename" placeholder="middlename"></br>
 		LastName: <input type="text" name="lastname" placeholder="lastname"></br>
 		Address: <input type="text" name="address" placeholder="Street name,apt no,state,city-pincode"></br>
-		Phone number: <input type="text" name="phone" placeholder="123-456-7890"></br>
+		Phone number: <input type="text" name="phone" placeholder="1234567890"></br>
 		PayPal ID: <input type="text" name="paypalid" placeholder="doe@xyz.com"></br>
 		Email: <input type="text" name="email" placeholder="example@xyz.com"></br>
 		Password: <input type="password" name="password" placeholder="password"></br>
