@@ -10,7 +10,7 @@
 			<!-- Form Name -->
 			<div class="page-header">
 				<h1>
-					User Sign Up <small>Please enter your details</small>
+					Buyer Sign Up <small>Please enter your details</small>
 				</h1>
 			</div>
 			<!-- Text input-->
