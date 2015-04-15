@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><span class="header"><img src="imgs/logo.jpg" alt="logo" width="55"/>    Changing Seasons</span></a>
+      <a class="navbar-brand" href="#"><span class="header"><img src="imgs/logo.jpg" alt="logo" width="80"/>    Changing Seasons</span></a>
     </div>
     
     <% String loggedIn = (String) session.getAttribute("loggedIn"); 

@@ -14,17 +14,17 @@
 				</h1>
 			</div>
 			<!-- Text input-->
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-md-4 control-label" for="username">Username</label>
 				<div class="col-md-4">
 					<input id="username" name="username" type="text"
-						placeholder="username" class="form-control input-md" required="">
+						placeholder="username" class="form-control input-md" required="required">
 
 				</div>
 			</div>
 
 			<!-- Password input-->
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-md-4 control-label" for="password">Password</label>
 				<div class="col-md-4">
 					<input id="password" name="password" type="password"
@@ -34,7 +34,7 @@
 			</div>
 
 			<!-- Password input-->
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-md-4 control-label" for="passwordc">Confirm
 					Password</label>
 				<div class="col-md-4">
@@ -45,7 +45,7 @@
 			</div>
 
 			<!-- Text input-->
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-md-4 control-label" for="firstname">First
 					Name</label>
 				<div class="col-md-4">
@@ -67,7 +67,7 @@
 			</div>
 
 			<!-- Text input-->
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-md-4 control-label" for="lastname">Last
 					Name</label>
 				<div class="col-md-4">
@@ -77,7 +77,7 @@
 				</div>
 			</div>
 
-			<!-- Textarea -->
+			<!-- Text area -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="address">Address</label>
 				<div class="col-md-4">
@@ -107,7 +107,7 @@
 			</div>
 
 			<!-- Text input-->
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-md-4 control-label" for="email">Email</label>
 				<div class="col-md-4">
 					<input id="email" name="email" type="text" placeholder="Email"

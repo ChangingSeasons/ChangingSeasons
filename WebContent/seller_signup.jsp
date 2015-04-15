@@ -14,7 +14,7 @@
 				</h1>
 			</div>
 			<!-- Text input-->
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-md-4 control-label" for="username">Username</label>
 				<div class="col-md-4">
 					<input id="username" name="username" type="text"
@@ -24,7 +24,7 @@
 			</div>
 
 			<!-- Password input-->
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-md-4 control-label" for="password">Password</label>
 				<div class="col-md-4">
 					<input id="password" name="password" type="password"
@@ -34,7 +34,7 @@
 			</div>
 
 			<!-- Password input-->
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-md-4 control-label" for="passwordc">Confirm
 					Password</label>
 				<div class="col-md-4">
@@ -45,7 +45,7 @@
 			</div>
 			
 			<!-- Text input-->
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-md-4 control-label" for="company">Company Name</label>
 				<div class="col-md-4">
 					<input id="company" name="company" type="text"
@@ -56,7 +56,7 @@
 			
 
 			<!-- Text input-->
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-md-4 control-label" for="firstname">First
 					Name</label>
 				<div class="col-md-4">
@@ -78,7 +78,7 @@
 			</div>
 
 			<!-- Text input-->
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-md-4 control-label" for="lastname">Last
 					Name</label>
 				<div class="col-md-4">
@@ -138,7 +138,7 @@
 			</div>
 
 			<!-- Text input-->
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-md-4 control-label" for="email">Email</label>
 				<div class="col-md-4">
 					<input id="email" name="email" type="text" placeholder="Email"
