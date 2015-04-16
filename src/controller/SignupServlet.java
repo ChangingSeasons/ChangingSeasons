@@ -85,12 +85,12 @@ public class SignupServlet extends HttpServlet {
 			flag=0;
 		}
 		
-		if(middlename.length()==0){
-			url = "/customer_signup.jsp";
-			msg = msg + "\nPlease fill-in Middlename";
-			request.setAttribute("msg", msg);
-			flag=0;
-		}
+//		if(middlename.length()==0){
+//			url = "/customer_signup.jsp";
+//			msg = msg + "\nPlease fill-in Middlename";
+//			request.setAttribute("msg", msg);
+//			flag=0;
+//		}
 		
 		if(lastname.length()==0){
 			url = "/customer_signup.jsp";
@@ -99,26 +99,26 @@ public class SignupServlet extends HttpServlet {
 			flag=0;
 		}
 		
-		if(address.length()==0){
-			url = "/customer_signup.jsp";
-			msg = msg + "\nPlease fill-in Address";
-			request.setAttribute("msg", msg);
-			flag=0;
-		}
+//		if(address.length()==0){
+//			url = "/customer_signup.jsp";
+//			msg = msg + "\nPlease fill-in Address";
+//			request.setAttribute("msg", msg);
+//			flag=0;
+//		}
 		
-		if(phone.length()==0){
-			url = "/customer_signup.jsp";
-			msg = msg + "\nPlease fill-in Phone Number";
-			request.setAttribute("msg", msg);
-			flag=0;
-		}
+//		if(phone.length()==0){
+//			url = "/customer_signup.jsp";
+//			msg = msg + "\nPlease fill-in Phone Number";
+//			request.setAttribute("msg", msg);
+//			flag=0;
+//		}
 		
-		if(paypal.length()==0){
-			url = "/customer_signup.jsp";
-			msg = msg + "\nPlease fill-in PayPal ID";
-			request.setAttribute("msg", msg);
-			flag=0;
-		}
+//		if(paypal.length()==0){
+//			url = "/customer_signup.jsp";
+//			msg = msg + "\nPlease fill-in PayPal ID";
+//			request.setAttribute("msg", msg);
+//			flag=0;
+//		}
 		
 		if(email.length()==0){
 			url = "/customer_signup.jsp";
@@ -149,18 +149,33 @@ public class SignupServlet extends HttpServlet {
 		}
 		
 		
-		if(username.length()!=0 && firstname.length()!=0 && middlename.length()!=0 &&
-				lastname.length()!=0 && address.length()!=0 && phone.length()!=0 && paypal.length()!=0 &&
-				email.length()!=0 && password.length()!=0 && passwordc.length()!=0 && password.equals(passwordc))
+		if(username.length()!=0 && firstname.length()!=0 && lastname.length()!=0 && email.length()!=0 &&
+				password.length()!=0 && passwordc.length()!=0 && password.equals(passwordc))
 			flag = 1;
 			
-		if(flag == 1){ //Everything is filled in
+		if(flag == 1){ // Mandatory fields filled in
 			
 			userId = enterNewuser(username, passwordc);
 			
 			if(userId > 0){
-				double phno = Double.parseDouble(phone);
-				status = enterUsernameBuyer(userId, firstname, lastname, address, email, phno, paypal, middlename);
+				double phno;
+				//middlename, phone, paypal, address
+				
+				if(middlename.length()==0)
+					middlename="";
+				if(paypal.length()==0)
+					paypal="";
+				if(address.length()==0)
+					address="";
+				
+				if(phone.length()==0){
+					phone="";
+					status = enterUsernameBuyer(userId, firstname, lastname, address, email, 0, paypal, middlename);
+				}
+				else{
+					phno = Double.parseDouble(phone);
+					status = enterUsernameBuyer(userId, firstname, lastname, address, email, phno, paypal, middlename);
+				}
 				
 				if(status == true){
 					msg = "Account Created Successfully";
