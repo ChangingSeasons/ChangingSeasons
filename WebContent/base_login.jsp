@@ -14,6 +14,12 @@
 	</div>
 
 
+<% String msg = (String)request.getAttribute("msg");
+	if(msg == null)
+		msg="";
+	out.write("<h3>"+msg+"</h3>");
+%>
+
 
 	<div class="alert alert-success" role="alert">alert success!</div>
 	<div class="alert alert-info" role="alert">alert info</div>
@@ -21,7 +27,7 @@
 	<div class="alert alert-danger" role="alert">alert error!</div>
 
 
-	<form class="form-horizontal">
+	<form class="form-horizontal" action="/ChangingSeasons/LoginServlet" method="post">
 		<fieldset>
 
 			<!-- Text input-->
@@ -50,8 +56,11 @@
 				<div class="col-md-4">
 					<button type="submit" id="submit" name="submit"
 						class="btn btn-default">Submit</button>
+						<a class="btn btn-link" href="forgot.jsp" role="button">Forgot Password</a>
 				</div>
 			</div>
+			
+
 
 			<hr />
 
