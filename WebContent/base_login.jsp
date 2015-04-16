@@ -56,7 +56,7 @@
 				<div class="col-md-4">
 					<button type="submit" id="submit" name="submit"
 						class="btn btn-default">Submit</button>
-						<a class="btn btn-link" href="forgot.jsp" role="button">Forgot Password</a>
+						<a class="btn btn-link" href="forgot_password.jsp" role="button">Forgot Password</a>
 				</div>
 			</div>
 			
