@@ -11,6 +11,8 @@
 			Forgot your password? <br /> 
 			<small> No problem! we will help you reset </small>
 		</h1>
+	<form class="form-horizontal" action="/ChangingSeasons/ForgotPassServlet" method="post">
+	<fieldset>
 	</div>
 			<!-- Text input-->
 			<div class="form-group required">
@@ -50,7 +52,8 @@
 					<button type="submit" id="submit" name="submit" class="btn btn-info">Submit</button>
 				</div>
 			</div>
-			
+	
+	
 </div>
 <!-- /container -->
 
