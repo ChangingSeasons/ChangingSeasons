@@ -97,7 +97,7 @@
 <div class="container">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">Example Products</h3>
+			<h3 class="panel-title"> Best Sellers </h3>
 		</div>
 		<div class="panel-body">
 			<div class="row">

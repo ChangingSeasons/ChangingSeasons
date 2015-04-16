@@ -13,15 +13,12 @@
       <a class="navbar-brand" href="#"><span class="header"><img src="imgs/logo.jpg" alt="logo" width="80"/>    Changing Seasons</span></a>
     </div>
     
-    <% String loggedIn = (String) session.getAttribute("loggedIn"); 
     
-	if(loggedIn!=null){
-	
-%>
   
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <!-- 
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
         <li><a href="#">Link</a></li>
@@ -38,14 +35,26 @@
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
+       -->
+			<%
+				String loggedIn = (String) session.getAttribute("loggedIn");
+
+				if (loggedIn != null) {
+			%>
+			<form class="navbar-form navbar-left" role="search">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Search">
+				</div>
+				<button type="submit" class="btn btn-default">Submit</button>
+			</form>
+			<%
+				}
+			%>
+
+
+			<ul class="nav navbar-nav navbar-right">
+        <li><a class="btn btn-link" href="base_login.jsp" role="button">Home</a></li>
+        <!-- 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -56,10 +65,9 @@
             <li><a href="#">Separated link</a></li>
           </ul>
         </li>
+         -->
       </ul>
     </div><!-- /.navbar-collapse -->
-     <%
-	}
-     %>
+     
   </div><!-- /.container-fluid -->
 </nav>
