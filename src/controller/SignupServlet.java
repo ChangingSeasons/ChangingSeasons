@@ -45,10 +45,10 @@ public class SignupServlet extends HttpServlet {
 		String lastname = request.getParameter("lastname");
 		String address = request.getParameter("address");
 		String phone = request.getParameter("phone");
-		String paypalid = request.getParameter("paypalid");
+		String paypal = request.getParameter("paypal");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		String cpassword = request.getParameter("cpassword");
+		String passwordc = request.getParameter("passwordc");
 		String url = "", msg = "";
 		int userId=0;
 		boolean available = false;
@@ -113,7 +113,7 @@ public class SignupServlet extends HttpServlet {
 			flag=0;
 		}
 		
-		if(paypalid.length()==0){
+		if(paypal.length()==0){
 			url = "/signup.jsp";
 			msg = msg + "\nPlease fill-in PayPal ID";
 			request.setAttribute("msg", msg);
@@ -134,14 +134,14 @@ public class SignupServlet extends HttpServlet {
 			flag=0;
 		}
 		
-		if(cpassword.length()==0){
+		if(passwordc.length()==0){
 			url = "/signup.jsp";
 			msg = msg + "\nPlease fill-in Password again";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
-		if(! password.equals(cpassword)){
+		if(! password.equals(passwordc)){
 			url = "/signup.jsp";
 			msg = msg + "\nPassword does not match!";
 			request.setAttribute("msg", msg);
@@ -150,17 +150,17 @@ public class SignupServlet extends HttpServlet {
 		
 		
 		if(username.length()!=0 && firstname.length()!=0 && middlename.length()!=0 &&
-				lastname.length()!=0 && address.length()!=0 && phone.length()!=0 && paypalid.length()!=0 &&
-				email.length()!=0 && password.length()!=0 && cpassword.length()!=0 && password.equals(cpassword))
+				lastname.length()!=0 && address.length()!=0 && phone.length()!=0 && paypal.length()!=0 &&
+				email.length()!=0 && password.length()!=0 && passwordc.length()!=0 && password.equals(passwordc))
 			flag = 1;
 			
 		if(flag == 1){ //Everything is filled in
 			
-			userId = enterNewuser(username, cpassword);
+			userId = enterNewuser(username, passwordc);
 			
 			if(userId > 0){
 				double phno = Double.parseDouble(phone);
-				status = enterUsernameBuyer(userId, firstname, lastname, address, email, phno, paypalid, middlename);
+				status = enterUsernameBuyer(userId, firstname, lastname, address, email, phno, paypal, middlename);
 				
 				if(status == true){
 					msg = "Account Created Successfully";

@@ -41,18 +41,18 @@ public class VendorServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String check = request.getParameter("check"); //Check button for username
 		String username = request.getParameter("username");
-		String companyname = request.getParameter("companyname");
+		String company = request.getParameter("company");
 		String firstname = request.getParameter("firstname");
 		String middlename = request.getParameter("middlename");
 		String lastname = request.getParameter("lastname");
 		String address = request.getParameter("address");
 		String phone = request.getParameter("phone");
-		String accno = request.getParameter("accno");
-		String routno = request.getParameter("routno");
-		String paypalid = request.getParameter("paypalid");
+		String accoutno = request.getParameter("accoutno");
+		String routingno = request.getParameter("routingno");
+		String paypal = request.getParameter("paypal");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		String cpassword = request.getParameter("cpassword");
+		String passwordc = request.getParameter("passwordc");
 		String url = "", msg = "";
 		int userId=0;
 		boolean available = false;
@@ -82,7 +82,7 @@ public class VendorServlet extends HttpServlet {
 			}
 		}
 
-		if(companyname.length()==0){
+		if(company.length()==0){
 			url = "/vendor.jsp";
 			msg = msg + "\nPlease fill-in Company name";
 			request.setAttribute("msg", msg);
@@ -124,21 +124,21 @@ public class VendorServlet extends HttpServlet {
 			flag=0;
 		}
 		
-		if(accno.length()==0){
+		if(accoutno.length()==0){
 			url = "/vendor.jsp";
 			msg = msg + "\nPlease fill-in Bank Account Number";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
-		if(routno.length()==0){
+		if(routingno.length()==0){
 			url = "/vendor.jsp";
 			msg = msg + "\nPlease fill-in Routing Number";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
-		if(paypalid.length()==0){
+		if(paypal.length()==0){
 			url = "/vendor.jsp";
 			msg = msg + "\nPlease fill-in PayPal ID";
 			request.setAttribute("msg", msg);
@@ -159,14 +159,14 @@ public class VendorServlet extends HttpServlet {
 			flag=0;
 		}
 		
-		if(cpassword.length()==0){
+		if(passwordc.length()==0){
 			url = "/vendor.jsp";
 			msg = msg + "\nPlease fill-in Password again";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
-		if(! password.equals(cpassword)){
+		if(! password.equals(passwordc)){
 			url = "/vendor.jsp";
 			msg = msg + "\nPassword does not match!";
 			request.setAttribute("msg", msg);
@@ -175,19 +175,19 @@ public class VendorServlet extends HttpServlet {
 		
 		
 		if(username.length()!=0 && firstname.length()!=0 && lastname.length()!=0 && middlename.length()!=0
-				&& address.length()!=0 && phone.length()!=0 && companyname.length()!=0 && accno.length()!=0
-				&& routno.length()!=0 && paypalid.length()!=0 && email.length()!=0
-				&& password.length()!=0 && cpassword.length()!=0 && password.equals(cpassword))
+				&& address.length()!=0 && phone.length()!=0 && company.length()!=0 && accoutno.length()!=0
+				&& routingno.length()!=0 && paypal.length()!=0 && email.length()!=0
+				&& password.length()!=0 && passwordc.length()!=0 && password.equals(passwordc))
 			flag = 1;
 			
 		if(flag == 1){ //Everything is filled in
 			
-			userId = enterNewuser(username, cpassword);
+			userId = enterNewuser(username, passwordc);
 			
 			if(userId > 0){
 				double phno = Double.parseDouble(phone);
 
-				status = enterUsernameSeller(userId, phno, false, companyname, address, email, url, accno, routno, firstname, middlename, lastname);
+				status = enterUsernameSeller(userId, phno, false, company, address, email, url, accoutno, routingno, firstname, middlename, lastname);
 				
 				if(status == true){
 					msg = "Account Created Successfully";
