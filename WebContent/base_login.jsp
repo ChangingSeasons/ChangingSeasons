@@ -62,8 +62,9 @@
 
 
 			<hr />
-
-			<!-- Multiple Radios (inline) -->
+<!-- Multiple Radios (inline) -->
+<!--  
+			
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="signupradio">Sign
 					Up As</label>
@@ -78,13 +79,15 @@
 
 				</div>
 			</div>
-
+ -->
 			<!-- Button -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="signup"></label>
 				<div class="col-md-4">
-					<button type="button" id="signup" name="signup" onclick="location.href = 'customer_signup.jsp';"
-						class="btn btn-primary">Sign Up</button>
+					<button type="button" id="bsignup" name="bsignup" onclick="location.href = 'customer_signup.jsp';"
+						class="btn btn-primary">Buyer Sign Up</button>
+					<button type="button" id="ssignup" name="ssignup" onclick="location.href = 'seller_signup.jsp';"
+						class="btn btn-primary">Seller Sign Up</button>
 				</div>
 			</div>
 

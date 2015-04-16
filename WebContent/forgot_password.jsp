@@ -12,6 +12,18 @@
 			<small> No problem! we will help you reset </small>
 		</h1>
 	</div>
+	
+	<%
+    	String msg = (String) request.getAttribute("msg");
+		String password = (String) request.getAttribute("password");
+		
+    	if (msg == null)
+    		msg = "";
+ 
+    	if (password == null && !msg.startsWith("User")){
+    		password = "";
+    		if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">"+msg+"</div>");
+ %>
 	<form class="form-horizontal" action="/ChangingSeasons/ForgotPassServlet" method="post">
 	<fieldset>
 			<!-- Text input-->
@@ -55,7 +67,27 @@
 	</fieldset>
 	</form>
 	
+	<%
+			}
+		    		else if (msg.startsWith("User")) {
+				System.out.print("User recieved" + msg);
+
+				out.write("<div class=\"alert alert-info\" role=\"alert\">"
+						+ msg + "</div>");
+				out.write("<div class=\"alert alert-warning\" role=\"alert\">"
+						+ password + "</div>");
+				
+				out.write("<a class=\"btn btn-default\" href=\"base_login.jsp\" role=\"button\">Log In</a>");
+				
+			}
+    	%>
+    	
+    	
+		
+	
 </div>
 <!-- /container -->
+
+
 
 <%@ include file="footer.jsp"%>
