@@ -41,7 +41,7 @@ public class LogoutServlet extends HttpServlet {
 		HttpSession se = request.getSession();
 		se.invalidate();
 		String msg = "You have logged out!";
-		String url = "/login.jsp";
+		String url = "/base_login.jsp";
 		request.setAttribute("msg", msg);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);	

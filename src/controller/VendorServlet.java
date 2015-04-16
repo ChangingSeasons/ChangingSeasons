@@ -59,7 +59,7 @@ public class VendorServlet extends HttpServlet {
 		boolean status = false;
 		int flag=0;
 		if(username.length()==0){
-			url = "/vendor.jsp";
+			url = "/seller_signup.jsp";
 			msg = msg + "Please fill-in Username";
 			request.setAttribute("msg", msg);
 			flag=0;
@@ -68,13 +68,13 @@ public class VendorServlet extends HttpServlet {
 			if( request.getParameter("check") != null){
 				available = isUsernameAvailable(username);
 				if(available){
-					url = "/vendor.jsp";
+					url = "/seller_signup.jsp";
 					msg = msg + "\nUsername Available!";
 					request.setAttribute("msg", msg);
 					flag=1;
 				}
 				else{
-					url = "/vendor.jsp";
+					url = "/seller_signup.jsp";
 					msg = msg + "\nUsername NOT available!";
 					request.setAttribute("msg", msg);
 					flag=0;
@@ -83,91 +83,91 @@ public class VendorServlet extends HttpServlet {
 		}
 
 		if(company.length()==0){
-			url = "/vendor.jsp";
+			url = "/seller_signup.jsp";
 			msg = msg + "\nPlease fill-in Company name";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
 		if(firstname.length()==0){
-			url = "/vendor.jsp";
+			url = "/seller_signup.jsp";
 			msg = msg + "\nPlease fill-in Firstname";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
 		if(middlename.length()==0){
-			url = "/vendor.jsp";
+			url = "/seller_signup.jsp";
 			msg = msg + "\nPlease fill-in Middlename";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
 		if(lastname.length()==0){
-			url = "/vendor.jsp";
+			url = "/seller_signup.jsp";
 			msg = msg + "\nPlease fill-in Lastname";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
 		if(address.length()==0){
-			url = "/vendor.jsp";
+			url = "/seller_signup.jsp";
 			msg = msg + "\nPlease fill-in Address";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
 		if(phone.length()==0){
-			url = "/vendor.jsp";
+			url = "/seller_signup.jsp";
 			msg = msg + "\nPlease fill-in Phone Number";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
 		if(accoutno.length()==0){
-			url = "/vendor.jsp";
+			url = "/seller_signup.jsp";
 			msg = msg + "\nPlease fill-in Bank Account Number";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
 		if(routingno.length()==0){
-			url = "/vendor.jsp";
+			url = "/seller_signup.jsp";
 			msg = msg + "\nPlease fill-in Routing Number";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
 		if(paypal.length()==0){
-			url = "/vendor.jsp";
+			url = "/seller_signup.jsp";
 			msg = msg + "\nPlease fill-in PayPal ID";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
 		if(email.length()==0){
-			url = "/vendor.jsp";
+			url = "/seller_signup.jsp";
 			msg = msg + "\nPlease fill-in Email";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
 		if(password.length()==0){
-			url = "/vendor.jsp";
+			url = "/seller_signup.jsp";
 			msg = msg + "\nPlease fill-in Password";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
 		if(passwordc.length()==0){
-			url = "/vendor.jsp";
+			url = "/seller_signup.jsp";
 			msg = msg + "\nPlease fill-in Password again";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
 		
 		if(! password.equals(passwordc)){
-			url = "/vendor.jsp";
+			url = "/seller_signup.jsp";
 			msg = msg + "\nPassword does not match!";
 			request.setAttribute("msg", msg);
 			flag=0;
@@ -192,19 +192,19 @@ public class VendorServlet extends HttpServlet {
 				if(status == true){
 					msg = "Account Created Successfully";
 					request.setAttribute("msg", msg);
-					url = "/login.jsp";
+					url = "/base_login.jsp";
 				}
 				else{
 					msg = "UserName Insert Failed";
 					request.setAttribute("msg", msg);
-					url = "/vendor.jsp";
+					url = "/seller_signup.jsp";
 				}
 			}
 			
 			else{
 				msg = "Create Account Failed, Please Try Again!";
 				request.setAttribute("msg", msg);
-				url = "/vendor.jsp";
+				url = "/seller_signup.jsp";
 			}	
 		}
 		

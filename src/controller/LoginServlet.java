@@ -46,14 +46,14 @@ public class LoginServlet extends HttpServlet {
 		if(username.length()==0 || password.length()==0){
 			if(username.length()==0){
 				msg = "Please enter Username!";
-				url = "/login.jsp";
+				url = "/base_login.jsp";
 				loggedIn = "false";
 				request.setAttribute("loggedIn", loggedIn);
 				request.setAttribute("msg", msg);
 			}
 			else{
 				msg = "Please enter Password!";
-				url = "/login.jsp";
+				url = "/base_login.jsp";
 				loggedIn = "false";
 				request.setAttribute("loggedIn", loggedIn);
 				request.setAttribute("msg", msg);
@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
 				HttpSession se = request.getSession();
 				se.setAttribute("user", getUserbyId(ID));
 				se.setAttribute("loggedIn", loggedIn);
-				url = "/index.jsp";
+				url = "/base_index.jsp";
 				msg = "Login Successful!";
 				
 				request.setAttribute("loggedIn", loggedIn);
@@ -74,7 +74,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			else{
 				msg = "Invalid Username/Password";
-				url = "/login.jsp";
+				url = "/base_login.jsp";
 				loggedIn = "false";
 				request.setAttribute("loggedIn", loggedIn);
 				request.setAttribute("msg", msg);

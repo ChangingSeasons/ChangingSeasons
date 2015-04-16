@@ -43,17 +43,17 @@ public class ForgotPassServlet extends HttpServlet {
 		String msg = "", url = "";
 		
 		if(username.length()==0){
-			url = "/forgot.jsp";
+			url = "/forgot_password.jsp";
 			msg = msg + "Please fill-in Username";
 			request.setAttribute("msg", msg);
 		}
 		if(email.length()==0){
-			url = "/forgot.jsp";
+			url = "/forgot_password.jsp";
 			msg = msg + "\nPlease fill-in Email";
 			request.setAttribute("msg", msg);
 		}
 		if(phno.length()==0){
-			url = "/forgot.jsp";
+			url = "/forgot_password.jsp";
 			msg = msg + "\nPlease fill-in Phone Number";
 			request.setAttribute("msg", msg);
 		}
@@ -63,13 +63,13 @@ public class ForgotPassServlet extends HttpServlet {
 			String password = getPassword(email, Double.parseDouble(phno));
 			if( password != null){
 				msg = "User Authenticated. Password is:";
-				url = "/forgot.jsp";
+				url = "/forgot_password.jsp";
 				request.setAttribute("password", password);
 				request.setAttribute("msg", msg);
 			}
 			else{
 				msg = "Not Found, please re-enter details.";
-				url = "/forgot.jsp";
+				url = "/forgot_password.jsp";
 				request.setAttribute("msg", msg);
 			}
 		}
