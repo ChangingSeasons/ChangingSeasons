@@ -37,7 +37,7 @@ public class ForgotPassServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("uname");
+		String username = request.getParameter("username");
 		String email = request.getParameter("email");
 		String phno = request.getParameter("phone");
 		String msg = "", url = "";
