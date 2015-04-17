@@ -57,7 +57,10 @@ public class VendorServlet extends HttpServlet {
 		int userId=0;
 		boolean available = false;
 		boolean status = false;
-		int flag=0;
+		int flag=0, eflag=1;
+		
+		final String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		
 		if(username.length()==0){
 			url = "/seller_signup.jsp";
 			msg = msg + "Please fill-in Username";
@@ -96,12 +99,6 @@ public class VendorServlet extends HttpServlet {
 			flag=0;
 		}
 		
-		if(middlename.length()==0){
-			url = "/seller_signup.jsp";
-			msg = msg + "\nPlease fill-in Middlename";
-			request.setAttribute("msg", msg);
-			flag=0;
-		}
 		
 		if(lastname.length()==0){
 			url = "/seller_signup.jsp";
@@ -110,37 +107,9 @@ public class VendorServlet extends HttpServlet {
 			flag=0;
 		}
 		
-		if(address.length()==0){
+		if(phone.length()!=0 && !phone.matches("\\d{10}")){
 			url = "/seller_signup.jsp";
-			msg = msg + "\nPlease fill-in Address";
-			request.setAttribute("msg", msg);
-			flag=0;
-		}
-		
-		if(phone.length()==0){
-			url = "/seller_signup.jsp";
-			msg = msg + "\nPlease fill-in Phone Number";
-			request.setAttribute("msg", msg);
-			flag=0;
-		}
-		
-		if(accoutno.length()==0){
-			url = "/seller_signup.jsp";
-			msg = msg + "\nPlease fill-in Bank Account Number";
-			request.setAttribute("msg", msg);
-			flag=0;
-		}
-		
-		if(routingno.length()==0){
-			url = "/seller_signup.jsp";
-			msg = msg + "\nPlease fill-in Routing Number";
-			request.setAttribute("msg", msg);
-			flag=0;
-		}
-		
-		if(paypal.length()==0){
-			url = "/seller_signup.jsp";
-			msg = msg + "\nPlease fill-in PayPal ID";
+			msg = msg + "\nPlease fill-in Phone Number (10-Digits)";
 			request.setAttribute("msg", msg);
 			flag=0;
 		}
@@ -150,6 +119,15 @@ public class VendorServlet extends HttpServlet {
 			msg = msg + "\nPlease fill-in Email";
 			request.setAttribute("msg", msg);
 			flag=0;
+		}
+		else{
+			eflag = 1;
+			if(!email.matches(emailPattern)){
+				url = "/seller_signup.jsp";
+				msg = msg + "\nPlease fill-in Valid Email";
+				request.setAttribute("msg", msg);
+				eflag=0;
+			}
 		}
 		
 		if(password.length()==0){
@@ -174,10 +152,8 @@ public class VendorServlet extends HttpServlet {
 		}
 		
 		
-		if(username.length()!=0 && firstname.length()!=0 && lastname.length()!=0 && middlename.length()!=0
-				&& address.length()!=0 && phone.length()!=0 && company.length()!=0 && accoutno.length()!=0
-				&& routingno.length()!=0 && paypal.length()!=0 && email.length()!=0
-				&& password.length()!=0 && passwordc.length()!=0 && password.equals(passwordc))
+		if(username.length()!=0 && firstname.length()!=0 && lastname.length()!=0 && company.length()!=0
+				&& eflag==1 && password.length()!=0 && passwordc.length()!=0 && password.equals(passwordc))
 			flag = 1;
 			
 		if(flag == 1){ //Everything is filled in
@@ -185,9 +161,28 @@ public class VendorServlet extends HttpServlet {
 			userId = enterNewuser(username, passwordc);
 			
 			if(userId > 0){
-				double phno = Double.parseDouble(phone);
-
-				status = enterUsernameSeller(userId, phno, false, company, address, email, url, accoutno, routingno, firstname, middlename, lastname);
+				
+				// middle name, address, bankaccount, phone, routing, paypal
+				
+				if(middlename.length()==0)
+					middlename = "";
+				if(address.length()==0)
+					address = "";
+				if(accoutno.length()==0)
+					accoutno = "";
+				if(routingno.length()==0)
+					routingno = "";
+				if(paypal.length()==0)
+					paypal = "";
+				
+				if(phone.length()==0){
+					phone = "";
+					status = enterUsernameSeller(userId, 0, false, company, address, email, url, accoutno, routingno, firstname, middlename, lastname);
+				}
+				else{
+					double phno = Double.parseDouble(phone);
+					status = enterUsernameSeller(userId, phno, false, company, address, email, url, accoutno, routingno, firstname, middlename, lastname);
+				}
 				
 				if(status == true){
 					msg = "Account Created Successfully";

@@ -49,11 +49,14 @@ public class SignupServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String passwordc = request.getParameter("passwordc");
+
+		final String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
 		String url = "", msg = "";
 		int userId=0;
 		boolean available = false;
 		boolean status = false;
-		int flag=0;
+		int flag=0, eflag=1;
 		if(username.length()==0){
 			url = "/customer_signup.jsp";
 			msg = msg + "Please fill-in Username";
@@ -85,13 +88,6 @@ public class SignupServlet extends HttpServlet {
 			flag=0;
 		}
 		
-//		if(middlename.length()==0){
-//			url = "/customer_signup.jsp";
-//			msg = msg + "\nPlease fill-in Middlename";
-//			request.setAttribute("msg", msg);
-//			flag=0;
-//		}
-		
 		if(lastname.length()==0){
 			url = "/customer_signup.jsp";
 			msg = msg + "\nPlease fill-in Lastname";
@@ -99,32 +95,27 @@ public class SignupServlet extends HttpServlet {
 			flag=0;
 		}
 		
-//		if(address.length()==0){
-//			url = "/customer_signup.jsp";
-//			msg = msg + "\nPlease fill-in Address";
-//			request.setAttribute("msg", msg);
-//			flag=0;
-//		}
-		
-//		if(phone.length()==0){
-//			url = "/customer_signup.jsp";
-//			msg = msg + "\nPlease fill-in Phone Number";
-//			request.setAttribute("msg", msg);
-//			flag=0;
-//		}
-		
-//		if(paypal.length()==0){
-//			url = "/customer_signup.jsp";
-//			msg = msg + "\nPlease fill-in PayPal ID";
-//			request.setAttribute("msg", msg);
-//			flag=0;
-//		}
+		if(phone.length()!=0 && !phone.matches("\\d{10}")){
+			url = "/customer_signup.jsp";
+			msg = msg + "\nPlease fill-in Phone Number (10-Digits)";
+			request.setAttribute("msg", msg);
+			flag=0;
+		}
 		
 		if(email.length()==0){
 			url = "/customer_signup.jsp";
 			msg = msg + "\nPlease fill-in Email";
 			request.setAttribute("msg", msg);
 			flag=0;
+		}
+		else{
+			eflag = 1;
+			if(!email.matches(emailPattern)){
+				url = "/customer_signup.jsp";
+				msg = msg + "\nPlease fill-in Valid Email";
+				request.setAttribute("msg", msg);
+				eflag=0;
+			}
 		}
 		
 		if(password.length()==0){
@@ -149,7 +140,7 @@ public class SignupServlet extends HttpServlet {
 		}
 		
 		
-		if(username.length()!=0 && firstname.length()!=0 && lastname.length()!=0 && email.length()!=0 &&
+		if(username.length()!=0 && firstname.length()!=0 && lastname.length()!=0 && eflag==1 &&
 				password.length()!=0 && passwordc.length()!=0 && password.equals(passwordc))
 			flag = 1;
 			

@@ -41,7 +41,9 @@ public class ForgotPassServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String phno = request.getParameter("phone");
 		String msg = "", url = "";
+		int flag = 1, eflag=1;
 		
+		final String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 		if(username.length()==0){
 			url = "/forgot_password.jsp";
 			msg = msg + "Please fill-in Username";
@@ -58,7 +60,23 @@ public class ForgotPassServlet extends HttpServlet {
 			request.setAttribute("msg", msg);
 		}
 		
-		if(username.length()!=0 && email.length()!=0 && phno.length()!=0){ // Everything filled in
+		if(!phno.matches("\\d{10}")){
+			url = "/forgot_password.jsp";
+			msg = msg + "\nOnly numbers allowed (10-digits)";
+			request.setAttribute("msg", msg);
+			flag = 0;
+		}
+		
+		if(!(email.length()==0) && !email.matches(emailPattern)){
+			url = "/forgot_password.jsp";
+			msg = msg + "\nPlease enter valid Email";
+			request.setAttribute("msg", msg);
+			eflag = 0;
+		}
+		
+		if(username.length()!=0 && email.length()!=0 && phno.length()!=0 && flag==1 && eflag==1){ // Everything filled in
+			
+			
 			
 			String password = getPassword(email, Double.parseDouble(phno));
 			if( password != null){
