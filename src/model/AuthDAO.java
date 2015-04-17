@@ -250,6 +250,22 @@ public class AuthDAO {
 		DB_close();
 		return null;
 	}
+	
+	public void resetPassword(String username, String password){
+		Connect();
+		try{
+			String q = "UPDATE User SET password='"+password+"' WHERE username='"+username+"'";
+			Statement st = cn.createStatement();
+			st.executeUpdate(q);
+			
+			st.close();
+			
+		}catch(SQLException sql){
+			System.err.println(sql.getMessage());
+			sql.printStackTrace();
+		}
+		DB_close();
+	}
 
 	public static void DB_close(){
 		try{
