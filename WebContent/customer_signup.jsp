@@ -4,7 +4,7 @@
 <%@ include file="navbar.jsp"%>
 
 <div class="container">
-	<form class="form-horizontal">
+	<form class="form-horizontal" action="/ChangingSeasons/SignupServlet" method="post">
 		<fieldset>
 
 			<!-- Form Name -->

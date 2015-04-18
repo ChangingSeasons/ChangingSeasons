@@ -47,12 +47,11 @@
 			</div>
 			
 			<!-- Text input-->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="phone">Phone
-					Number</label>
+			<div class="form-group required">
+				<label class="col-md-4 control-label" for="phone">Phone Number</label>
 				<div class="col-md-4">
 					<input id="phone" name="phone" type="text"
-						placeholder="Phone Number" class="form-control input-md">
+						placeholder="Phone Number" class="form-control input-md" required="required">
 
 				</div>
 			</div>
