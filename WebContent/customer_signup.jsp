@@ -4,6 +4,15 @@
 <%@ include file="navbar.jsp"%>
 
 <div class="container">
+	<% 
+		String msg = (String)request.getAttribute("msg");
+		if(msg == null)
+			msg="";
+		out.write("<h3>"+msg+"</h3>");
+		
+		String logIn = (String) session.getAttribute("loggedIn");
+		if(loggedIn == null){
+	%>
 	<form class="form-horizontal" action="/ChangingSeasons/SignupServlet" method="post">
 		<fieldset>
 
@@ -127,7 +136,10 @@
 
 		</fieldset>
 	</form>
-
+	<% }
+	
+	if(logIn!=null)
+		out.write("<h3>You are already LoggedIn!</h3>");%>
 
 </div>
 <!-- /container -->
