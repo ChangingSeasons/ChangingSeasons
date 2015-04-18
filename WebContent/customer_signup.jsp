@@ -28,7 +28,7 @@
 				<div class="col-md-4">
 					<input id="username" name="username" type="text"
 						placeholder="username" class="form-control input-md" required="required">
-
+					<input type="submit" value="Check Username Availability" name="check">
 				</div>
 			</div>
 
