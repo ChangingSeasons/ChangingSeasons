@@ -47,33 +47,30 @@ public class AuthDAO {
 	}
 
 	public static User getUserbyId(int userID){
-		String firstname="", lastname="", type="";
+		String firstname="", lastname="", type="", username="";
 		Connect();
 		try{
 
 			String q0="SELECT type FROM User WHERE id="+userID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-			//			while(rs.next()){
-			//				type = rs.getString("type");
-			//		    }
-			rs.close();
-			st.close();
-
-			type = "buyer";
-			if(type.equalsIgnoreCase("buyer")){
+			while(rs.next()){
+				type = rs.getString("type");
+			}
+			
+			if(type.equalsIgnoreCase("buy")){ // Buyer
 				q0="SELECT * FROM Customer WHERE id="+userID;
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
 				while(rs.next()){
 					firstname = rs.getString("firstname");
-					lastname = rs.getString("lastname");			    
+					lastname = rs.getString("lastname");	
 				}
 				rs.close();
 				st.close();
 			}
 
-			else if (type.equalsIgnoreCase("seller")){
+			else if (type.equalsIgnoreCase("sel")){ // Seller
 				q0="SELECT * FROM Seller WHERE id="+userID;
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
@@ -84,8 +81,16 @@ public class AuthDAO {
 				rs.close();
 				st.close();
 			}
+			
 			else{ // Admin
-
+				q0 = "SELECT username FROM User WHERE id="+userID;
+				st = cn.createStatement();
+				rs = st.executeQuery(q0);
+				while(rs.next()){
+					username = rs.getString("username");		    
+				}
+				rs.close();
+				st.close();
 			}
 
 		}catch(SQLException e){
@@ -97,11 +102,12 @@ public class AuthDAO {
 		User u = new User();
 		u.setFirstname(firstname);
 		u.setLastname(lastname);
-
+		u.setUsername(username);
+		u.setType(type);
 		return u;
 	}
 
-	public static int enterNewuser(String username, String password){
+	public static int enterNewuser(String username, String password, String type){
 
 		int ID = -1;
 
@@ -125,11 +131,12 @@ public class AuthDAO {
 				rs.close();
 				st.close();
 
-				String q1 = "INSERT into User (id, username, password)" + " values (?, ?, ?)";
+				String q1 = "INSERT into User (id, username, password, type)" + " values (?, ?, ?, ?)";
 				PreparedStatement ps = cn.prepareStatement(q1);
 				ps.setInt(1, ID);
 				ps.setString (2,username);
 				ps.setString (3,password);
+				ps.setString(4, type);
 				ps.executeUpdate();
 				ps.close();
 

@@ -50,6 +50,7 @@ public class SignupServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String passwordc = request.getParameter("passwordc");
 
+		final String type = "buy";
 		final String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
 		String url = "", msg = "";
@@ -146,7 +147,7 @@ public class SignupServlet extends HttpServlet {
 			
 		if(flag == 1){ // Mandatory fields filled in
 			
-			userId = enterNewuser(username, passwordc);
+			userId = enterNewuser(username, passwordc, type);
 			
 			if(userId > 0){
 				double phno;

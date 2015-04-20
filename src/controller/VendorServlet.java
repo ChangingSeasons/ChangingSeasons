@@ -58,6 +58,8 @@ public class VendorServlet extends HttpServlet {
 		boolean status = false;
 		int flag=0, eflag=1;
 		
+		
+		final String type = "sel";
 		final String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 		
 		if(username.length()==0){
@@ -157,7 +159,7 @@ public class VendorServlet extends HttpServlet {
 			
 		if(flag == 1){ //Everything is filled in
 			
-			userId = enterNewuser(username, passwordc);
+			userId = enterNewuser(username, passwordc, type);
 			
 			if(userId > 0){
 				
