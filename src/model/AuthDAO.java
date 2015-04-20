@@ -36,7 +36,7 @@ public class AuthDAO {
 			}
 			rs.close();
 			st.close();
-		}catch(Exception e){
+		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
@@ -88,7 +88,7 @@ public class AuthDAO {
 
 			}
 
-		}catch(Exception e){
+		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
@@ -113,22 +113,14 @@ public class AuthDAO {
 				String q0 = "Select id from User";
 				Statement st = cn.createStatement();
 				ResultSet rs = st.executeQuery(q0);
-
-//				rs.last();
-//				if(rs.next()){
-//					ID = rs.getInt("id");
-//					ID++;
-//				}
-//				else
-//					ID = 1;
 				
 				if(rs.next()){
-					rs.last();
+					rs.last(); // Get ID of last User
 					ID = rs.getInt("id");
 					ID++;
 				}
 				else
-					ID=1;
+					ID=1; // Empty Table, so start with ID 1
 
 				rs.close();
 				st.close();
@@ -142,9 +134,12 @@ public class AuthDAO {
 				ps.close();
 
 			}
-		}catch(Exception e){
+		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
+		}catch(ClassNotFoundException c){
+			System.err.println(c.getMessage());
+			c.printStackTrace();
 		}		
 		DB_close();
 		if(ID!=-1)
@@ -177,7 +172,7 @@ public class AuthDAO {
 			ps.executeUpdate();
 			ps.close();
 			return true;
-		}catch(Exception e){
+		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
@@ -201,7 +196,7 @@ public class AuthDAO {
 			ps.executeUpdate();
 			ps.close();
 			return true;
-		}catch(Exception e){
+		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
@@ -222,7 +217,7 @@ public class AuthDAO {
 			}
 			rs.close();
 			st.close();
-		}catch(Exception e){
+		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
