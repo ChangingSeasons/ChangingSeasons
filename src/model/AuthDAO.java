@@ -102,8 +102,9 @@ public class AuthDAO {
 	}
 
 	public static int enterNewuser(String username, String password){
-		int userId=-1;
-		int ID=0;
+
+		int ID = -1;
+
 		Connect();
 		try{
 			if(isUsernameAvailable(username)==true){
@@ -113,13 +114,21 @@ public class AuthDAO {
 				Statement st = cn.createStatement();
 				ResultSet rs = st.executeQuery(q0);
 
-				rs.last();
+//				rs.last();
+//				if(rs.next()){
+//					ID = rs.getInt("id");
+//					ID++;
+//				}
+//				else
+//					ID = 1;
+				
 				if(rs.next()){
+					rs.last();
 					ID = rs.getInt("id");
 					ID++;
 				}
 				else
-					ID = 1;
+					ID=1;
 
 				rs.close();
 				st.close();
@@ -233,7 +242,7 @@ public class AuthDAO {
 				id = Integer.parseInt(rs.getString("id"));
 			}
 			if(id != -1){
-				String q1 = "SELECT password FROM User WHERE id='"+id+"'";
+				String q1 = "SELECT password FROM User WHERE id="+id;
 				st = cn.createStatement();
 				rs = st.executeQuery(q1);
 				while(rs.next()){
@@ -250,21 +259,47 @@ public class AuthDAO {
 		DB_close();
 		return null;
 	}
-	
+
 	public void resetPassword(String username, String password){
 		Connect();
 		try{
 			String q = "UPDATE User SET password='"+password+"' WHERE username='"+username+"'";
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);
-			
+
 			st.close();
-			
+
 		}catch(SQLException sql){
 			System.err.println(sql.getMessage());
 			sql.printStackTrace();
 		}
 		DB_close();
+	}
+
+	public int getNewID(){
+		Connect();
+		int ID = -1;
+		try{
+			String q0 = "Select id from User";
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+
+			rs.last();
+			if(rs.next()){
+				ID = rs.getInt("id");
+				ID++;
+			}
+			else
+				ID = 1;
+
+			rs.close();
+			st.close();
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+
+		return 0;
 	}
 
 	public static void DB_close(){
