@@ -76,8 +76,6 @@ public class ForgotPassServlet extends HttpServlet {
 		
 		if(username.length()!=0 && email.length()!=0 && phno.length()!=0 && flag==1 && eflag==1){ // Everything filled in
 			
-			
-			
 			String password = getPassword(email, Double.parseDouble(phno));
 			if( password != null){
 				msg = "User Authenticated. Password is:";

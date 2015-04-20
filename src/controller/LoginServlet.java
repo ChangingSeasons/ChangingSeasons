@@ -66,6 +66,7 @@ public class LoginServlet extends HttpServlet {
 				HttpSession se = request.getSession();
 				se.setAttribute("user", getUserbyId(ID));
 				se.setAttribute("loggedIn", loggedIn);
+				se.setAttribute("ID", ID);
 				url = "/base_index.jsp";
 				msg = "Login Successful!";
 				
