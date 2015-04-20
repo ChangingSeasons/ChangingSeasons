@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><span class="header"><img src="imgs/logo.jpg" alt="logo" width="80"/>    Changing Seasons</span></a>
+      <a class="navbar-brand" href="base_login.jsp"><span class="header"><img src="imgs/logo.jpg" alt="logo" width="80"/>    Changing Seasons</span></a>
     </div>
     
     
@@ -19,7 +19,14 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <!-- 
-      <ul class="nav navbar-nav">
+      
+       -->
+			<%
+				String loggedIn = (String) session.getAttribute("loggedIn");
+
+				if (loggedIn != null) {
+			%>
+			<ul class="nav navbar-nav">
         <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
         <li><a href="#">Link</a></li>
         <li class="dropdown">
@@ -35,18 +42,6 @@
           </ul>
         </li>
       </ul>
-       -->
-			<%
-				String loggedIn = (String) session.getAttribute("loggedIn");
-
-				if (loggedIn != null) {
-			%>
-			<form class="navbar-form navbar-left" role="search">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
-				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
-			</form>
 			<%
 				}
 			%>
