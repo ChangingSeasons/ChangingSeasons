@@ -6,9 +6,8 @@
 <div class="container">
 	<% 
 		String msg = (String)request.getAttribute("msg");
-		if(msg == null)
-			msg="";
-		out.write("<h3>"+msg+"</h3>");
+		if(msg == null) msg="";
+		if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">"+msg+"</div>");
 		
 		String logIn = (String) session.getAttribute("loggedIn");
 		if(loggedIn == null){

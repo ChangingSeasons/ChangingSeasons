@@ -5,6 +5,7 @@
 <%@ include file="header.jsp"%>
 <%@ include file="navbar.jsp"%>
 
+<div class="container">
 <%
 	String iloggedIn = (String) session.getAttribute("loggedIn");
 	User u = (User)session.getAttribute("user");
@@ -21,6 +22,7 @@
 	out.write(" ");
 	}
 %>
+</div>
 <div id = "logout">
 <form action="/ChangingSeasons/LogoutServlet" method="post">
 <!-- Button -->
