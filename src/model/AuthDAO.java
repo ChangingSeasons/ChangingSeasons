@@ -262,7 +262,7 @@ public class AuthDAO {
 		return null;
 	}
 
-	public void resetPassword(String username, String password){
+	public static boolean resetPassword(String username, String password){
 		Connect();
 		try{
 			String q = "UPDATE User SET password='"+password+"' WHERE username='"+username+"'";
@@ -270,12 +270,13 @@ public class AuthDAO {
 			st.executeUpdate(q);
 
 			st.close();
-
+			return true;
 		}catch(SQLException sql){
 			System.err.println(sql.getMessage());
 			sql.printStackTrace();
 		}
 		DB_close();
+		return false;
 	}
 
 	public int getNewID(){
