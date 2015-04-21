@@ -79,7 +79,7 @@
 			<div class="form-group required">
 				<label class="col-md-4 control-label" for="image">Image</label>
 				<div class="col-md-4">
-					<input type="text" name="textline" placeholder="Name of the Image" class="form-control input-md">
+					<input type="text" name="imageName" placeholder="Name of the Image" class="form-control input-md">
 				</div>
 			</div>
 			<div class="form-group">

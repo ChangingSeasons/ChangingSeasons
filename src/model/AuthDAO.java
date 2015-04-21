@@ -1,28 +1,13 @@
 package model;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import static model.ConnectDB.*;
 
 public class AuthDAO {
-	static Connection cn;
-
-	public static void Connect(){
-		try{
-
-			Class.forName("com.mysql.jdbc.Driver");
-			cn = DriverManager.getConnection("jdbc:mysql://localhost/SEProject", "root", "pass");
-		}catch(SQLException sql){
-			System.err.println(sql.getMessage());
-			sql.printStackTrace();
-		}catch(ClassNotFoundException c){
-			System.err.println(c.getMessage());
-			c.printStackTrace();
-		}
-	}
 
 	public static int checkUserpass(String username, String password){
 		int userId=-1;
@@ -57,6 +42,9 @@ public class AuthDAO {
 			while(rs.next()){
 				type = rs.getString("type");
 			}
+			
+			st.close();
+			rs.close();
 			
 			if(type.equalsIgnoreCase("buy")){ // Buyer
 				q0="SELECT * FROM Customer WHERE id="+userID;
@@ -178,13 +166,12 @@ public class AuthDAO {
 			ps.setString (12, lastname);
 			ps.executeUpdate();
 			ps.close();
-			return true;
 		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
 		DB_close();
-		return false;
+		return true;
 	}
 
 	public static boolean enterUsernameBuyer(int userID, String firstname, String lastname, String address, String email, double phone, String payPalID, String middlename){
@@ -202,13 +189,12 @@ public class AuthDAO {
 			ps.setString(8, middlename);
 			ps.executeUpdate();
 			ps.close();
-			return true;
 		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
 		DB_close();
-		return false;
+		return true;
 	}
 
 	public static boolean isUsernameAvailable(String username){
@@ -270,48 +256,11 @@ public class AuthDAO {
 			st.executeUpdate(q);
 
 			st.close();
-			return true;
 		}catch(SQLException sql){
 			System.err.println(sql.getMessage());
 			sql.printStackTrace();
 		}
 		DB_close();
-		return false;
-	}
-
-	public int getNewID(){
-		Connect();
-		int ID = -1;
-		try{
-			String q0 = "Select id from User";
-			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery(q0);
-
-			rs.last();
-			if(rs.next()){
-				ID = rs.getInt("id");
-				ID++;
-			}
-			else
-				ID = 1;
-
-			rs.close();
-			st.close();
-		}catch(SQLException se){
-			System.err.println(se.getMessage());
-			se.printStackTrace();
-		}
-
-		return 0;
-	}
-
-	public static void DB_close(){
-		try{
-			if(cn!=null)
-				cn.close();
-		}catch(SQLException e){
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-		}
+		return true;
 	}
 }

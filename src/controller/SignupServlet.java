@@ -188,7 +188,7 @@ public class SignupServlet extends HttpServlet {
 			}	
 		}
 		
-		DB_close();
+		//DB_close();
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);	
 	}

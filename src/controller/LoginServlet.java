@@ -81,7 +81,7 @@ public class LoginServlet extends HttpServlet {
 				request.setAttribute("msg", msg);
 			}
 		}
-		DB_close(); //Connection to DB Closed
+		//DB_close(); //Connection to DB Closed
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);	
 	}
