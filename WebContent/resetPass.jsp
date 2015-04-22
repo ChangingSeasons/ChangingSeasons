@@ -1,12 +1,83 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+	pageEncoding="UTF-8"%>
+<%@ include file="header.jsp"%>
+<%@ include file="navbar.jsp"%>
 
-</body>
-</html>
+<div class="container">
+
+	<!-- Welcome -->
+	<div class="page-header">
+		<h1>
+			Reset Password <br /> 
+			<small> Enter your new password </small>
+		</h1>
+	</div>
+	
+	<%
+    	String msg = (String) request.getAttribute("msg");
+		String password = (String) request.getAttribute("password");
+		
+    	if (msg == null)
+    		msg = "";
+ 
+    	if (password == null && !msg.startsWith("User")){
+    		password = "";
+    		if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">"+msg+"</div>");
+ %>
+	<form class="form-horizontal" action="/ChangingSeasons/ResetPassword" method="post">
+	<fieldset>
+			<!-- Password input-->
+			<div class="form-group required">
+				<label class="col-md-4 control-label" for="password">Password</label>
+				<div class="col-md-4">
+					<input id="password" name="password" type="password"
+						placeholder="password" class="form-control input-md">
+
+				</div>
+			</div>
+
+			<!-- Password input-->
+			<div class="form-group required">
+				<label class="col-md-4 control-label" for="cpassword">Confirm
+					Password</label>
+				<div class="col-md-4">
+					<input id="cpassword" name="cpassword" type="password"
+						placeholder="confirm password" class="form-control input-md"
+						required="">
+				</div>
+			</div>
+			
+			<!-- Button -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="submit"></label>
+				<div class="col-md-4">
+					<button type="submit" id="submit" name="submit" class="btn btn-info">Reset</button>
+				</div>
+			</div>
+	</fieldset>
+	</form>
+	
+	<%
+			}
+		    		else if (msg.startsWith("User")) {
+				System.out.print("User recieved" + msg);
+
+				out.write("<div class=\"alert alert-info\" role=\"alert\">"
+						+ msg + "</div>");
+				out.write("<div class=\"alert alert-warning\" role=\"alert\">"
+						+ password + "</div>");
+				
+				out.write("<a class=\"btn btn-default\" href=\"base_login.jsp\" role=\"button\">Log In</a>");
+				
+			}
+    	%>
+    	
+    	
+		
+	
+</div>
+<!-- /container -->
+
+
+
+<%@ include file="footer.jsp"%>
