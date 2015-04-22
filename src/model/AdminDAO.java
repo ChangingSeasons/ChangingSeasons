@@ -44,8 +44,9 @@ public class AdminDAO {
 		DB_close();
 		return true;
 	}
-
-	public static User[] listUsers(){
+	
+	public static int noOfusers(){
+		
 		Connect();
 		User[] u;
 		int countRows = 0;
@@ -60,13 +61,18 @@ public class AdminDAO {
 
 			st.close();
 			rs.close();
-			///////////////////
-			
 		}catch(SQLException se){
 			System.err.println(se.getMessage());
 			se.printStackTrace();
 		}
+		DB_close();
+		return countRows;
+	}
 
+	public static User[] listUsers(){
+		Connect();
+		User[] u;
+		int countRows = noOfusers();
 		u = new User[countRows];
 		
 		for(int i=0;i<countRows;i++)

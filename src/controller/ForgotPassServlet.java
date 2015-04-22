@@ -79,7 +79,7 @@ public class ForgotPassServlet extends HttpServlet {
 			String password = getPassword(email, Double.parseDouble(phno));
 			if( password != null){
 				msg = "User Authenticated. Password is:";
-				url = "/forgot_password.jsp";
+				url = "/resetPass.jsp";
 				request.setAttribute("password", password);
 				request.setAttribute("msg", msg);
 			}
