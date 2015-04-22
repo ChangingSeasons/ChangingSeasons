@@ -68,16 +68,20 @@ public class AdminDAO {
 		}
 
 		u = new User[countRows];
-
+		
+		for(int i=0;i<countRows;i++)
+			u[i] = new User();
+		
 		String username="", firstname="", lastname="", type="";
 
-
+		int i = 0;
 		try{
 			String q0="SELECT * FROM User JOIN Seller ON User.id=Seller.id WHERE type='sel'";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-			int i = 0;
+			
 			while(rs.next()){
+
 				u[i].setFirstname(rs.getString("firstname"));
 				u[i].setLastname(rs.getString("lastname"));
 				u[i].setUsername(rs.getString("username"));
@@ -92,6 +96,7 @@ public class AdminDAO {
 			rs = st.executeQuery(q1);
 
 			while(rs.next()){
+
 				u[i].setFirstname(rs.getString("firstname"));
 				u[i].setLastname(rs.getString("lastname"));
 				u[i].setUsername(rs.getString("username"));

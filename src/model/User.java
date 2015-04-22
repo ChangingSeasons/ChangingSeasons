@@ -48,4 +48,5 @@ public class User implements Serializable{
 	public void setType(String type) {
 		this.type = type;
 	}
+	
 }
