@@ -32,6 +32,15 @@
 				</div>
 			</div>
 			
+			<!-- Text input-->
+			<div class="form-group required">
+				<label class="col-md-4 control-label" for="type">Product Type</label>
+				<div class="col-md-4">
+					<input id="type" name="type" type="text"
+					 class="form-control input-md" required="required">
+				</div>
+			</div>
+			
 			<!-- Text area -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="productDesc">Product Description</label>
@@ -47,6 +56,15 @@
 					<input id="password" name="price" type="price"
 					 class="form-control input-md" required="">
 
+				</div>
+			</div>
+			
+			<!-- Text input-->
+			<div class="form-group required">
+				<label class="col-md-4 control-label" for="quantity">Quantity</label>
+				<div class="col-md-4">
+					<input id="quantity" name="quantity" type="text"
+					 class="form-control input-md" required="required">
 				</div>
 			</div>
 
