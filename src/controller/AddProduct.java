@@ -98,17 +98,17 @@ public class AddProduct extends HttpServlet {
 			int sellerID = (int)se.getAttribute("ID");
 			float prPrice = Float.parseFloat(price);
 			float shipCost = Float.parseFloat(shippingCost);
-			boolean status = insertProduct(productName, productDesc, sellerID, prPrice, imagepath, shipCost, size, color, imageName);
-			if(status==true){
-				url = "/base_index.jsp";
-				msg = "Product Added Successfully";
-				request.setAttribute("msg", msg);
-			}
-			else{
-				url = "/base_index.jsp";
-				msg = "Failed to Add Product";
-				request.setAttribute("msg", msg);
-			}
+//			boolean status = insertProduct(productName, productDesc, sellerID, prPrice, imagepath, shipCost, size, color, imageName);
+//			if(status==true){
+//				url = "/base_index.jsp";
+//				msg = "Product Added Successfully";
+//				request.setAttribute("msg", msg);
+//			}
+//			else{
+//				url = "/base_index.jsp";
+//				msg = "Failed to Add Product";
+//				request.setAttribute("msg", msg);
+//			}
 		}
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
