@@ -12,8 +12,8 @@
 			<small>How can we help you?</small>
 		</h1>
 	</div>
-	
-	<div style="float:left; width:20%;margin-left:50px;">
+	<!--  style="float:left; width:20%;margin-left:50px;"  -->
+	<div class="content-left" >
 		<h5>Call Us!</h5>
 		1.518.894.7655
 		
@@ -62,6 +62,6 @@
 			</div>
 			</fieldset>
 	</form>
-	
+	</div>
 <%@ include file="footer.jsp"%>
 
