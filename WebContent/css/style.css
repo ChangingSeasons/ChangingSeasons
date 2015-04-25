@@ -16,3 +16,11 @@ h1 {
    content:"*";
    color:red;
 }
+
+.content-left {
+	float:left; 
+	width:20%;
+	margin-left:50px;
+	padding: 25px;
+	border-right: 1px solid;
+}
