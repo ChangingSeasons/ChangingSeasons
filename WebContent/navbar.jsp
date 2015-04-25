@@ -12,7 +12,7 @@
 					class="icon-bar"></span>
 			</button>
 			<% 
-			String loggedIn = session.getAttribute("loggedIn") == null ? "" : (String) session.getAttribute("loggedIn") ;
+		String loggedIn = session.getAttribute("loggedIn") == null ? "" : (String) session.getAttribute("loggedIn") ;
 			
       	String homeURL = "base_login.jsp";
     	if (!loggedIn.equals("")) homeURL = "view_product.jsp";
@@ -32,7 +32,7 @@
       
        -->
 			<%
-				if (!loggedIn.equals("")) {
+				if (!loggedIn.equals("test")) {
 					User u = (User)session.getAttribute("user");
 					
 					// Setting user for testing
@@ -61,15 +61,19 @@
 						<li><a href="#">One more separated link</a></li>
 					</ul></li>
 			</ul>
-
+		<% } %>
 
 
 			<ul class="nav navbar-nav navbar-right">
 				<li>
+				<%
+				if (!loggedIn.equals("")) {
+					%>
 					<form action="/ChangingSeasons/LogoutServlet" method="post">
 						<button type="submit" value="Logout" name="Logout"
-							class="btn btn-info">Logout</button>
+							class="btn btn-info btn-xs">Logout</button>
 					</form>
+					
 					<% } else { %>
 					
 					Already Logged Out
