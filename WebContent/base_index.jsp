@@ -7,31 +7,18 @@
 
 <div class="container">
 <%
-	String iloggedIn = (String) session.getAttribute("loggedIn");
-	User u = (User)session.getAttribute("user");
 	String msg = (String) request.getAttribute("msg");
 	if(msg == null)
 		msg="";
 	out.write("<h3>"+msg+"</h3>");
-	if(iloggedIn == "true")
-		out.write("<h3>Hello " + u.getFirstname()+" "+u.getLastname()+"</h3><br>");
+	if(!loggedIn.equals(""))
+		out.write("<div class=\"alert alert-success\" role=\"alert\">Hello " + user.getFirstname()+" "+user.getLastname()+"</div>");
 	else{
-		if(u == null)
 	out.write("<div class=\"alert alert-danger\" role=\"alert\">You are not logged in!</div>");
-		else
-	out.write(" ");
 	}
 %>
 </div>
-<div id = "logout">
-<form action="/ChangingSeasons/LogoutServlet" method="post">
-<!-- Button -->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="submit"></label>
-				<div class="col-md-4">
-					<button type="submit" value="Logout" name="Logout" class="btn btn-info">Logout</button>
-				</div>
-			</div>
-</form>
-</div>
+
+<%@ include file="list_products.jsp" %>
+
 <%@ include file="footer.jsp"%>
