@@ -35,7 +35,7 @@
 			</div>
 			
 			<!-- Month and Year input-->
-			<div class="form-group required">
+			<div class="form-group required" >
 			<label class="col-md-4 control-label" for="selectDate">Expiry Date</label>
 	                        <select id="selectMonth" style="width:auto;" class="form-control selectWidth">
 	                            <option class="">Jan</option>
