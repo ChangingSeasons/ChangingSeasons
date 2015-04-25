@@ -12,7 +12,8 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     
-    <!--  Custom css -->
+    <!-- Custom CSS -->
+    
 	<link href="css/style.css" rel="stylesheet">
 	
 	<!-- Lobster from Google -->
