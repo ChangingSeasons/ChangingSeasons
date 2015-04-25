@@ -20,7 +20,7 @@
 		<h5>We're Available:</h5>
 		24 Hours a day
 		7 Days a Week
-		
+		</hr>
 	</div>
 
 	<form class="form-horizontal" action="/ChangingSeasons/ContactUsServlet" method="post">
