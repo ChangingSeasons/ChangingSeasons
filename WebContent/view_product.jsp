@@ -13,6 +13,7 @@
 	<div class="row">
 		<div class="col-md-6">
 			<img src="imgs/CKLeatherJacket.png" alt="" width="300" class="img-rounded" />
+			<h4>Rate this Product:</h4>
 		</div>
 		<div class="col-md-6">
 			<div class="panel panel-default">
@@ -40,8 +41,7 @@
 			<button type="button" class="btn btn-success">Add to Card</button>
 
 			<!-- Contextual button for informational alert messages -->
-			<button type="button" class="btn btn-info">Edit/Remove/Etc</button>
-
+			<button type="button" class="btn btn-info">Edit/Remove/Etc</button></br>
 		</div>
 	</div>
 </div>

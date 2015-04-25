@@ -55,19 +55,23 @@
 			%>
   </table>
   
-	 <div style="text-align: right;">
-		<h4>
-		Sub Total:</br>
-		Sales Tax:</br>
-		<hr>
-		Order Total: 
-		</h4>
+	 <div style="text-align: right; width:30%;margin-left:800px;"">
+		 <div class="panel panel-default" >
+			<div class="panel-body">
+			<h4>
+			Sub Total:</br>
+			Sales Tax:</br>
+			<hr>
+			Order Total: 
+			</h4>
+			</div>
+		</div>
 	</div>
 	
 	<!-- Button -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="cart"></label>
-				<div class="col-md-4">
+				<div class="col-md-4" >
 					<button type="button" id="lproducts" name="lproducts" onclick="location.href = 'list_products.jsp';"
 						class="btn btn-primary">Continue Shopping</button>
 					<button type="button" id="checkout" name="checkout" onclick="location.href = 'checkout.jsp';"

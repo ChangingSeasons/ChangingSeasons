@@ -13,19 +13,21 @@
 		</h1>
 	</div>
 	<!--  style="float:left; width:20%;margin-left:50px;"  -->
-	<div class="content-left" >
-		<h5>Call Us!</h5>
-		1.518.894.7655
-		
-		<h5>We're Available:</h5>
-		24 Hours a day
-		7 Days a Week
-		
+	<div class="col-md-4" style="float:right; width:20%;margin-left:10px;margin-right:50px;">
+			<div class="panel panel-default">
+				<div class="panel-body">
+				<h5>Call Us!</h5>
+				1.518.894.7655
+				
+				<h5>We're Available:</h5>
+				24 Hours a day
+				7 Days a Week
+				</div>
+			</div>
 	</div>
-
 	<form class="form-horizontal" action="/ChangingSeasons/ContactUsServlet" method="post">
 		<fieldset>
-			<div style="float:left; width:80%;">
+			<div style="float:left; width:100%;">
 			
 			<!-- Text input-->
 			<div class="form-group required">
