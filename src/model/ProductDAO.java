@@ -14,7 +14,7 @@ public class ProductDAO {
 		try{
 			int productID = getID();
 
-			String q1 = "INSERT into Product (productID, productName, productDesc, sellerID, price, imagePath, shippingCost, size, color, imageName, type)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String q1 = "INSERT into Product (productID, productName, productDesc, sellerID, price, imagePath, shippingCost, size, color, imageName, type, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), ?";
 			PreparedStatement ps = cn.prepareStatement(q1);
 			ps.setInt(1, productID);
 			ps.setString(2, productName);
@@ -27,6 +27,7 @@ public class ProductDAO {
 			ps.setString(9, color);
 			ps.setString(10, imageName);
 			ps.setString(11, type);
+			ps.setBoolean(12, true);
 			ps.executeUpdate();
 
 			ps.close();
@@ -143,19 +144,19 @@ public class ProductDAO {
 
 		for(i=0; i<noOfproducts; i++)
 			p[i] = new Product();
-		
+
 		int sellerID = 0;
 		String q0;
 		try{
 			i = 0;
-			
+
 			if(ID.length>0){ // List products by seller
 				sellerID = ID[0];
 				q0="SELECT * FROM Product WHERE sellerID="+sellerID;
 			}
 			else // List all products
 				q0="SELECT * FROM Product";
-			
+
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 			while(rs.next()){
@@ -184,6 +185,36 @@ public class ProductDAO {
 		DB_close();
 		return p;
 
+	}
+
+	public static Product viewProduct(int productID){
+		Connect();
+		Product p = new Product();
+		try{
+			String q0="SELECT * FROM Product WHERE productID="+productID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+			while(rs.next()){
+				p.setProductID(productID);
+				p.setProductName(rs.getString("productName"));
+				p.setProductDesc(rs.getString("productDesc"));
+				p.setSellerID(rs.getInt("sellerID"));
+				p.setPrice(rs.getFloat("price"));
+				p.setImagePath(rs.getString("imagePath"));
+				p.setShippingCost(rs.getFloat("shippingCost"));
+				p.setSize(rs.getString("size"));
+				p.setColor(rs.getString("color"));
+				p.setImageName(rs.getString("imageName"));
+				p.setType(rs.getString("type"));
+			}
+			st.close();
+			rs.close();
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+		return p;
 	}
 
 }

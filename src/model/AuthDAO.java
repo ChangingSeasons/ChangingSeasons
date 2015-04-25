@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import static model.ConnectDB.*;
 
 public class AuthDAO {
@@ -119,12 +120,13 @@ public class AuthDAO {
 				rs.close();
 				st.close();
 
-				String q1 = "INSERT into User (id, username, password, type)" + " values (?, ?, ?, ?)";
+				String q1 = "INSERT into User (id, username, password, type, status)" + " values (?, ?, ?, ?, ?)";
 				PreparedStatement ps = cn.prepareStatement(q1);
 				ps.setInt(1, ID);
 				ps.setString (2,username);
 				ps.setString (3,password);
 				ps.setString(4, type);
+				ps.setBoolean(5, true); // Account is active, by deafult, unless otherwise user itself chose to delete it
 				ps.executeUpdate();
 				ps.close();
 
@@ -199,13 +201,15 @@ public class AuthDAO {
 
 	public static boolean isUsernameAvailable(String username){
 		Connect();
+		boolean flag = true;
 		try{
 			String q="SELECT username FROM User";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q);
 			while(rs.next()){
 				if(rs.getString("username").equals(username)){
-					return false;
+					flag = false;
+					//return false;
 				}
 			}
 			rs.close();
@@ -215,7 +219,9 @@ public class AuthDAO {
 			e.printStackTrace();
 		}
 		DB_close();
-		return true;
+		//return true;
+		
+		return flag;
 	}
 
 	public static String getPassword (String email, double phone){
@@ -263,4 +269,24 @@ public class AuthDAO {
 		DB_close();
 		return true;
 	}
+	
+	public static boolean statusUser(int id){ // To delete account
+		Connect();
+
+		// 1 --> active, 0 --> Deleted
+		
+		try{
+			String q = "UPDATE User SET status=0 WHERE id="+id;
+			Statement st = cn.createStatement();
+			st.executeUpdate(q);
+
+			st.close();
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+		return true;
+	}
+	
 }

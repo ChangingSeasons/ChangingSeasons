@@ -1,25 +1,40 @@
 package model;
 
+import java.io.Serializable;
 import java.sql.Date;
+import java.util.Calendar;
 
-public class Order {
+public class Order implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int orderID, customerID;
 	private Date dateOfOrder, dateOfShipping;
 	private String orderStatus, shippingAddress;
 	private float total_price, tax;
+	private boolean status;
 	
 	public Order(){
 		this.orderID = 0;
 		this.customerID = 0;
-		//this.dateOfOrder=("0000-00-00");
+		this.dateOfOrder =  new Date(Calendar.getInstance().getTime().getTime());
+		this.dateOfShipping = new Date(Calendar.getInstance().getTime().getTime());
 		this.orderStatus = "";
 		this.shippingAddress = "";
 		this.total_price = 0;
 		this.tax = 0;
-		
+		this.status = true;
 	}
 	
+	
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 	public int getOrderID() {
 		return orderID;
 	}

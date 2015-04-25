@@ -11,6 +11,8 @@ public class Product implements Serializable{
 	private float price, shippingCost;
 	private String productName, productDesc, imagePath, size, color, imageName, type;
 	
+	private boolean status;
+	
 	public Product(){
 		this.productID = 0;
 		this.sellerID = 0;
@@ -23,8 +25,15 @@ public class Product implements Serializable{
 		this.color = "";
 		this.imageName = "";
 		this.type = "";
+		this.status = true;
 	}
-
+	
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 	public int getProductID() {
 		return productID;
 	}

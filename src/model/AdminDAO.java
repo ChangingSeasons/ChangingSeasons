@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 public class AdminDAO {
 
-	public static boolean authorizeSeller(boolean status, int id){
+	public static boolean authorizeSeller(boolean status, int sellerID){
 		Connect();
 
 		int authorized = 0; // False
@@ -15,7 +15,7 @@ public class AdminDAO {
 			authorized = 1;
 
 		try{
-			String q = "UPDATE Seller SET authorized="+authorized+" WHERE id="+id;
+			String q = "UPDATE Seller SET authorized="+authorized+" WHERE id="+sellerID;
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);
 
@@ -32,7 +32,7 @@ public class AdminDAO {
 		Connect();
 
 		try{
-			String q = "DELETE FROM USER WHERE id="+id;
+			String q = "UPDATE User SET status=0 WHERE id="+id;
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);
 
@@ -78,8 +78,6 @@ public class AdminDAO {
 		for(int i=0;i<countRows;i++)
 			u[i] = new User();
 		
-		String username="", firstname="", lastname="", type="";
-
 		int i = 0;
 		try{
 			String q0="SELECT * FROM User JOIN Seller ON User.id=Seller.id WHERE type='sel'";

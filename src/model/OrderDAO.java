@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class OrderDAO {
-	
+
 	private static int getID(){
 		Connect();
 		int ID = -1;
@@ -37,13 +37,13 @@ public class OrderDAO {
 			return ID;
 		return ID;
 	}
-	
+
 	public static boolean addOrder(Date dateOfOrder, Date dateOfShipping, int customerID, String orderStatus, String shippingAddress, float total_price, float tax){
 		Connect();
 		try{
 			int orderID = getID();
 
-			String q1 = "INSERT into Order (orderID, dateOfOrder, dateOfShipping, customerID, orderStatus, shippingAddress, total_price, tax)" + " values (?, ?, ?, ?, ?, ?, ?, ?)";
+			String q1 = "INSERT into Order (orderID, dateOfOrder, dateOfShipping, customerID, orderStatus, shippingAddress, total_price, tax, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = cn.prepareStatement(q1);
 			ps.setInt(1, orderID);
 			ps.setDate(2, dateOfOrder);
@@ -53,6 +53,7 @@ public class OrderDAO {
 			ps.setString(6, shippingAddress);
 			ps.setFloat(7, total_price);
 			ps.setFloat(8, tax);
+			ps.setBoolean(9, true);
 			ps.executeUpdate();
 
 			ps.close();
@@ -83,7 +84,7 @@ public class OrderDAO {
 		DB_close();
 		return true;
 	}
-	
+
 	public static int noOfOrders(){
 
 		Connect();
@@ -106,7 +107,7 @@ public class OrderDAO {
 		DB_close();
 		return countRows;
 	}
-	
+
 	public static Order[] orderDetails(int... ID){
 		Connect();
 
@@ -117,19 +118,19 @@ public class OrderDAO {
 
 		for(i=0; i<noOforders; i++)
 			o[i] = new Order();
-		
+
 		int customerID = 0;
 		String q0;
 		try{
 			i = 0;
-			
-			if(ID.length>0){ // List products by Customer
+
+			if(ID.length>0){ // List orders by Customer
 				customerID = ID[0];
 				q0="SELECT * FROM Order WHERE customerID="+customerID;
 			}
 			else // List all Orders
 				q0="SELECT * FROM Order";
-			
+
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 			while(rs.next()){
@@ -155,6 +156,35 @@ public class OrderDAO {
 		DB_close();
 		return o;
 
+	}
+
+	public static Order viewOrder(int orderID){
+		Connect();
+		Order o = new Order();
+
+		try{
+			String q0="SELECT * FROM Order WHERE orderID="+orderID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+			while(rs.next()){
+				o.setOrderID(orderID);
+				o.setDateOfOrder(rs.getDate("dateOfOrder"));
+				o.setDateOfShipping(rs.getDate("dateOfShipping"));
+				o.setCustomerID(rs.getInt("customerID"));
+				o.setOrderStatus(rs.getString("orderStatus"));
+				o.setShippingAddress(rs.getString("shippingAddress"));
+				o.setTotal_price(rs.getFloat("total_price"));
+				o.setTax(rs.getFloat("tax"));
+			}
+
+			st.close();
+			rs.close();
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+		return o;
 	}
 
 }
