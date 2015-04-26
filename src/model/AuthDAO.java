@@ -43,10 +43,10 @@ public class AuthDAO {
 			while(rs.next()){
 				type = rs.getString("type");
 			}
-			
+
 			st.close();
 			rs.close();
-			
+
 			if(type.equalsIgnoreCase("buy")){ // Buyer
 				q0="SELECT * FROM Customer WHERE id="+userID;
 				st = cn.createStatement();
@@ -70,7 +70,7 @@ public class AuthDAO {
 				rs.close();
 				st.close();
 			}
-			
+
 			else{ // Admin
 				q0 = "SELECT username FROM User WHERE id="+userID;
 				st = cn.createStatement();
@@ -108,7 +108,7 @@ public class AuthDAO {
 				String q0 = "Select id from User";
 				Statement st = cn.createStatement();
 				ResultSet rs = st.executeQuery(q0);
-				
+
 				if(rs.next()){
 					rs.last(); // Get ID of last User
 					ID = rs.getInt("id");
@@ -207,10 +207,8 @@ public class AuthDAO {
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q);
 			while(rs.next()){
-				if(rs.getString("username").equals(username)){
+				if(rs.getString("username").equals(username))
 					flag = false;
-					//return false;
-				}
 			}
 			rs.close();
 			st.close();
@@ -219,8 +217,6 @@ public class AuthDAO {
 			e.printStackTrace();
 		}
 		DB_close();
-		//return true;
-		
 		return flag;
 	}
 
@@ -228,29 +224,31 @@ public class AuthDAO {
 		Connect();
 		String password = "";
 		int id = -1;
+		int flag = 0;
 		try{
 			String q = "SELECT id FROM Customer WHERE email='"+email+"' AND phone="+phone;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q);
 			while(rs.next()){
-				id = Integer.parseInt(rs.getString("id"));
+				id = rs.getInt("id");
 			}
 			if(id != -1){
 				String q1 = "SELECT password FROM User WHERE id="+id;
 				st = cn.createStatement();
 				rs = st.executeQuery(q1);
-				while(rs.next()){
+				while(rs.next())
 					password = rs.getString("password");
-				}
 				rs.close();
 				st.close();
-				return password;
+				flag = 1;
 			}
 		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
 		DB_close();
+		if(flag==1)
+			return password;
 		return null;
 	}
 
@@ -269,12 +267,12 @@ public class AuthDAO {
 		DB_close();
 		return true;
 	}
-	
+
 	public static boolean statusUser(int id){ // To delete account
 		Connect();
 
 		// 1 --> active, 0 --> Deleted
-		
+
 		try{
 			String q = "UPDATE User SET status=0 WHERE id="+id;
 			Statement st = cn.createStatement();
@@ -288,5 +286,5 @@ public class AuthDAO {
 		DB_close();
 		return true;
 	}
-	
+
 }

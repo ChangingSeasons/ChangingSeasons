@@ -35,7 +35,7 @@ public class OrderDAO {
 		DB_close();
 		if(ID!=-1)
 			return ID;
-		return ID;
+		return -1;
 	}
 
 	public static boolean addOrder(Date dateOfOrder, Date dateOfShipping, int customerID, String orderStatus, String shippingAddress){

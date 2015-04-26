@@ -59,6 +59,7 @@ public class ResetPassword extends HttpServlet {
 			msg = msg + "\nPasswords don't match!";
 			request.setAttribute("msg", msg);
 		}
+		
 		if(password.length()!=0 && cPassword.length()!=0 && password.equals(cPassword)){ // Everything is filled in
 
 			boolean status = resetPassword((String)request.getSession().getAttribute("username"), cPassword);
