@@ -13,7 +13,6 @@
 	<div class="row">
 		<div class="col-md-6">
 			<img src="imgs/CKLeatherJacket.png" alt="" width="300" class="img-rounded" />
-			<h4>Rate this Product:</h4>
 		</div>
 		<div class="col-md-6">
 			<div class="panel panel-default">
@@ -34,13 +33,27 @@
 					<p>
 						<strong>Product Price</strong> $100.00
 					</p>
+					<p> <strong>Rate this Product:</strong> </p>
 					<script type="text/javascript">
 					$("#input-id").rating();
 					 
 					// with plugin options
-					$("#input-id").rating(['min'=>1, 'max'=>10, 'step'=>2, 'size'=>'lg']);
+					$("#input-id").rating(['min'=>1, 'max'=>5, 'step'=>1, 'size'=>'sm']);
 					</script>
-					<input id="input-id" type="number" class="rating" min=1 max=10 step=2 data-size="lg" data-rtl="true">
+					<input id="input-id" type="number" class="rating" min=1 max=5 step=1 data-size="sm" data-ltr="true">
+					<script type="text/javascript">
+					$(function(){
+    				$("#rating_1").rating({
+       				 static: false,
+			        score: 2,
+			        stars: 5,
+			        showHint: true,
+			        hints: ['bad', 'poor', 'regular', 'good', 'gorgeous'],
+			        showScore: true,
+			        scoreHint: "Current score: ",
+			    });
+			});
+					</script>
 				</div>
 			</div>
 
