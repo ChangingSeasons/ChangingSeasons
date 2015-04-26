@@ -34,7 +34,13 @@
 					<p>
 						<strong>Product Price</strong> $100.00
 					</p>
-
+					<script type="text/javascript">
+					$("#input-id").rating();
+					 
+					// with plugin options
+					$("#input-id").rating(['min'=>1, 'max'=>10, 'step'=>2, 'size'=>'lg']);
+					</script>
+					<input id="input-id" type="number" class="rating" min=1 max=10 step=2 data-size="lg" data-rtl="true">
 				</div>
 			</div>
 

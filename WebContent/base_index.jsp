@@ -11,8 +11,9 @@
 	if(msg == null)
 		msg="";
 	out.write("<h3>"+msg+"</h3>");
+	String name = (user.getType().equals("adm")) ? "ADMIN" : user.getFirstname() + " "+user.getLastname();
 	if(!loggedIn.equals(""))
-		out.write("<div class=\"alert alert-success\" role=\"alert\">Hello " + user.getFirstname()+" "+user.getLastname()+"</div>");
+		out.write("<div class=\"alert alert-success\" role=\"alert\">Hello "+name+"</div>");
 	else{
 	out.write("<div class=\"alert alert-danger\" role=\"alert\">You are not logged in!</div>");
 	}

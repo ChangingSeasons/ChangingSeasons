@@ -13,6 +13,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Custom CSS -->
+    <!-- Star Rating -->
+    <link href="css/star-rating.css" rel="stylesheet">
     
 	<link href="css/style.css" rel="stylesheet">
 	
