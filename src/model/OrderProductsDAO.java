@@ -34,7 +34,7 @@ public class OrderProductsDAO {
 		return ID;
 	}
 	
-	public static boolean insertIntoOrderProducts(int orderID, int productID, int quantity, int OrderProductID){
+	public static boolean insertIntoOrderProducts(int orderID, int productID, int quantity){
 		Connect();
 		
 		try{
@@ -43,7 +43,7 @@ public class OrderProductsDAO {
 			ps.setInt(1, orderID);
 			ps.setInt(2, productID);
 			ps.setInt(3, quantity);
-			ps.setInt(4, OrderProductID);
+			ps.setInt(4, getID());  // OrderProductID
 			ps.executeUpdate();
 			
 			ps.close();
