@@ -24,7 +24,7 @@ public class Order implements Serializable{
 		this.orderStatus = "";
 		this.shippingAddress = "";
 		this.total_price = 0;
-		this.tax = 0;
+		this.tax = 8;
 		this.status = true;
 	}
 	

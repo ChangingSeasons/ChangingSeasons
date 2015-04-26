@@ -38,11 +38,25 @@ public class OrderDAO {
 		return ID;
 	}
 
-	public static boolean addOrder(Date dateOfOrder, Date dateOfShipping, int customerID, String orderStatus, String shippingAddress, float total_price, float tax){
+	public static boolean addOrder(Date dateOfOrder, Date dateOfShipping, int customerID, String orderStatus, String shippingAddress){
 		Connect();
 		try{
 			int orderID = getID();
+			
+			String q0 = "SELECT totalPrice FROM ShoppingCart WHERE customerID="+customerID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+			
+			float price=0f;
+			
+			while(rs.next())
+				price = rs.getFloat("totalPrice");
+			
+			st.close();
+			rs.close();
 
+			float amount = (1.08f * price);
+			
 			String q1 = "INSERT into Order (orderID, dateOfOrder, dateOfShipping, customerID, orderStatus, shippingAddress, total_price, tax, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = cn.prepareStatement(q1);
 			ps.setInt(1, orderID);
@@ -51,8 +65,8 @@ public class OrderDAO {
 			ps.setInt(4, customerID);
 			ps.setString(5, orderStatus);
 			ps.setString(6, shippingAddress);
-			ps.setFloat(7, total_price);
-			ps.setFloat(8, tax);
+			ps.setFloat(7, amount); // Total Price includes 8% tax
+			ps.setFloat(8, 8); // tax = 8% of total
 			ps.setBoolean(9, true);
 			ps.executeUpdate();
 
@@ -186,5 +200,7 @@ public class OrderDAO {
 		DB_close();
 		return o;
 	}
+	
+	
 
 }

@@ -49,10 +49,10 @@ public class ShoppingCartDAO {
 				ID = rs.getInt("cartID");
 			else // No cart associated with the user. Generate a new cartID for the user
 				ID = getLastID();
-			
+
 			rs.close();
 			st.close();
-			
+
 		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
@@ -62,7 +62,7 @@ public class ShoppingCartDAO {
 		return ID;
 	}
 
-	public static boolean addTocart(int customerID, float totalPrice){
+	public static boolean addTocart(int customerID){
 
 		Connect();
 		try{
@@ -70,7 +70,7 @@ public class ShoppingCartDAO {
 			Date startDate = new Date(calendar.getTime().getTime());
 
 			String q = "INSERT into ShoppingCart (cartID, dateAdded, customerID, totalPrice) values (?, ?, ?, ?)";
-
+			float totalPrice = totalPrice(customerID);
 			PreparedStatement ps = cn.prepareStatement(q);
 
 			ps.setInt(1, getCartID(customerID));
@@ -87,54 +87,104 @@ public class ShoppingCartDAO {
 		DB_close();
 		return true;
 	}
-	
+
 	public static int noOfproductsIncart(int userID){
 		int count = 0;
-		
+
 		int cartID = getCartID(userID);
 
 		try{
 			String q0 = "SELECT distinct productID FROM cartProducts WHERE cartID="+cartID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-		
+
 			if(rs.next()){
 				rs.last();
 				count = rs.getRow(); // Total Number of Distinct products in Cart
 			}
 			else
 				count = 0; // Cart is empty
-			
+
 			rs.close();
 			st.close();
-			
+
 		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 		return count;
 	}
-	
+
 	public static boolean removeProduct(int customerID, int productID){
 		Connect();
-		
+
 		int cartID = getCartID(customerID);
-		
+
 		try{
 			String q = "DELETE FROM CartProducts WHERE cartID="+cartID+" AND productID="+productID;
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery(q);
-			
+			st.executeUpdate(q);
+
 			st.close();
-			rs.close();
-			
+
 		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
 		DB_close();
 		return true;
+	}
+
+	public static float totalPrice(int customerID){
+		float amount = 0.0f;
+		int cartID = getCartID(customerID);
+		int noOfProducts = noOfproductsIncart(customerID);
+		int flag = 0;
+		
+		int[] productID = new int[noOfProducts];
+		int[] quantity = new int[noOfProducts];
+		float[] price = new float[noOfProducts];
+		
+		Connect();
+		int i = 0;
+		try{
+			String q0 = "SELECT productID, quantity FROM CartProduct WHERE cartID="+cartID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+			
+			if(rs.next()){
+				while(rs.next()){
+					productID[i] = rs.getInt("productID");
+					quantity[i] = rs.getInt("quantity");
+					i++;
+				}
+				flag = 1;
+			}
+			
+			st.close();
+			rs.close();
+			
+			if(flag == 1){
+				for(i=0; i<productID.length; i++){
+					q0 = "SELECT price FROM Product WHERE productID="+productID[i];
+					st = cn.createStatement();
+					rs = st.executeQuery(q0);
+					while(rs.next()){
+						price[i] = rs.getFloat("price");
+					}
+				}
+			}
+			
+			for(i=0; i<price.length; i++)
+				amount += price[i] * quantity[i];
+			
+		}catch(SQLException e){
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}	
+		DB_close();
+		return amount;
 	}
 
 }
