@@ -10,7 +10,7 @@
 		if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">"+msg+"</div>");
 		
 		String logIn = (String) session.getAttribute("loggedIn");
-		if(loggedIn == null){
+		if(loggedIn != null){
 	%>
 	
 	<form class="form-horizontal" action="/ChangingSeasons/VendorServlet" method="post">
