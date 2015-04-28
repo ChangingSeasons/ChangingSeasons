@@ -60,7 +60,7 @@ if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">
 			<div class="form-group required">
 				<label class="col-md-4 control-label" for="price">Price</label>
 				<div class="col-md-4">
-					<input id="password" name="price" type="price"
+					<input id="password" name="price" type="text"
 					 class="form-control input-md" required="">
 
 				</div>
@@ -79,7 +79,7 @@ if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">
 			<div class="form-group required">
 				<label class="col-md-4 control-label" for="shippingCost">Shipping Cost</label>
 				<div class="col-md-4">
-					<input id="shippingCost" name="shippingCost" type="price"
+					<input id="shippingCost" name="shippingCost" type="text"
 					class="form-control input-md" required="">
 				</div>
 			</div>
