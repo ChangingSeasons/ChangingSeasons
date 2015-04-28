@@ -48,23 +48,25 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
           <% if (user.getType().equals("buy")) { %>
+            <li><a href="#">My Account</a></li>
             <li><a href="#">View Past Orders</a></li>
-            <li><a href="#">Customer Action #2</a></li>
-            <li><a href="#">Customer Action #3</a></li>
+            <li><a href="shoppingCart.jsp">Shopping Cart</a></li>
             <li class="divider"></li>
-            <li><a href="#">Customer Action #4</a></li>
+            <li><a href="AboutUs.jsp">About Us</a></li>
+            <li><a href="contactUs.jsp">Contact Us</a></li>
             <% } else if(user.getType().equals("sel")) { %>
+            <li><a href="#">My Account</a></li>
             <li><a href="#">View Customer Orders</a></li>
-            <li><a href="#">Seller Action #2</a></li>
-            <li><a href="#">Seller Action #3</a></li>
+            <li><a href="addProducts.jsp">Add Products</a></li>
             <li class="divider"></li>
-            <li><a href="#">Seller Action #4</a></li>
+           	<li><a href="AboutUs.jsp">About Us</a></li>
+            <li><a href="contactUs.jsp">Contact Us</a></li>
              <% } else if(user.getType().equals("adm")) { %>
-            <li><a href="#">Do Seller Authentication</a></li>
-            <li><a href="#">Admin Action #2</a></li>
-            <li><a href="#">Admin Action #3</a></li>
+            <li><a href="#">Seller Authentication</a></li>
+            <li><a href="#">View Customer</a></li>
+            <li><a href="#">View Sellers</a></li>
             <li class="divider"></li>
-            <li><a href="#">Admin Action #4</a></li>
+            <li><a href="AboutUs.jsp">About Us</a></li>
             <% } %>
           </ul>
         </li>
