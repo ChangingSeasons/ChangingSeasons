@@ -121,7 +121,7 @@ if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="image">Please choose an image you want to upload</label>
 				<div class="col-md-4">
-					<input type="file" id="image" name="datafile">
+					<input type="file" id="image" name="datafile" >
 				</div>
 			</div>
 
