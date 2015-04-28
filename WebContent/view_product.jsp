@@ -60,7 +60,7 @@
 			<button type="button" class="btn btn-success">Add to Card</button>
 
 			<!-- Contextual button for informational alert messages -->
-			<button type="button" class="btn btn-info">Edit/Remove/Etc</button></br>
+			<button type="button" class="btn btn-info">Edit</button>
 		</div>
 	</div>
 </div>
