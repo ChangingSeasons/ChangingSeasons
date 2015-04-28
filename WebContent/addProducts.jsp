@@ -4,17 +4,22 @@
 <%@ include file="navbar.jsp"%>
 
 <div class="container">
-	<% 
-		String msg = (String)request.getAttribute("msg");
-		if(msg == null) msg="";
-		if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">"+msg+"</div>");
-		
-		String logIn = (String) session.getAttribute("loggedIn");
-		if(loggedIn == null){
-	%>
 	<form class="form-horizontal" action="/ChangingSeasons/AddProduct" method="post">
 		<fieldset>
+<% 
 
+String msg = (String)request.getAttribute("msg");
+
+if(msg == null) msg="";
+
+if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">"+msg+"</div>");
+
+
+String logIn = (String) session.getAttribute("loggedIn");
+
+if(loggedIn == null){
+
+%>
 			<!-- Form Name -->
 			<div class="page-header">
 				<h1>
@@ -36,8 +41,14 @@
 			<div class="form-group required">
 				<label class="col-md-4 control-label" for="type">Product Type</label>
 				<div class="col-md-4">
-					<input id="type" name="type" type="text"
-					 class="form-control input-md" required="required">
+					<select id="color" class="form-control selectWidth">
+	                	<option class="">Leather</option>
+						<option class="">Denim</option>
+						<option class="">Parka</option>
+						<option class="">Peacoat</option>
+						<option class="">Wind blockers</option>
+						<option class="">Snow Jackets</option>
+	                </select>
 				</div>
 			</div>
 			
@@ -81,7 +92,14 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="size">Size</label>
 				<div class="col-md-4">
-					<input id="size" name="size" type="text" class="form-control input-md">
+	                 <select id="size" class="form-control selectWidth">
+	                	<option class="">XS</option>
+						<option class="">S</option>
+						<option class="">M</option>
+						<option class="">L</option>
+						<option class="">XL</option>
+						<option class="">XXL</option>
+	                </select>
 				</div>
 			</div>
 			
@@ -89,7 +107,14 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="color">Color</label>
 				<div class="col-md-4">
-					<input id="color" name="color" type="text" class="form-control input-md">
+					<select id="color" class="form-control selectWidth">
+	                	<option class="">Black</option>
+						<option class="">White</option>
+						<option class="">Red</option>
+						<option class="">Brown</option>
+						<option class="">Grey</option>
+						<option class="">Blue</option>
+	                </select>
 				</div>
 			</div>
 			
@@ -121,7 +146,6 @@
 	
 	if(logIn!=null)
 		out.write("<h3>You are already LoggedIn!</h3>");%>
-
 </div>
 <!-- /container -->
 
