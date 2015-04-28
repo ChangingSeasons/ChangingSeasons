@@ -15,10 +15,6 @@ if(msg == null) msg="";
 if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">"+msg+"</div>");
 
 
-String logIn = (String) session.getAttribute("loggedIn");
-
-if(loggedIn == null){
-
 %>
 			<!-- Form Name -->
 			<div class="page-header">
@@ -41,7 +37,7 @@ if(loggedIn == null){
 			<div class="form-group required">
 				<label class="col-md-4 control-label" for="type">Product Type</label>
 				<div class="col-md-4">
-					<select id="color" class="form-control selectWidth">
+					<select id="type" class="form-control selectWidth">
 	                	<option class="">Leather</option>
 						<option class="">Denim</option>
 						<option class="">Parka</option>
@@ -70,14 +66,14 @@ if(loggedIn == null){
 				</div>
 			</div>
 			
-			<!-- Text input-->
+			<!-- Quatity input
 			<div class="form-group required">
 				<label class="col-md-4 control-label" for="quantity">Quantity</label>
 				<div class="col-md-4">
 					<input id="quantity" name="quantity" type="text"
 					 class="form-control input-md" required="required">
 				</div>
-			</div>
+			</div> -->
 
 			<!-- Text input-->
 			<div class="form-group required">
@@ -92,29 +88,26 @@ if(loggedIn == null){
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="size">Size</label>
 				<div class="col-md-4">
-	                 <select id="size" class="form-control selectWidth">
-	                	<option class="">XS</option>
-						<option class="">S</option>
-						<option class="">M</option>
-						<option class="">L</option>
-						<option class="">XL</option>
-						<option class="">XXL</option>
-	                </select>
+	                <input type="checkbox" name="id" value="XS"> XS &nbsp
+					<input type="checkbox" name="id" value="S"> S &nbsp
+					<input type="checkbox" name="id" value="M"> M &nbsp
+					<input type="checkbox" name="id" value="L"> L &nbsp
+					<input type="checkbox" name="id" value="XL"> XL &nbsp
+					<input type="checkbox" name="id" value="XXL"> XXL &nbsp
 				</div>
+				
 			</div>
 			
 			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="color">Color</label>
 				<div class="col-md-4">
-					<select id="color" class="form-control selectWidth">
-	                	<option class="">Black</option>
-						<option class="">White</option>
-						<option class="">Red</option>
-						<option class="">Brown</option>
-						<option class="">Grey</option>
-						<option class="">Blue</option>
-	                </select>
+					<input type="checkbox" name="id" value="Black"> Black &nbsp
+					<input type="checkbox" name="id" value="White"> White &nbsp
+					<input type="checkbox" name="id" value="Red"> Red &nbsp
+					<input type="checkbox" name="id" value="Brown"> Brown &nbsp
+					<input type="checkbox" name="id" value="Grey"> Grey &nbsp
+					<input type="checkbox" name="id" value="Blue"> Blue &nbsp
 				</div>
 			</div>
 			
@@ -128,7 +121,7 @@ if(loggedIn == null){
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="image">Please choose an image you want to upload</label>
 				<div class="col-md-4">
-					<input type="file" name="datafile">
+					<input type="file" id="image" name="datafile">
 				</div>
 			</div>
 
@@ -142,10 +135,6 @@ if(loggedIn == null){
 
 		</fieldset>
 	</form>
-	<% }
-	
-	if(logIn!=null)
-		out.write("<h3>You are already LoggedIn!</h3>");%>
 </div>
 <!-- /container -->
 

@@ -8,9 +8,6 @@
 		String msg = (String)request.getAttribute("msg");
 		if(msg == null) msg="";
 		if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">"+msg+"</div>");
-		
-		String logIn = (String) session.getAttribute("loggedIn");
-		if(loggedIn == null){
 	%>
 	<form class="form-horizontal" action="/ChangingSeasons/" method="post">
 		<fieldset>
@@ -37,7 +34,8 @@
 			<!-- Month and Year input-->
 			<div class="form-group required" >
 			<label class="col-md-4 control-label" for="selectDate">Expiry Date</label>
-	                        <select id="selectMonth" style="width:auto;" class="form-control selectWidth">
+			<div class="col-md-4">
+	                        <select id="selectMonth" class="form-control selectWidth">
 	                            <option class="">Jan</option>
 								<option class="">Feb</option>
 								<option class="">Mar</option>
@@ -52,7 +50,7 @@
 								<option class="">Dec</option>
 	                        </select>
 	                        <br/>
-                      	    <select id="selectYear" style="width:auto;" class="form-control selectWidth">
+                      	    <select id="selectYear" class="form-control selectWidth">
                             <option class="">2015</option>
                             <option class="">2016</option>
                             <option class="">2017</option>
@@ -65,6 +63,7 @@
                             <option class="">2024</option>
                             <option class="">2025</option>
                         </select>
+                        </div>
                     </div>
 
 			<!-- text input-->
@@ -99,10 +98,6 @@
 
 		</fieldset>
 	</form>
-	<% }
-	
-	if(logIn!=null)
-		out.write("<h3>You are already LoggedIn!</h3>");%>
 
 </div>
 <!-- /container -->
