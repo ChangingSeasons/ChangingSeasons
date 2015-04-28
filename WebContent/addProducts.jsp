@@ -79,7 +79,7 @@ if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">
 			<div class="form-group required">
 				<label class="col-md-4 control-label" for="shippingCost">Shipping Cost</label>
 				<div class="col-md-4">
-					<input id="shippingCost" name="shippingCost" type="password"
+					<input id="shippingCost" name="shippingCost" type="price"
 					class="form-control input-md" required="">
 				</div>
 			</div>
@@ -88,12 +88,12 @@ if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="size">Size</label>
 				<div class="col-md-4">
-	                <input type="checkbox" name="id" value="XS"> XS &nbsp
-					<input type="checkbox" name="id" value="S"> S &nbsp
-					<input type="checkbox" name="id" value="M"> M &nbsp
-					<input type="checkbox" name="id" value="L"> L &nbsp
-					<input type="checkbox" name="id" value="XL"> XL &nbsp
-					<input type="checkbox" name="id" value="XXL"> XXL &nbsp
+	                <input type="checkbox" name="size" value="XS"> XS &nbsp
+					<input type="checkbox" name="size" value="S"> S &nbsp
+					<input type="checkbox" name="size" value="M"> M &nbsp
+					<input type="checkbox" name="size" value="L"> L &nbsp
+					<input type="checkbox" name="size" value="XL"> XL &nbsp
+					<input type="checkbox" name="size" value="XXL"> XXL &nbsp
 				</div>
 				
 			</div>
@@ -102,12 +102,12 @@ if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="color">Color</label>
 				<div class="col-md-4">
-					<input type="checkbox" name="id" value="Black"> Black &nbsp
-					<input type="checkbox" name="id" value="White"> White &nbsp
-					<input type="checkbox" name="id" value="Red"> Red &nbsp
-					<input type="checkbox" name="id" value="Brown"> Brown &nbsp
-					<input type="checkbox" name="id" value="Grey"> Grey &nbsp
-					<input type="checkbox" name="id" value="Blue"> Blue &nbsp
+					<input type="checkbox" name="color" value="Black"> Black &nbsp
+					<input type="checkbox" name="color" value="White"> White &nbsp
+					<input type="checkbox" name="color" value="Red"> Red &nbsp
+					<input type="checkbox" name="color" value="Brown"> Brown &nbsp
+					<input type="checkbox" name="color" value="Grey"> Grey &nbsp
+					<input type="checkbox" name="color" value="Blue"> Blue &nbsp
 				</div>
 			</div>
 			
