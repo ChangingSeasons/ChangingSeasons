@@ -1,24 +1,18 @@
 package controller;
-
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-
-
-
 import javax.servlet.http.Part;
 
 import static model.ProductDAO.*;
+
 /**
  * Servlet implementation class AddProduct
  */
@@ -47,17 +41,15 @@ public class AddProduct extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int i = 0;
-
+		
 		String productName = request.getParameter("productName");
 		String type = request.getParameter("type");
 		String productDesc = request.getParameter("productDesc");
 		String price = request.getParameter("price");
 
-		
-		String imagepath = "";
+		String imagepath = "zzz";
 		String shippingCost = request.getParameter("shippingCost");
 
 		String sizearray[] = request.getParameterValues("size"); // User input
@@ -155,11 +147,6 @@ public class AddProduct extends HttpServlet {
 			request.setAttribute("msg", msg);
 		}
 
-		//		if(imagepath.length()==0){
-		//			url = "/addProducts.jsp";
-		//			msg = msg + "Please upload Product Image";
-		//			request.setAttribute("msg", msg);
-		//		}
 		if(shippingCost.length()==0){
 			url = "/addProducts.jsp";
 			msg = msg + "Please fill-in Product Shipping-Cost";
@@ -180,7 +167,8 @@ public class AddProduct extends HttpServlet {
 			msg = msg + "Please fill-in Product Image name";
 			request.setAttribute("msg", msg);
 		}
-
+		
+		
 		if(productName.length()!=0 && productDesc.length()!=0 && price.length()!=0 && imagepath.length()!=0 && shippingCost.length()!=0 &&
 				color.length()!=0 && size.length()!=0 && imageName.length()!=0 && type.length()!=0)
 			flag = 1;
@@ -190,9 +178,9 @@ public class AddProduct extends HttpServlet {
 			int sellerID = (int)se.getAttribute("ID");
 			float prPrice = Float.parseFloat(price);
 			float shipCost = Float.parseFloat(shippingCost);
-			boolean status = insertProduct(productName, productDesc, sellerID, prPrice, imagepath, shipCost, size, color, imageName, type);
-			if(status==true){
-				url = "/base_index.jsp";
+			int id = insertProduct(productName, productDesc, sellerID, prPrice, imagepath, shipCost, size, color, imageName, type);
+			if(id>0){
+				url = "/upload.jsp";
 				msg = "Product Added Successfully";
 				request.setAttribute("msg", msg);
 			}

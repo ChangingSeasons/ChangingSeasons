@@ -8,11 +8,52 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ProductDAO {
-
-	public static boolean insertProduct(String productName, String productDesc, int sellerID, float price, String imagepath, float shippingCost, String size, String color, String imageName, String type){
+	
+	public static int getlastUpdate(){
 		Connect();
+		int ID = -1;
 		try{
-			int productID = getID();
+			String q0 = "SELECT productID FROM Product";
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+
+			
+				rs.last(); // Get ID of last Product
+				ID = rs.getInt("productID");
+
+			rs.close();
+			st.close();
+		}catch(SQLException e){
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+		DB_close();
+		return ID;
+	}
+
+	public static boolean addImage(String imagepath){
+		int productID = getlastUpdate();
+		try{
+			Connect();
+			String q = "UPDATE Product SET imagePath='"+imagepath+"' WHERE productID="+productID;
+
+			Statement st = cn.createStatement();
+			st.executeUpdate(q);
+
+			st.close();
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+		return true;
+	}
+
+	public static int insertProduct(String productName, String productDesc, int sellerID, float price, String imagepath, float shippingCost, String size, String color, String imageName, String type){
+		Connect();
+		int productID = getID();
+		try{
+			
 			Connect();
 			String q1 = "INSERT into Product (productID, productName, productDesc, sellerID, price, imagePath, shippingCost, size, color, imageName, type, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = cn.prepareStatement(q1);
@@ -31,12 +72,13 @@ public class ProductDAO {
 			ps.executeUpdate();
 
 			ps.close();
+			
 		}catch(SQLException se){
 			System.err.println(se.getMessage());
 			se.printStackTrace();
 		}
 		DB_close();
-		return true;
+		return productID;
 	}
 
 	public static boolean editProduct(int productID, float price, float shippingCost, String... args){
@@ -217,55 +259,55 @@ public class ProductDAO {
 		return p;
 	}
 
-//	public static Product[] searchProduct(String...search){
-//		Connect();
-//	
-//		String productName = "";
-//		String productDesc = "";
-//		int countRows = 0;
-//		int i = 0;
-//		Product[] p = null;
-//		try{
-//			String q0="SELECT * FROM Product WHERE productName like %"+productName+"% OR productDesc like %"+productDesc+"%";
-//			Statement st = cn.createStatement();
-//			ResultSet rs = st.executeQuery(q0);
-//
-//			rs.last();
-//			countRows = rs.getRow();
-//
-//			st.close();
-//			rs.close();
-//			if(countRows>0){ // Some products found from Search query
-//				p = new Product[countRows];
-//				for(i=0; i<countRows; i++)
-//					p[i] = new Product();
-//
-//				q0="SELECT * FROM Product WHERE productName like %"+productName+"% OR productDesc like %"+productDesc+"%";
-//				st = cn.createStatement();
-//				rs = st.executeQuery(q0);
-//
-//				while(rs.next()){
-//					p[i].setProductID(rs.getInt("productID"));
-//					p[i].setProductName(rs.getString("productName"));
-//					p[i].setProductDesc(rs.getString("productDesc"));
-//					p[i].setSellerID(rs.getInt("sellerID"));
-//					p[i].setPrice(rs.getFloat("price"));
-//					p[i].setImagePath(rs.getString("imagePath"));
-//					p[i].setShippingCost(rs.getFloat("shippingCost"));
-//					p[i].setSize(rs.getString("size"));
-//					p[i].setColor(rs.getString("color"));
-//					p[i].setImageName(rs.getString("imageName"));
-//					p[i].setType(rs.getString("type"));
-//				}
-//				st.close();
-//				rs.close();
-//			}
-//		}catch(SQLException se){
-//			System.err.println(se.getMessage());
-//			se.printStackTrace();
-//		}
-//		DB_close();
-//		return p;
-//	}
+	//	public static Product[] searchProduct(String...search){
+	//		Connect();
+	//	
+	//		String productName = "";
+	//		String productDesc = "";
+	//		int countRows = 0;
+	//		int i = 0;
+	//		Product[] p = null;
+	//		try{
+	//			String q0="SELECT * FROM Product WHERE productName like %"+productName+"% OR productDesc like %"+productDesc+"%";
+	//			Statement st = cn.createStatement();
+	//			ResultSet rs = st.executeQuery(q0);
+	//
+	//			rs.last();
+	//			countRows = rs.getRow();
+	//
+	//			st.close();
+	//			rs.close();
+	//			if(countRows>0){ // Some products found from Search query
+	//				p = new Product[countRows];
+	//				for(i=0; i<countRows; i++)
+	//					p[i] = new Product();
+	//
+	//				q0="SELECT * FROM Product WHERE productName like %"+productName+"% OR productDesc like %"+productDesc+"%";
+	//				st = cn.createStatement();
+	//				rs = st.executeQuery(q0);
+	//
+	//				while(rs.next()){
+	//					p[i].setProductID(rs.getInt("productID"));
+	//					p[i].setProductName(rs.getString("productName"));
+	//					p[i].setProductDesc(rs.getString("productDesc"));
+	//					p[i].setSellerID(rs.getInt("sellerID"));
+	//					p[i].setPrice(rs.getFloat("price"));
+	//					p[i].setImagePath(rs.getString("imagePath"));
+	//					p[i].setShippingCost(rs.getFloat("shippingCost"));
+	//					p[i].setSize(rs.getString("size"));
+	//					p[i].setColor(rs.getString("color"));
+	//					p[i].setImageName(rs.getString("imageName"));
+	//					p[i].setType(rs.getString("type"));
+	//				}
+	//				st.close();
+	//				rs.close();
+	//			}
+	//		}catch(SQLException se){
+	//			System.err.println(se.getMessage());
+	//			se.printStackTrace();
+	//		}
+	//		DB_close();
+	//		return p;
+	//	}
 
 }

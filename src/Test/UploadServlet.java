@@ -3,6 +3,7 @@ package Test;
 import java.io.File;
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
+import static model.ProductDAO.*;
 @WebServlet("/UploadServlet")
 @MultipartConfig(fileSizeThreshold=1024*1024*2,	// 2MB 
 maxFileSize=1024*1024*10,		// 10MB
@@ -28,19 +29,10 @@ public class UploadServlet extends HttpServlet {
 	 */
 
 
-	static String path = "";
-	public static String getPath() {
-		return path;
-	}
-
-	public static void setPath(String file) {
-		path = file;
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String savePath = SAVE_DIR;
-
+		String url = "", msg = "", path = "";
 		// creates the save directory if it does not exists
 		File fileSaveDir = new File(savePath);
 		if (!fileSaveDir.exists()) {
@@ -50,8 +42,14 @@ public class UploadServlet extends HttpServlet {
 		for (Part part : request.getParts()) {
 			String fileName = extractFileName(part);
 			part.write(savePath + File.separator + fileName);
-			setPath(savePath + File.separator + fileName);
+			path = savePath + File.separator + fileName;
+			addImage(path);
 		}
+		url = "/base_index.jsp";
+		msg = "Product Added Successfully";
+		request.setAttribute("msg", msg);
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+		dispatcher.forward(request, response);
 	}
 
 	/**
