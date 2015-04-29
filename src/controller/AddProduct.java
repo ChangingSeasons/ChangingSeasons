@@ -23,9 +23,7 @@ import static model.ProductDAO.*;
  * Servlet implementation class AddProduct
  */
 @WebServlet("/AddProduct")
-@MultipartConfig(fileSizeThreshold=1024*1024*2,	// 2MB 
-maxFileSize=1024*1024*10,		// 10MB
-maxRequestSize=1024*1024*50)	// 50MB
+
 
 public class AddProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -45,22 +43,10 @@ public class AddProduct extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 
-	/**
+	/** 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 
-	private static final String SAVE_DIR = "/Users/Summit/Desktop/test";
-
-	private String extractFileName(Part part) {
-		String contentDisp = part.getHeader("content-disposition");
-		String[] items = contentDisp.split(";");
-		for (String s : items) {
-			if (s.trim().startsWith("filename")) {
-				return s.substring(s.indexOf("=") + 2, s.length()-1);
-			}
-		}
-		return "";
-	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int i = 0;
@@ -69,25 +55,9 @@ public class AddProduct extends HttpServlet {
 		String type = request.getParameter("type");
 		String productDesc = request.getParameter("productDesc");
 		String price = request.getParameter("price");
+
 		
-		/////////////////////////////////////////////////////////////////////////////////////////////
-		String savePath = SAVE_DIR;
-
-		// creates the save directory if it does not exists
-		File fileSaveDir = new File(savePath);
-		if (!fileSaveDir.exists()) {
-			fileSaveDir.mkdir();
-		}
-		String filename = "";
-		for (Part part : request.getParts()) {
-			String fileName = extractFileName(part);
-			part.write(savePath + File.separator + fileName);
-			filename = savePath + File.separator + fileName;
-		}
-
-		/////////////////////////////////////////////////////////////////////////////////////////////
-
-		String imagepath = filename;
+		String imagepath = "";
 		String shippingCost = request.getParameter("shippingCost");
 
 		String sizearray[] = request.getParameterValues("size"); // User input
@@ -210,7 +180,7 @@ public class AddProduct extends HttpServlet {
 			msg = msg + "Please fill-in Product Image name";
 			request.setAttribute("msg", msg);
 		}
-		
+
 		if(productName.length()!=0 && productDesc.length()!=0 && price.length()!=0 && imagepath.length()!=0 && shippingCost.length()!=0 &&
 				color.length()!=0 && size.length()!=0 && imageName.length()!=0 && type.length()!=0)
 			flag = 1;

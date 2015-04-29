@@ -9,13 +9,9 @@ public class AdminDAO {
 
 	public static boolean authorizeSeller(boolean status, int sellerID){
 		Connect();
-
-		int authorized = 0; // False
-		if(status == true)
-			authorized = 1;
-
+		
 		try{
-			String q = "UPDATE Seller SET authorized="+authorized+" WHERE id="+sellerID;
+			String q = "UPDATE Seller SET authorized="+status+" WHERE id="+sellerID;
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);
 
