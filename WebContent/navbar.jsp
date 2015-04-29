@@ -48,14 +48,16 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
           <% if (user.getType().equals("buy")) { %>
-            <li><a href="#">My Account</a></li>
-            <li><a href="viewOrder">View Orders</a></li>
+            <li><a href="buyerAccount.jsp">My Account</a></li>
+            <li><a href="editBuyer.jsp">Update Account</a></li>
+            <li><a href="viewOrder.jsp">View Orders</a></li>
             <li><a href="shoppingCart.jsp">Shopping Cart</a></li>
             <li class="divider"></li>
             <li><a href="AboutUs.jsp">About Us</a></li>
             <li><a href="contactUs.jsp">Contact Us</a></li>
             <% } else if(user.getType().equals("sel")) { %>
-            <li><a href="#">My Account</a></li>
+            <li><a href="sellerAccount.jsp">My Account</a></li>
+            <li><a href="editSeller.jsp">Update Account</a></li>
             <li><a href="#">View Customer Orders</a></li>
             <li><a href="addProducts.jsp">Add Products</a></li>
             <li class="divider"></li>
