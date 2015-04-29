@@ -118,18 +118,13 @@ if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">
 					<input type="text" name="imageName" placeholder="Name of the Image" class="form-control input-md">
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="image">Please choose an image you want to upload</label>
-				<div class="col-md-4">
-					<input type="file" id="image" name="file" >
-				</div>
-			</div>
 
 			<!-- Button -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="submit"></label>
 				<div class="col-md-4">
-					<button type="submit" id="submit" name="submit" class="btn btn-info">Submit</button>
+				Click on submit to upload the image and complete adding a product
+				</br><button type="submit" id="submit" name="submit" class="btn btn-info">Submit</button>
 				</div>
 			</div>
 
