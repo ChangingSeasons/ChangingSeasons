@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 
 
+
+import javax.servlet.http.Part;
 
 import static model.ProductDAO.*;
 /**
@@ -39,17 +42,9 @@ public class AddProduct extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int i = 0;
-
-		final String[] defaultColors = new String[6];
-		defaultColors[0] = "Black";
-		defaultColors[1] = "White";
-		defaultColors[2] = "Red";
-		defaultColors[3] = "Brown";
-		defaultColors[4] = "Grey";
-		defaultColors[5] = "Blue";
-
 
 		String productName = request.getParameter("productName");
 		String type = request.getParameter("type");
@@ -57,8 +52,6 @@ public class AddProduct extends HttpServlet {
 		String price = request.getParameter("price");
 
 		//int quantity = Integer.parseInt(request.getParameter("quantity"));
-
-
 
 		String imagepath = "/Users/Summit/Desktop/Images/DD1.png";
 
@@ -99,7 +92,7 @@ public class AddProduct extends HttpServlet {
 		}
 		else
 			size = "false false false false false";
-		
+
 		sb = new StringBuilder();
 
 		// Re Init for Colors
@@ -109,17 +102,17 @@ public class AddProduct extends HttpServlet {
 		String color = "";
 		if(colorarray.length!=0){
 			for(i=0; i<colorarray.length; i++){
-				if(sizearray[i].equals("Black"))
+				if(colorarray[i].equals("Black"))
 					str[0] = "true";
-				if(sizearray[i].equals("White"))
+				if(colorarray[i].equals("White"))
 					str[1] = "true";
-				if(sizearray[i].equals("Red"))
+				if(colorarray[i].equals("Red"))
 					str[2] = "true";
-				if(sizearray[i].equals("Brown"))
+				if(colorarray[i].equals("Brown"))
 					str[3] = "true";
-				if(sizearray[i].equals("Grey"))
+				if(colorarray[i].equals("Grey"))
 					str[4] = "true";
-				if(sizearray[i].equals("Blue"))
+				if(colorarray[i].equals("Blue"))
 					str[5] = "true";
 			}
 
@@ -133,7 +126,8 @@ public class AddProduct extends HttpServlet {
 		else
 			color = "false false false false false";
 
-		String imageName = request.getParameter("imageName"); 
+		String imageName = request.getParameter("imageName");
+		
 		String msg = "", url = "";
 		int flag = 0;
 
