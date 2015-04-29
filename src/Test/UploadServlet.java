@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
 import static model.ProductDAO.*;
 @WebServlet("/UploadServlet")
 @MultipartConfig(fileSizeThreshold=1024*1024*2,	// 2MB 
@@ -26,7 +27,9 @@ public class UploadServlet extends HttpServlet {
 	 * Name of the directory where uploaded files will be saved, relative to
 	 * the web application directory.
 	 */
-	private static final String SAVE_DIR = "/Users/Summit/Desktop/test";
+	private static final String SAVE_DIR = "/Users/Summit/git/ChangingSeasons/WebContent/imgs";
+
+
 
 	/**
 	 * handles file upload
@@ -34,7 +37,6 @@ public class UploadServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		String savePath = SAVE_DIR;
 		String url = "", msg = "", path = "";
 		// creates the save directory if it does not exists
@@ -42,7 +44,7 @@ public class UploadServlet extends HttpServlet {
 		if (!fileSaveDir.exists()) {
 			fileSaveDir.mkdir();
 		}
-
+		
 		for (Part part : request.getParts()) {
 			String fileName = extractFileName(part);
 			part.write(savePath + File.separator + fileName);

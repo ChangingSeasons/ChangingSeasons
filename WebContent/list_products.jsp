@@ -8,7 +8,7 @@
 		%>
 		<div class="col-sm-5 col-md-3">
 			<div class="thumbnail">
-				<img src="imgs/CKCotton.png" alt="...">
+				<img src="imgs/NorthFace.png" alt="...">
 				<div class="caption">
 					<h3>Product Name</h3>
 					<p>
