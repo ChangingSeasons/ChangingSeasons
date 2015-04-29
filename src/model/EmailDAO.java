@@ -14,7 +14,8 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailDAO {
 
-	private static Properties setProperties(){
+	public static void sendMail(String to, String subject, String message){
+
 		final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 		Properties props = System.getProperties();
 		props.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -26,12 +27,6 @@ public class EmailDAO {
 		props.put("mail.debug", "true");
 		props.put("mail.store.protocol", "pop3");
 		props.put("mail.transport.protocol", "smtp");
-		return props;
-	}
-
-	public static void sendMail(String to, String subject, String message){
-
-		Properties props = setProperties();
 
 		final String username = "cseasons04@gmail.com"; //
 		final String password = "Software2015";

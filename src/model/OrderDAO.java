@@ -171,6 +171,24 @@ public class OrderDAO {
 		return o;
 
 	}
+	
+	public static boolean deleteOrder(int orderID){
+		Connect();
+
+		try{
+			String q = "UPDATE Order SET status=0 WHERE orderID="+orderID;
+			Statement st = cn.createStatement();
+			st.executeUpdate(q);
+
+			st.close();
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+
+		DB_close();
+		return true;
+	}
 
 	public static Order viewOrder(int orderID){
 		Connect();

@@ -42,7 +42,7 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="title">Title</label>
 				<div class="col-md-4">
-					<input id="title" name="title" type="title" class="form-control input-md">
+					<input id="title" name="title" type="text" class="form-control input-md">
 				</div>
 			</div>
 			

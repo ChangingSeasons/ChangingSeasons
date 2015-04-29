@@ -48,19 +48,19 @@ public class ContactUsServlet extends HttpServlet {
 		int eflag = 1;
 		final String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
-//		if(!(email.length()==0) && !email.matches(emailPattern)){
-//			url = "/contactUs.jsp";
-//			msg = msg + "\nPlease enter valid Email";
-//			request.setAttribute("msg", msg);
-//			eflag = 0;
-//		}
+		if(!(email.length()==0) && !email.matches(emailPattern)){
+			url = "/contactUs.jsp";
+			msg = msg + "\nPlease enter valid Email";
+			request.setAttribute("msg", msg);
+			eflag = 0;
+		}
 		
 		if(eflag==1){ // Everything is fine!
 			msg = "Thank you for Contacting Us. Our Customer support team will get back to you soon.";
 			url = "/contactUs.jsp";
 			request.setAttribute("msg", msg);
-			//sendMail(email, title, message);
-			sendMail("sumit_hotwani@yahoo.com", "Yo", "Science Bitch");
+			sendMail(email.toString(), title.toString(), message.toString());
+			
 		}
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
