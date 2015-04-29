@@ -37,7 +37,7 @@ if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">
 			<div class="form-group required">
 				<label class="col-md-4 control-label" for="type">Product Type</label>
 				<div class="col-md-4">
-					<select id="type" class="form-control selectWidth">
+					<select name ="type" id="type" class="form-control selectWidth">
 	                	<option class="">Leather</option>
 						<option class="">Denim</option>
 						<option class="">Parka</option>

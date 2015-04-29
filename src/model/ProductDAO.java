@@ -14,7 +14,7 @@ public class ProductDAO {
 		try{
 			int productID = getID();
 
-			String q1 = "INSERT into Product (productID, productName, productDesc, sellerID, price, imagePath, shippingCost, size, color, imageName, type, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), ?";
+			String q1 = "INSERT into Product (productID, productName, productDesc, sellerID, price, imagePath, shippingCost, size, color, imageName, type, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = cn.prepareStatement(q1);
 			ps.setInt(1, productID);
 			ps.setString(2, productName);
@@ -108,7 +108,7 @@ public class ProductDAO {
 		DB_close();
 		if(ID!=-1)
 			return ID;
-		return ID;
+		return -1;
 	}
 
 	public static int noOfProducts(){

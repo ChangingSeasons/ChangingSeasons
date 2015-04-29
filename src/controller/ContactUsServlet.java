@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static model.EmailDAO.*;
 /**
  * Servlet implementation class ContactUsServlet
  */
@@ -37,24 +38,29 @@ public class ContactUsServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// email, title, message
 
-		String email = request.getParameter("email");
-		String title = request.getParameter("title");
-		String message = request.getParameter("message");
+		String email =(String) request.getParameter("email");
+		String title =(String) request.getParameter("title");
+		String message =(String) request.getParameter("message");
+		
+		System.out.println(email+"\t"+title+"\t"+message);
+		
 		String url = "", msg = "";
 		int eflag = 1;
 		final String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
-		if(!(email.length()==0) && !email.matches(emailPattern)){
-			url = "/contactUs.jsp";
-			msg = msg + "\nPlease enter valid Email";
-			request.setAttribute("msg", msg);
-			eflag = 0;
-		}
+//		if(!(email.length()==0) && !email.matches(emailPattern)){
+//			url = "/contactUs.jsp";
+//			msg = msg + "\nPlease enter valid Email";
+//			request.setAttribute("msg", msg);
+//			eflag = 0;
+//		}
 		
 		if(eflag==1){ // Everything is fine!
 			msg = "Thank you for Contacting Us. Our Customer support team will get back to you soon.";
 			url = "/contactUs.jsp";
 			request.setAttribute("msg", msg);
+			//sendMail(email, title, message);
+			sendMail("sumit_hotwani@yahoo.com", "Yo", "Science Bitch");
 		}
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

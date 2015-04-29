@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,14 +38,87 @@ public class AddProduct extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int i = 0;
+
+		final String[] defaultColors = new String[6];
+		defaultColors[0] = "Black";
+		defaultColors[1] = "White";
+		defaultColors[2] = "Red";
+		defaultColors[3] = "Brown";
+		defaultColors[4] = "Grey";
+		defaultColors[5] = "Blue";
+
+
 		String productName = request.getParameter("productName");
+		String type = request.getParameter("type");
 		String productDesc = request.getParameter("productDesc");
 		String price = request.getParameter("price");
+
+		//int quantity = Integer.parseInt(request.getParameter("quantity"));
+
 		String imagepath = request.getParameter("imagepath");
 		String shippingCost = request.getParameter("shippingCost");
-		String size = request.getParameter("size");
-		String color = request.getParameter("color");
-		String imageName = request.getParameter("imageName");
+
+		String sizearray[] = request.getParameterValues("size"); // User input
+		String colorarray[] = request.getParameterValues("color"); // User input
+
+		StringBuilder sb = new StringBuilder();
+
+		String [] str = new String[6];
+		for(i=0; i<str.length; i++)
+			str[i] = "false";
+
+		for(i=0; i<sizearray.length; i++){
+			if(sizearray[i].equals("XS"))
+				str[0] = "true";
+			if(sizearray[i].equals("S"))
+				str[1] = "true";
+			if(sizearray[i].equals("M"))
+				str[2] = "true";
+			if(sizearray[i].equals("L"))
+				str[3] = "true";
+			if(sizearray[i].equals("XL"))
+				str[4] = "true";
+			if(sizearray[i].equals("XXL"))
+				str[5] = "true";
+		}
+
+		for(i=0; i<str.length-1; i++){
+			sb.append(str[i]);
+			sb.append(" ");
+		}sb.append(str[i]);
+
+		String size = sb.toString(); // This goes to Database
+
+		sb = new StringBuilder();
+
+		// Re Init for Colors
+		for(i=0; i<str.length; i++)
+			str[i] = "false";
+
+		for(i=0; i<colorarray.length; i++){
+			if(sizearray[i].equals("Black"))
+				str[0] = "true";
+			if(sizearray[i].equals("White"))
+				str[1] = "true";
+			if(sizearray[i].equals("Red"))
+				str[2] = "true";
+			if(sizearray[i].equals("Brown"))
+				str[3] = "true";
+			if(sizearray[i].equals("Grey"))
+				str[4] = "true";
+			if(sizearray[i].equals("Blue"))
+				str[5] = "true";
+		}
+
+		for(i=0; i<str.length-1; i++){
+			sb.append(str[i]);
+			sb.append(" ");
+		}sb.append(str[i]);
+
+		String color = sb.toString(); // This goes to Database
+
+		String imageName = request.getParameter("imageName"); 
 		String msg = "", url = "";
 		int flag = 0;
 
@@ -63,6 +137,12 @@ public class AddProduct extends HttpServlet {
 			msg = msg + "Please fill-in Product-Price";
 			request.setAttribute("msg", msg);
 		}
+		if(type.length()==0){
+			url = "/addProducts.jsp";
+			msg = msg + "Please Select Product-type";
+			request.setAttribute("msg", msg);
+		}
+
 		if(imagepath.length()==0){
 			url = "/addProducts.jsp";
 			msg = msg + "Please upload Product Image";
@@ -90,7 +170,7 @@ public class AddProduct extends HttpServlet {
 		}
 
 		if(productName.length()!=0 && productDesc.length()!=0 && price.length()!=0 && imagepath.length()!=0 && shippingCost.length()!=0 &&
-				color.length()!=0 && size.length()!=0 && imageName.length()!=0)
+				color.length()!=0 && size.length()!=0 && imageName.length()!=0 && type.length()!=0)
 			flag = 1;
 
 		if(flag == 1){ // Everything is filled in
@@ -98,17 +178,17 @@ public class AddProduct extends HttpServlet {
 			int sellerID = (int)se.getAttribute("ID");
 			float prPrice = Float.parseFloat(price);
 			float shipCost = Float.parseFloat(shippingCost);
-//			boolean status = insertProduct(productName, productDesc, sellerID, prPrice, imagepath, shipCost, size, color, imageName);
-//			if(status==true){
-//				url = "/base_index.jsp";
-//				msg = "Product Added Successfully";
-//				request.setAttribute("msg", msg);
-//			}
-//			else{
-//				url = "/base_index.jsp";
-//				msg = "Failed to Add Product";
-//				request.setAttribute("msg", msg);
-//			}
+			boolean status = insertProduct(productName, productDesc, sellerID, prPrice, imagepath, shipCost, size, color, imageName, type);
+			if(status==true){
+				url = "/base_index.jsp";
+				msg = "Product Added Successfully";
+				request.setAttribute("msg", msg);
+			}
+			else{
+				url = "/base_index.jsp";
+				msg = "Failed to Add Product";
+				request.setAttribute("msg", msg);
+			}
 		}
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
