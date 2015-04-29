@@ -31,7 +31,8 @@ public class AuthDAO {
 	}
 
 	public static User getUserbyId(int userID){
-		String firstname="", lastname="", type="", username="";
+		User u = new User();
+		String type = "";
 		Connect();
 		try{
 
@@ -50,11 +51,25 @@ public class AuthDAO {
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
 				while(rs.next()){
-					firstname = rs.getString("firstname");
-					lastname = rs.getString("lastname");	
+					u.setFirstname(rs.getString("firstname"));
+					u.setLastname(rs.getString("lastname"));
+					u.setAddress(rs.getString("address"));
+					u.setEmail(rs.getString("email"));
+					u.setPhone(rs.getDouble("phone"));
+					u.setPayPalID(rs.getString("payPalID"));
 				}
 				rs.close();
 				st.close();
+				
+				q0="SELECT * FROM User WHERE id="+userID;
+				st = cn.createStatement();
+				rs = st.executeQuery(q0);
+				while(rs.next()){
+					u.setUsername(rs.getString("username"));
+				}
+				rs.close();
+				st.close();
+				
 			}
 
 			else if (type.equalsIgnoreCase("sel")){ // Seller
@@ -62,11 +77,30 @@ public class AuthDAO {
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
 				while(rs.next()){
-					firstname = rs.getString("firstname");
-					lastname = rs.getString("lastname");			    
+					u.setFirstname(rs.getString("firstname"));
+					u.setLastname(rs.getString("lastname"));		
+					u.setAddress(rs.getString("address"));
+					u.setEmail(rs.getString("email"));
+					u.setPhone(rs.getDouble("phone"));
+					u.setCompanyName(rs.getString("companyName"));
+					u.setAuthorized(rs.getBoolean("authorized"));
+					u.setURL(rs.getString("URL"));
+					u.setBankAccount(rs.getString("bankAccount"));
+					u.setRoutingNumber(rs.getString("routingNumber"));
+					u.setPayPalID(rs.getString("payPalID"));
 				}
 				rs.close();
 				st.close();
+				
+				q0="SELECT * FROM User WHERE id="+userID;
+				st = cn.createStatement();
+				rs = st.executeQuery(q0);
+				while(rs.next()){
+					u.setUsername(rs.getString("username"));
+				}
+				rs.close();
+				st.close();
+				
 			}
 
 			else{ // Admin
@@ -74,7 +108,7 @@ public class AuthDAO {
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
 				while(rs.next()){
-					username = rs.getString("username");		    
+					u.setUsername(rs.getString("username"));
 				}
 				rs.close();
 				st.close();
@@ -85,11 +119,6 @@ public class AuthDAO {
 			e.printStackTrace();
 		}
 		DB_close();
-
-		User u = new User();
-		u.setFirstname(firstname);
-		u.setLastname(lastname);
-		u.setUsername(username);
 		u.setType(type);
 		return u;
 	}
