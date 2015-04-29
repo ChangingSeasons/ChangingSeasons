@@ -167,7 +167,7 @@ public class AddProduct extends HttpServlet {
 		}
 		
 		
-		if(productName.length()!=0 && productDesc.length()!=0 && price.length()!=0 && imagepath.length()!=0 && shippingCost.length()!=0 &&
+		if(productName.length()!=0 && productDesc.length()!=0 && price.length()!=0 && shippingCost.length()!=0 &&
 				color.length()!=0 && size.length()!=0 && imageName.length()!=0 && type.length()!=0)
 			flag = 1;
 

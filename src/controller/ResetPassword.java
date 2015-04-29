@@ -38,6 +38,7 @@ public class ResetPassword extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String password = request.getParameter("password");
 		String cPassword = request.getParameter("cpassword");
+		String username = request.getParameter("hidden-username");
 		
 		String msg = "", url = "";
 		
@@ -61,7 +62,7 @@ public class ResetPassword extends HttpServlet {
 		
 		if(password.length()!=0 && cPassword.length()!=0 && password.equals(cPassword)){ // Everything is filled in
 
-			boolean status = resetPassword((String)request.getSession().getAttribute("username"), cPassword);
+			boolean status = resetPassword(username, cPassword);
 			
 			if(status == true){
 				msg = "Password has been sucessfully Reset";

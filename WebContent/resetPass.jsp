@@ -14,13 +14,14 @@
 	</div>
 	
 	<%
+		String username = (String)request.getAttribute("username");
     	String msg = (String) request.getAttribute("msg");
 		String password = (String) request.getAttribute("password");
 		
     	if (msg == null)
     		msg = "";
  
-    	if (password == null && !msg.startsWith("User")){
+    	if (password != null && msg.startsWith("User")){
     		password = "";
     		if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">"+msg+"</div>");
  %>
@@ -35,6 +36,10 @@
 
 				</div>
 			</div>
+			
+			
+			<input type="hidden" name="hidden-username" value=<%out.write(username);%>>
+			
 
 			<!-- Password input-->
 			<div class="form-group required">
@@ -59,7 +64,7 @@
 	
 	<%
 			}
-		    		else if (msg.startsWith("User")) {
+		    		else if (!msg.startsWith("User")) {
 				System.out.print("User recieved" + msg);
 
 				out.write("<div class=\"alert alert-info\" role=\"alert\">"
