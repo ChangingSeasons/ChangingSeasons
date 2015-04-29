@@ -254,55 +254,53 @@ public class ProductDAO {
 		return p;
 	}
 
-	//	public static Product[] searchProduct(String...search){
-	//		Connect();
-	//	
-	//		String productName = "";
-	//		String productDesc = "";
-	//		int countRows = 0;
-	//		int i = 0;
-	//		Product[] p = null;
-	//		try{
-	//			String q0="SELECT * FROM Product WHERE productName like %"+productName+"% OR productDesc like %"+productDesc+"%";
-	//			Statement st = cn.createStatement();
-	//			ResultSet rs = st.executeQuery(q0);
-	//
-	//			rs.last();
-	//			countRows = rs.getRow();
-	//
-	//			st.close();
-	//			rs.close();
-	//			if(countRows>0){ // Some products found from Search query
-	//				p = new Product[countRows];
-	//				for(i=0; i<countRows; i++)
-	//					p[i] = new Product();
-	//
-	//				q0="SELECT * FROM Product WHERE productName like %"+productName+"% OR productDesc like %"+productDesc+"%";
-	//				st = cn.createStatement();
-	//				rs = st.executeQuery(q0);
-	//
-	//				while(rs.next()){
-	//					p[i].setProductID(rs.getInt("productID"));
-	//					p[i].setProductName(rs.getString("productName"));
-	//					p[i].setProductDesc(rs.getString("productDesc"));
-	//					p[i].setSellerID(rs.getInt("sellerID"));
-	//					p[i].setPrice(rs.getFloat("price"));
-	//					p[i].setImagePath(rs.getString("imagePath"));
-	//					p[i].setShippingCost(rs.getFloat("shippingCost"));
-	//					p[i].setSize(rs.getString("size"));
-	//					p[i].setColor(rs.getString("color"));
-	//					p[i].setImageName(rs.getString("imageName"));
-	//					p[i].setType(rs.getString("type"));
-	//				}
-	//				st.close();
-	//				rs.close();
-	//			}
-	//		}catch(SQLException se){
-	//			System.err.println(se.getMessage());
-	//			se.printStackTrace();
-	//		}
-	//		DB_close();
-	//		return p;
-	//	}
+	public static Product[] searchProduct(String... search){
+		Connect();
+
+		int countRows = 0;
+		int i = 0;
+		Product[] p = null;
+		try{
+			String q0="SELECT * FROM Product WHERE productName like %"+search[0]+"% OR productDesc like %"+search[0]+"%";
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+
+			rs.last();
+			countRows = rs.getRow();
+
+			st.close();
+			rs.close();
+			if(countRows>0){ // Some products found from Search query
+				p = new Product[countRows];
+				for(i=0; i<countRows; i++)
+					p[i] = new Product();
+
+				q0="SELECT * FROM Product WHERE productName like %"+search[0]+"% OR productDesc like %"+search[0]+"%";
+				st = cn.createStatement();
+				rs = st.executeQuery(q0);
+
+				while(rs.next()){
+					p[i].setProductID(rs.getInt("productID"));
+					p[i].setProductName(rs.getString("productName"));
+					p[i].setProductDesc(rs.getString("productDesc"));
+					p[i].setSellerID(rs.getInt("sellerID"));
+					p[i].setPrice(rs.getFloat("price"));
+					p[i].setImagePath(rs.getString("imagePath"));
+					p[i].setShippingCost(rs.getFloat("shippingCost"));
+					p[i].setSize(rs.getString("size"));
+					p[i].setColor(rs.getString("color"));
+					p[i].setImageName(rs.getString("imageName"));
+					p[i].setType(rs.getString("type"));
+				}
+				st.close();
+				rs.close();
+			}
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+		return p;
+	}
 
 }

@@ -13,10 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static model.Product.*;
-import static model.Order.*;
 import static model.OrderDAO.*;
-import static model.OrderProductsDAO.*;
 import static model.ProductDAO.*;
 ;/**
  * Servlet implementation class AdminServlet

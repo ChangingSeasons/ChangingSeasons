@@ -19,6 +19,10 @@ maxRequestSize=1024*1024*50)	// 50MB
 public class UploadServlet extends HttpServlet {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Name of the directory where uploaded files will be saved, relative to
 	 * the web application directory.
 	 */

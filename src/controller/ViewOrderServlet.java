@@ -1,6 +1,6 @@
 package controller;
 
-import static model.ProductDAO.*;
+import static model.OrderDAO.*;
 
 import java.io.IOException;
 
@@ -11,22 +11,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Order;
 import model.Product;
 
 /**
- * Servlet implementation class ViewProductServlet
+ * Servlet implementation class ViewOrderServlet
  */
-@WebServlet("/ViewProductServlet")
-public class ViewProductServlet extends HttpServlet {
+@WebServlet("/ViewOrderServlet")
+public class ViewOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ViewProductServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ViewOrderServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,12 +41,13 @@ public class ViewProductServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = "";
+
+		int orderID = Integer.parseInt(request.getParameter("orderID"));
 		
-		int productID = Integer.parseInt(request.getParameter("productID"));
-		Product p = viewProduct(productID);
+		Order o = viewOrder(orderID);
 		
-		url = "/view_product.jsp";
-		request.setAttribute("product", p);
+		url = "/view_order.jsp";
+		request.setAttribute("order", o);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
 	}

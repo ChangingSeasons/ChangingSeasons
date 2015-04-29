@@ -44,7 +44,7 @@ public class AdminDAO {
 	public static int noOfusers(){
 		
 		Connect();
-		User[] u;
+		
 		int countRows = 0;
 		try{
 			String q="SELECT * FROM User WHERE status <> 0";
@@ -111,7 +111,7 @@ public class AdminDAO {
 			String q2="SELECT * FROM User WHERE type='adm' AND status <> 0";
 			
 			st = cn.createStatement();
-			rs = st.executeQuery(q1);
+			rs = st.executeQuery(q2);
 
 			while(rs.next()){
 				u[i].setUsername(rs.getString("username"));
