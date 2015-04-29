@@ -4,7 +4,7 @@
 <%@ include file="navbar.jsp"%>
 
 <div class="container">
-	<form class="form-horizontal" action="/ChangingSeasons/AddProduct" method="post">
+	<form class="form-horizontal" action="/ChangingSeasons/AddProduct" method="post" enctype="multipart/form-data">
 		<fieldset>
 <% 
 
@@ -121,7 +121,7 @@ if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="image">Please choose an image you want to upload</label>
 				<div class="col-md-4">
-					<input type="file" id="image" name="datafile" >
+					<input type="file" id="image" name="file" >
 				</div>
 			</div>
 
