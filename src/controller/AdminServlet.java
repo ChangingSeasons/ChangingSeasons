@@ -85,7 +85,10 @@ public class AdminServlet extends HttpServlet {
 			url = "/base_index.jsp";
 		}
 		else if(action.equals("DeleteProduct")){
-
+			
+			int productID = Integer.parseInt(request.getParameter("productID"));
+			
+			statusProduct(productID);
 
 			url = "/base_index.jsp";
 		}
@@ -101,7 +104,9 @@ public class AdminServlet extends HttpServlet {
 			url = "/base_index.jsp";
 		}
 		else if(action.equals("DeleteOrder")){
-
+			
+			int orderID = Integer.parseInt(request.getParameter("orderID"));
+			deleteOrder(orderID);
 
 			url = "/base_index.jsp";
 		}

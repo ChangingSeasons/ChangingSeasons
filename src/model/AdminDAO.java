@@ -47,7 +47,7 @@ public class AdminDAO {
 		User[] u;
 		int countRows = 0;
 		try{
-			String q="SELECT * FROM User";
+			String q="SELECT * FROM User WHERE status <> 0";
 
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q);
@@ -76,7 +76,7 @@ public class AdminDAO {
 		
 		int i = 0;
 		try{
-			String q0="SELECT * FROM User JOIN Seller ON User.id=Seller.id WHERE type='sel'";
+			String q0="SELECT * FROM User JOIN Seller ON User.id=Seller.id WHERE type='sel' AND status <> 0";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 			
@@ -91,7 +91,7 @@ public class AdminDAO {
 			st.close();
 			rs.close();
 			////////////
-			String q1="SELECT * FROM User JOIN Customer ON User.id=Customer.id WHERE type='buy'";
+			String q1="SELECT * FROM User JOIN Customer ON User.id=Customer.id WHERE type='buy' AND status <> 0";
 			st = cn.createStatement();
 			rs = st.executeQuery(q1);
 
@@ -105,6 +105,22 @@ public class AdminDAO {
 			}
 			st.close();
 			rs.close();
+			
+			/////////////
+			
+			String q2="SELECT * FROM User WHERE type='adm' AND status <> 0";
+			
+			st = cn.createStatement();
+			rs = st.executeQuery(q1);
+
+			while(rs.next()){
+				u[i].setUsername(rs.getString("username"));
+				u[i].setType("adm");
+				i++;
+			}
+			st.close();
+			rs.close();
+			
 		}catch(SQLException se){
 			System.err.println(se.getMessage());
 			se.printStackTrace();

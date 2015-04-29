@@ -28,7 +28,7 @@ public class EmailDAO {
 		props.put("mail.store.protocol", "pop3");
 		props.put("mail.transport.protocol", "smtp");
 
-		final String username = "cseasons04@gmail.com"; //
+		final String username = "cseasons04@gmail.com"; 
 		final String password = "Software2015";
 		try{
 			

@@ -14,7 +14,7 @@ public class AuthDAO {
 		int userId=-1;
 		Connect();
 		try{
-			String q="SELECT id FROM User WHERE username='"+username+"' AND password='"+password+"'";
+			String q="SELECT id FROM User WHERE username='"+username+"' AND password='"+password+"' AND status <> 0";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q);
 			while(rs.next()){
@@ -27,9 +27,7 @@ public class AuthDAO {
 			e.printStackTrace();
 		}
 		DB_close();
-		if(userId!=-1)
-			return userId;
-		return -1;
+		return userId;
 	}
 
 	public static User getUserbyId(int userID){
@@ -100,11 +98,10 @@ public class AuthDAO {
 
 		int ID = -1;
 
-		Connect();
+		
 		try{
 			if(isUsernameAvailable(username)==true){
-				Class.forName("com.mysql.jdbc.Driver");
-				cn = DriverManager.getConnection("jdbc:mysql://localhost/SEProject", "root", "pass");
+				Connect();
 				String q0 = "Select id from User";
 				Statement st = cn.createStatement();
 				ResultSet rs = st.executeQuery(q0);
@@ -134,14 +131,9 @@ public class AuthDAO {
 		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
-		}catch(ClassNotFoundException c){
-			System.err.println(c.getMessage());
-			c.printStackTrace();
-		}		
+		}	
 		DB_close();
-		if(ID!=-1)
-			return ID;
-		return -1;
+		return ID;
 	}
 
 	public static boolean enterUsernameSeller(int userID, double phone, boolean authorized, String... args){
@@ -263,25 +255,6 @@ public class AuthDAO {
 		}catch(SQLException sql){
 			System.err.println(sql.getMessage());
 			sql.printStackTrace();
-		}
-		DB_close();
-		return true;
-	}
-
-	public static boolean statusUser(int id){ // To delete account
-		Connect();
-
-		// 1 --> active, 0 --> Deleted
-
-		try{
-			String q = "UPDATE User SET status=0 WHERE id="+id;
-			Statement st = cn.createStatement();
-			st.executeUpdate(q);
-
-			st.close();
-		}catch(SQLException se){
-			System.err.println(se.getMessage());
-			se.printStackTrace();
 		}
 		DB_close();
 		return true;

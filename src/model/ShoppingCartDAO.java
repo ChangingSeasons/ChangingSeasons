@@ -94,6 +94,7 @@ public class ShoppingCartDAO {
 		int cartID = getCartID(userID);
 
 		try{
+			Connect();
 			String q0 = "SELECT distinct productID FROM cartProducts WHERE cartID="+cartID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
@@ -117,11 +118,10 @@ public class ShoppingCartDAO {
 	}
 
 	public static boolean removeProduct(int customerID, int productID){
-		Connect();
-
 		int cartID = getCartID(customerID);
 
 		try{
+			Connect();
 			String q = "DELETE FROM CartProducts WHERE cartID="+cartID+" AND productID="+productID;
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);

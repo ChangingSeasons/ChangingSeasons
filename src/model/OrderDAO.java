@@ -33,16 +33,13 @@ public class OrderDAO {
 			e.printStackTrace();
 		}
 		DB_close();
-		if(ID!=-1)
-			return ID;
-		return -1;
+		return ID;
 	}
 
 	public static boolean addOrder(Date dateOfOrder, Date dateOfShipping, int customerID, String orderStatus, String shippingAddress){
-		Connect();
 		try{
 			int orderID = getID();
-			
+			Connect();
 			String q0 = "SELECT totalPrice FROM ShoppingCart WHERE customerID="+customerID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
@@ -104,7 +101,7 @@ public class OrderDAO {
 		Connect();
 		int countRows = 0;
 		try{
-			String q="SELECT * FROM Order";
+			String q="SELECT * FROM Order WHERE status <> 0";
 
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q);
@@ -123,7 +120,6 @@ public class OrderDAO {
 	}
 
 	public static Order[] orderDetails(int... ID){
-		Connect();
 
 		int noOforders = noOfOrders();
 
@@ -136,14 +132,15 @@ public class OrderDAO {
 		int customerID = 0;
 		String q0;
 		try{
+			Connect();
 			i = 0;
 
 			if(ID.length>0){ // List orders by Customer
 				customerID = ID[0];
-				q0="SELECT * FROM Order WHERE customerID="+customerID;
+				q0="SELECT * FROM Order WHERE customerID="+customerID+" AND status <> 0";
 			}
 			else // List all Orders
-				q0="SELECT * FROM Order";
+				q0="SELECT * FROM Order WHERE status <> 0";
 
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);

@@ -50,7 +50,6 @@ public class ProductDAO {
 	}
 
 	public static int insertProduct(String productName, String productDesc, int sellerID, float price, String imagepath, float shippingCost, String size, String color, String imageName, String type){
-		Connect();
 		int productID = getID();
 		try{
 			
@@ -103,15 +102,11 @@ public class ProductDAO {
 		return true;
 	}
 
-	public static boolean statusProduct(int productID, boolean delete){
+	public static boolean statusProduct(int productID){
 		Connect();
 
-		int status = 1; // Active
-		if(delete == true)
-			status = 0; // Deleted
-
 		try{
-			String q = "UPDATE Product SET status="+status+" WHERE productID="+productID;
+			String q = "UPDATE Product SET status=0 WHERE productID="+productID;
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);
 
@@ -158,7 +153,7 @@ public class ProductDAO {
 		Connect();
 		int countRows = 0;
 		try{
-			String q="SELECT * FROM Product";
+			String q="SELECT * FROM Product WHERE status <> 0";
 
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q);
@@ -194,10 +189,10 @@ public class ProductDAO {
 
 			if(ID.length>0){ // List products by seller
 				sellerID = ID[0];
-				q0="SELECT * FROM Product WHERE sellerID="+sellerID;
+				q0="SELECT * FROM Product WHERE sellerID="+sellerID+" AND status <> 0";
 			}
 			else // List all products
-				q0="SELECT * FROM Product";
+				q0="SELECT * FROM Product WHERE status <> 0";
 
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
@@ -233,7 +228,7 @@ public class ProductDAO {
 		Connect();
 		Product p = new Product();
 		try{
-			String q0="SELECT * FROM Product WHERE productID="+productID;
+			String q0="SELECT * FROM Product WHERE productID="+productID+" AND status <> 0";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 			while(rs.next()){
