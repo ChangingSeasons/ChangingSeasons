@@ -13,7 +13,7 @@ public class ProductDAO {
 		Connect();
 		try{
 			int productID = getID();
-
+			Connect();
 			String q1 = "INSERT into Product (productID, productName, productDesc, sellerID, price, imagePath, shippingCost, size, color, imageName, type, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = cn.prepareStatement(q1);
 			ps.setInt(1, productID);

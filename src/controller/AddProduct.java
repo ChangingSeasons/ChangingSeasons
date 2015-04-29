@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+
+
 
 import static model.ProductDAO.*;
 /**
@@ -56,7 +58,10 @@ public class AddProduct extends HttpServlet {
 
 		//int quantity = Integer.parseInt(request.getParameter("quantity"));
 
-		String imagepath = request.getParameter("imagepath");
+
+
+		String imagepath = "/Users/Summit/Desktop/Images/DD1.png";
+
 		String shippingCost = request.getParameter("shippingCost");
 
 		String sizearray[] = request.getParameterValues("size"); // User input
@@ -68,55 +73,65 @@ public class AddProduct extends HttpServlet {
 		for(i=0; i<str.length; i++)
 			str[i] = "false";
 
-		for(i=0; i<sizearray.length; i++){
-			if(sizearray[i].equals("XS"))
-				str[0] = "true";
-			if(sizearray[i].equals("S"))
-				str[1] = "true";
-			if(sizearray[i].equals("M"))
-				str[2] = "true";
-			if(sizearray[i].equals("L"))
-				str[3] = "true";
-			if(sizearray[i].equals("XL"))
-				str[4] = "true";
-			if(sizearray[i].equals("XXL"))
-				str[5] = "true";
+		String size = "";
+		if(sizearray.length!=0){
+			for(i=0; i<sizearray.length; i++){
+				if(sizearray[i].equals("XS"))
+					str[0] = "true";
+				if(sizearray[i].equals("S"))
+					str[1] = "true";
+				if(sizearray[i].equals("M"))
+					str[2] = "true";
+				if(sizearray[i].equals("L"))
+					str[3] = "true";
+				if(sizearray[i].equals("XL"))
+					str[4] = "true";
+				if(sizearray[i].equals("XXL"))
+					str[5] = "true";
+			}
+
+			for(i=0; i<str.length-1; i++){
+				sb.append(str[i]);
+				sb.append(" ");
+			}sb.append(str[i]);
+
+			size = sb.toString(); // This goes to Database
 		}
-
-		for(i=0; i<str.length-1; i++){
-			sb.append(str[i]);
-			sb.append(" ");
-		}sb.append(str[i]);
-
-		String size = sb.toString(); // This goes to Database
-
+		else
+			size = "false false false false false";
+		
 		sb = new StringBuilder();
 
 		// Re Init for Colors
 		for(i=0; i<str.length; i++)
 			str[i] = "false";
 
-		for(i=0; i<colorarray.length; i++){
-			if(sizearray[i].equals("Black"))
-				str[0] = "true";
-			if(sizearray[i].equals("White"))
-				str[1] = "true";
-			if(sizearray[i].equals("Red"))
-				str[2] = "true";
-			if(sizearray[i].equals("Brown"))
-				str[3] = "true";
-			if(sizearray[i].equals("Grey"))
-				str[4] = "true";
-			if(sizearray[i].equals("Blue"))
-				str[5] = "true";
+		String color = "";
+		if(colorarray.length!=0){
+			for(i=0; i<colorarray.length; i++){
+				if(sizearray[i].equals("Black"))
+					str[0] = "true";
+				if(sizearray[i].equals("White"))
+					str[1] = "true";
+				if(sizearray[i].equals("Red"))
+					str[2] = "true";
+				if(sizearray[i].equals("Brown"))
+					str[3] = "true";
+				if(sizearray[i].equals("Grey"))
+					str[4] = "true";
+				if(sizearray[i].equals("Blue"))
+					str[5] = "true";
+			}
+
+			for(i=0; i<str.length-1; i++){
+				sb.append(str[i]);
+				sb.append(" ");
+			}sb.append(str[i]);
+
+			color = sb.toString(); // This goes to Database
 		}
-
-		for(i=0; i<str.length-1; i++){
-			sb.append(str[i]);
-			sb.append(" ");
-		}sb.append(str[i]);
-
-		String color = sb.toString(); // This goes to Database
+		else
+			color = "false false false false false";
 
 		String imageName = request.getParameter("imageName"); 
 		String msg = "", url = "";
@@ -143,11 +158,11 @@ public class AddProduct extends HttpServlet {
 			request.setAttribute("msg", msg);
 		}
 
-		if(imagepath.length()==0){
-			url = "/addProducts.jsp";
-			msg = msg + "Please upload Product Image";
-			request.setAttribute("msg", msg);
-		}
+		//		if(imagepath.length()==0){
+		//			url = "/addProducts.jsp";
+		//			msg = msg + "Please upload Product Image";
+		//			request.setAttribute("msg", msg);
+		//		}
 		if(shippingCost.length()==0){
 			url = "/addProducts.jsp";
 			msg = msg + "Please fill-in Product Shipping-Cost";
