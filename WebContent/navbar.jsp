@@ -49,7 +49,7 @@
           <ul class="dropdown-menu" role="menu">
           <% if (user.getType().equals("buy")) { %>
             <li><a href="#">My Account</a></li>
-            <li><a href="#">View Past Orders</a></li>
+            <li><a href="viewOrder">View Orders</a></li>
             <li><a href="shoppingCart.jsp">Shopping Cart</a></li>
             <li class="divider"></li>
             <li><a href="AboutUs.jsp">About Us</a></li>
