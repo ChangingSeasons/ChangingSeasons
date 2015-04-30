@@ -119,11 +119,11 @@ public class OrderDAO {
 		return countRows;
 	}
 
-	public static Order[] orderSellers(int sellerID){
-		Order[] o = null;
-		Product[] p = null;
-		int[] pid = null;
-		int i = 0;
+	public static int[] orderSellers(int sellerID){
+		int[] oid = null; // Order IDs
+		
+		int[] pid = null; // Product IDs
+		int i = 0, j = 0;
 		try{
 			Connect();
 			String q0 = "SELECT productID FROM Product WHERE sellerID="+sellerID;
@@ -134,6 +134,20 @@ public class OrderDAO {
 				pid[i] = rs.getInt("productID");
 				i++;
 			}
+			st.close();
+			rs.close();
+			
+			for(i=0; i<pid.length; i++){
+				q0 = "SELECT DISTINCT orderID FROM OrderProducts WHERE productID="+pid[i];
+				st = cn.createStatement();
+				rs = st.executeQuery(q0);
+				while(rs.next()){
+					oid[j] = rs.getInt("orderID");
+					j++;
+				}
+			}
+			st.close();
+			rs.close();
 			
 			
 		}catch(SQLException se){
@@ -142,7 +156,7 @@ public class OrderDAO {
 		}
 		DB_close();
 
-		return o;
+		return oid;
 	}
 
 	public static Order[] orderDetails(int... ID){
