@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import javax.swing.text.DefaultEditorKit.CutAction;
+
 public class ShoppingCartDAO {
 
 	public static ShoppingCart cartDetails(int customerID){
@@ -20,9 +22,9 @@ public class ShoppingCartDAO {
 		int i = 0;
 		int[] productID = new int[noOfProducts];
 		int[] quantity = new int[noOfProducts];
-		
+
 		HashMap<Product, Integer> hm = new HashMap<Product, Integer>();
-		
+
 		try{
 			String q0 = "SELECT * FROM CartProducts WHERE cartID="+cartID;
 			Statement st = cn.createStatement();
@@ -61,14 +63,14 @@ public class ShoppingCartDAO {
 			}
 			st.close();
 			rs.close();
-			
-			
+
+
 			q0 = "SELECT * FROM ShoppingCart WHERE cartID="+cartID;
 			st = cn.createStatement();
 			rs = st.executeQuery(q0);
-			
+
 			sc = new ShoppingCart();
-			
+
 			while(rs.next()){
 				sc.setCartID(cartID);
 				sc.setCustomerID(customerID);
@@ -80,7 +82,7 @@ public class ShoppingCartDAO {
 			}
 			rs.close();
 			st.close();
-			
+
 		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
@@ -142,7 +144,7 @@ public class ShoppingCartDAO {
 		return ID;
 	}
 
-	public static boolean addTocart(int customerID){
+	public static boolean createCart(int customerID){ // Called upon Successful customer registration
 
 		Connect();
 		try{
@@ -150,15 +152,14 @@ public class ShoppingCartDAO {
 			Date startDate = new Date(calendar.getTime().getTime());
 
 			String q = "INSERT into ShoppingCart (cartID, dateAdded, customerID, totalPrice) values (?, ?, ?, ?)";
-			float totalPrice = totalPrice(customerID);
 			PreparedStatement ps = cn.prepareStatement(q);
 
 			ps.setInt(1, getCartID(customerID));
 			Connect();
 			ps.setDate(2, startDate);
 			ps.setInt(3, customerID);
-			ps.setFloat(4, totalPrice);
-			
+			ps.setFloat(4, 0); // Initially Total price of Cart would be 0
+
 			ps.executeUpdate();
 
 			ps.close();
@@ -168,6 +169,29 @@ public class ShoppingCartDAO {
 		}
 		DB_close();
 		return true;
+	}
+
+	public static float updateTotalPrice(int customerID){
+		float price = 0.0f;
+
+		price = totalPrice(customerID);
+		
+		if(price>0){ // Its 0 by default, hence a check
+			try{
+				Connect();
+				String q0 = "UPDATE ShoppingCart SET totalPrice="+price+" WHERE customerID="+customerID;
+				Statement st = cn.createStatement();
+				st.executeUpdate(q0);
+
+				st.close();
+			}catch(SQLException e){
+				System.err.println(e.getMessage());
+				e.printStackTrace();
+			}	
+			DB_close();
+		}
+		
+		return price;
 	}
 
 	public static int noOfproductsIncart(int userID){
@@ -195,7 +219,7 @@ public class ShoppingCartDAO {
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
-
+		DB_close();
 		return count;
 	}
 
@@ -222,6 +246,10 @@ public class ShoppingCartDAO {
 		float amount = 0.0f;
 		int cartID = getCartID(customerID);
 		int noOfProducts = noOfproductsIncart(customerID);
+
+		if(noOfProducts==0) // Empty Cart, Total price --> 0
+			return 0;
+
 		int flag = 0;
 
 		int[] productID = new int[noOfProducts];
@@ -256,10 +284,9 @@ public class ShoppingCartDAO {
 						price[i] = rs.getFloat("price");
 					}
 				}
+				for(i=0; i<price.length; i++)
+					amount += price[i] * quantity[i];
 			}
-
-			for(i=0; i<price.length; i++)
-				amount += price[i] * quantity[i];
 
 		}catch(SQLException e){
 			System.err.println(e.getMessage());

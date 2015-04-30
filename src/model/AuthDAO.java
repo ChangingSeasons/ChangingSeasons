@@ -131,7 +131,6 @@ public class AuthDAO {
 
 		int ID = -1;
 
-		
 		try{
 			if(isUsernameAvailable(username)==true){
 				Connect();
