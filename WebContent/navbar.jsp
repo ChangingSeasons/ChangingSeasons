@@ -59,7 +59,7 @@
             <% } else if(user.getType().equals("sel")) { %>
             <li><a href="sellerAccount.jsp">My Account</a></li>
             <li><a href="editSeller.jsp">Update Account</a></li>
-            <li><a href="#">View Customer Orders</a></li>
+            <li><a href="viewOrder.jsp">View Customer Orders</a></li>
             <li><a href="addProducts.jsp">Add Products</a></li>
             <li class="divider"></li>
            	<li><a href="AboutUs.jsp">About Us</a></li>
