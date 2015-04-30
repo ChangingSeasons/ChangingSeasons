@@ -23,7 +23,7 @@
 			</div>
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="username">Username: user.getUsername()</label>
+				<label class="col-md-4 control-label" for="username">Username: <% out.write(user.getUsername()); %></label>
 			</div>
 
 			<!-- Text input-->
