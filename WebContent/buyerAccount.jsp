@@ -23,47 +23,42 @@
 			</div>
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="username">Username: </label>
-			</div>
-
-			<!-- Password input-->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="password">Password: </label>
+				<label class="col-md-4 control-label" for="username">Username: <% out.write(user.getUsername()); %></label>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="firstname">First Name: </label>
+				<label class="col-md-4 control-label" for="firstname">First Name: <% out.write(user.getFirstname()); %></label>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="middlename">Middle Name: </label>
+				<label class="col-md-4 control-label" for="middlename">Middle Name: <% out.write(user.getMiddlename()); %></label>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="lastname">Last Name: </label>
+				<label class="col-md-4 control-label" for="lastname">Last Name: <% out.write(user.getLastname()); %></label>
 			</div>
 
 			<!-- Text area -->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="address">Address: </label>
+				<label class="col-md-4 control-label" for="address">Address: <% out.write(user.getAddress()); %></label>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="phone">Phone Number: </label>
+				<label class="col-md-4 control-label" for="phone">Phone Number: <% out.write(user.getPhone()+""); %></label>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="paypal">Paypal ID: </label>
+				<label class="col-md-4 control-label" for="paypal">Paypal ID: <% out.write(user.getPayPalID() != null ? user.getPayPalID() : "Not Entered"); %></label>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="email">Email: </label>
+				<label class="col-md-4 control-label" for="email">Email: <% out.write(user.getEmail()); %></label>
 			</div>
 
 			<!-- Button -->
