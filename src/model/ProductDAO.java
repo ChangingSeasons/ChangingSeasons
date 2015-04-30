@@ -179,7 +179,7 @@ public class ProductDAO {
 		Product p[] = new Product[noOfproducts];
 		int i=0;
 
-		for(i=0; i<noOfproducts; i++)
+		for(i=0; i<noOfproducts; i++) 
 			p[i] = new Product();
 
 		int sellerID = 0;
@@ -218,7 +218,7 @@ public class ProductDAO {
 			System.err.println(se.getMessage());
 			se.printStackTrace();
 		}
-
+		
 		DB_close();
 		return p;
 

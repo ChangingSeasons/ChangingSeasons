@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+	<%@page import="model.Product"%>
+	
 <div class="container"  style="width:100%">
 	<div class="col-md-4" style="float:left; width:20% ; height: 100000px;margin-left:10px;margin-right:10px;">
 		<div class="panel panel-default">
@@ -59,16 +60,16 @@
 	
 	<div class="row">
 		<%
-			for (int i = 0; i < 20; i++) {
+			if (products != null) {
+			for (Product p : products) {
 		%>
 		<div class="col-sm-5 col-md-3">
 			<div class="thumbnail">
 				<img src="imgs/NorthFace.png" alt="...">
 				<div class="caption">
-					<h3>Product Name</h3>
+					<h3><%out.write(p.getProductName()); %></h3>
 					<p>
-						Price:
-						<% out.write(i*1000+""); %>
+						Price:<%out.write(p.getPrice()+""); %>
 					</p>
 					<p>
 
@@ -81,7 +82,7 @@
 		</div>
 
 		<%
-			}
+			} }else out.write("error"); 
 		%>
 	</div>
 </div>

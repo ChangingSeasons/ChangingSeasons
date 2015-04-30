@@ -5,6 +5,12 @@
 <%@ include file="header.jsp"%>
 <%@ include file="navbar.jsp"%>
 
+<% 
+Product[] products = (Product[]) request.getAttribute("products");
+
+out.write("<h1>"+products+"</h1>");
+%>
+
 <div class="container">
 <%
 	String msg = (String) request.getAttribute("msg");
@@ -14,8 +20,8 @@
 	String name = (user.getType().equals("adm")) ? "ADMIN" : user.getFirstname() + " "+user.getLastname();
 	if(!loggedIn.equals(""))
 		out.write("<div class=\"alert alert-success\" role=\"alert\">Hello "+name+"</div>");
-	else{
-	out.write("<div class=\"alert alert-danger\" role=\"alert\">You are not logged in!</div>");
+	else {
+		out.write("<div class=\"alert alert-danger\" role=\"alert\">You are not logged in!</div>");
 	}
 %>
 </div>

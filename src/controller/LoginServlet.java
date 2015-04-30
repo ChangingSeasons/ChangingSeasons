@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Product;
+import model.ProductDAO;
 import static model.AuthDAO.*;
 /**
  * Servlet implementation class LoginServlet
@@ -67,8 +69,34 @@ public class LoginServlet extends HttpServlet {
 				se.setAttribute("user", getUserbyId(ID));
 				se.setAttribute("loggedIn", loggedIn);
 				se.setAttribute("ID", ID);
+				
+				/** Getting products depending on user type **/
+				Product[] product_list = null;
+				if (getUserbyId(ID).getType().equals("sel")){
+					System.out.println("Getting products for seller "+getUserbyId(ID).getFirstname());
+					product_list = ProductDAO.productDetails(ID);
+					System.out.println("length of return array: "+product_list.length);
+					for (Product p : product_list) {
+						System.out.println(p);
+						System.out.println(p.getProductID());
+						System.out.println(p.getProductName());
+					}
+				} else {
+					System.out.println("Not seller getting all products");
+					product_list = ProductDAO.productDetails();
+					System.out.println("length of return array: "+product_list.length);
+					for (Product p : product_list) {
+						System.out.println(p.getProductID());
+						System.out.println(p.getProductName());
+					}
+				}
+				
+				/**										**/
+				
 				url = "/base_index.jsp";
 				msg = "Login Successful!";
+				
+				request.setAttribute("products", product_list);
 				
 				request.setAttribute("loggedIn", loggedIn);
 				request.setAttribute("msg", msg);
