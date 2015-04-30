@@ -1,5 +1,6 @@
 package controller;
 
+import static model.EmailDAO.*;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -170,6 +171,7 @@ public class SignupServlet extends HttpServlet {
 				}
 				
 				if(status == true){
+					sendMail(email, "Welcome to Changing Seasons", "Thank you for registering with Us. We wish a pleasant shopping experience!");
 					msg = "Account Created Successfully";
 					request.setAttribute("msg", msg);
 					url = "/base_login.jsp";
