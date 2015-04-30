@@ -24,17 +24,19 @@ $(document).ready(function() {                                 // When the HTML 
     	    return $(this).val();
     	}).get();
     
-    	url = "/ProductFilterServlet"
-    		+ "?size=" + sizecheckValues
-    		+ "?color=" + colorcheckValues
-    		+ "?brand=" + brandcheckValues
-    		+ "?type=" + sizecheckValues
-            + "?price=" + pricecheckValues
-            		;
+    	url = "ProductFilterServlet"
+    		+ "?size="  + sizecheckValues
+    		+ "&color=" + colorcheckValues
+    		+ "&brand=" + brandcheckValues
+    		+ "&type="  + typecheckValues
+            + "&	price=" + pricecheckValues
+            ;
     	alert(url);
     
     	$.get(url, function(responseJson) {          // Execute Ajax GET request on URL of "ProductFilterServlet" and execute the following function with Ajax response JSON...
-
+    	    $.each(responseJson, function(index, item) { // Iterate over the JSON array.
+                console.log(item);
+            });
         });
     });
 });

@@ -38,7 +38,10 @@ public class ProductFilterServlet extends HttpServlet {
 		Map<String, String[]>  choices = request.getParameterMap();
 		
 		for (String s: choices.keySet()){
-			System.out.println("Key: "+s+" Object: "+choices.get(s));
+			System.out.println("Key: "+s);
+			for (String s2 : choices.get(s)){
+				System.out.println("Object: "+s2);
+			}
 		}
 		
 	    String json = new Gson().toJson(total_products);
