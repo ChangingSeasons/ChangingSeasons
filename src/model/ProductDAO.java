@@ -143,9 +143,7 @@ public class ProductDAO {
 			e.printStackTrace();
 		}
 		DB_close();
-		if(ID!=-1)
-			return ID;
-		return -1;
+		return ID;
 	}
 
 	public static int noOfProducts(){
@@ -172,7 +170,7 @@ public class ProductDAO {
 	}
 
 	public static Product[] productDetails(int... ID){
-		Connect();
+		
 
 		int noOfproducts = noOfProducts();
 
@@ -186,7 +184,7 @@ public class ProductDAO {
 		String q0;
 		try{
 			i = 0;
-
+		
 			if(ID.length>0){ // List products by seller
 				sellerID = ID[0];
 				q0="SELECT * FROM Product WHERE sellerID="+sellerID+" AND status <> 0";

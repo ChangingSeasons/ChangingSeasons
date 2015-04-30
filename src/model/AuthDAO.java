@@ -56,6 +56,7 @@ public class AuthDAO {
 					u.setEmail(rs.getString("email"));
 					u.setPhone(rs.getDouble("phone"));
 					u.setPayPalID(rs.getString("payPalID"));
+					u.setMiddlename(rs.getString("middlename"));
 				}
 				rs.close();
 				st.close();
@@ -87,6 +88,7 @@ public class AuthDAO {
 					u.setBankAccount(rs.getString("bankAccount"));
 					u.setRoutingNumber(rs.getString("routingNumber"));
 					u.setPayPalID(rs.getString("payPalID"));
+					u.setMiddlename(rs.getString("middlename"));
 				}
 				rs.close();
 				st.close();

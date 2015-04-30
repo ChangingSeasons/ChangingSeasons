@@ -43,17 +43,17 @@ public class OrderDAO {
 			String q0 = "SELECT totalPrice FROM ShoppingCart WHERE customerID="+customerID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-			
+
 			float price=0f;
-			
+
 			while(rs.next())
 				price = rs.getFloat("totalPrice");
-			
+
 			st.close();
 			rs.close();
 
 			float amount = (1.08f * price);
-			
+
 			String q1 = "INSERT into Order (orderID, dateOfOrder, dateOfShipping, customerID, orderStatus, shippingAddress, total_price, tax, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = cn.prepareStatement(q1);
 			ps.setInt(1, orderID);
@@ -119,6 +119,32 @@ public class OrderDAO {
 		return countRows;
 	}
 
+	public static Order[] orderSellers(int sellerID){
+		Order[] o = null;
+		Product[] p = null;
+		int[] pid = null;
+		int i = 0;
+		try{
+			Connect();
+			String q0 = "SELECT productID FROM Product WHERE sellerID="+sellerID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+			
+			while(rs.next()){
+				pid[i] = rs.getInt("productID");
+				i++;
+			}
+			
+			
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+
+		return o;
+	}
+
 	public static Order[] orderDetails(int... ID){
 
 		int noOforders = noOfOrders();
@@ -168,7 +194,7 @@ public class OrderDAO {
 		return o;
 
 	}
-	
+
 	public static boolean deleteOrder(int orderID){
 		Connect();
 
@@ -215,7 +241,7 @@ public class OrderDAO {
 		DB_close();
 		return o;
 	}
-	
-	
+
+
 
 }
