@@ -8,7 +8,7 @@ public class User implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String firstname, lastname, type, username;
-
+	private String middlename;
 	private String address, email, payPalID;
 	private double phone;
 	
@@ -22,6 +22,7 @@ public class User implements Serializable{
 		super();
 		this.firstname="";
 		this.lastname="";
+		this.middlename = "";
 		this.type="";
 		this.username="";
 		this.status = true;
@@ -34,6 +35,16 @@ public class User implements Serializable{
 		this.bankAccount = "";
 		this.routingNumber = "";
 		this.authorized = false;
+	}
+
+
+	public String getMiddlename() {
+		return middlename;
+	}
+
+
+	public void setMiddlename(String middlename) {
+		this.middlename = middlename;
 	}
 
 
