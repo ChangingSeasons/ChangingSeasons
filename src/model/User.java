@@ -11,6 +11,7 @@ public class User implements Serializable{
 	private String middlename;
 	private String address, email, payPalID;
 	private double phone;
+	private int ID;
 	
 	//Seller
 	private String companyName, URL, bankAccount, routingNumber;
@@ -20,6 +21,7 @@ public class User implements Serializable{
 
 	public User() {
 		super();
+		this.ID = 0;
 		this.firstname="";
 		this.lastname="";
 		this.middlename = "";
@@ -38,15 +40,21 @@ public class User implements Serializable{
 	}
 
 
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
+	}
+
 	public String getMiddlename() {
 		return middlename;
 	}
 
-
 	public void setMiddlename(String middlename) {
 		this.middlename = middlename;
 	}
-
 
 	public String getAddress() {
 		return address;

@@ -50,6 +50,7 @@ public class AuthDAO {
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
 				while(rs.next()){
+					u.setID(userID);
 					u.setFirstname(rs.getString("firstname"));
 					u.setLastname(rs.getString("lastname"));
 					u.setAddress(rs.getString("address"));
@@ -77,6 +78,7 @@ public class AuthDAO {
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
 				while(rs.next()){
+					u.setID(userID);
 					u.setFirstname(rs.getString("firstname"));
 					u.setLastname(rs.getString("lastname"));		
 					u.setAddress(rs.getString("address"));
@@ -109,6 +111,7 @@ public class AuthDAO {
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
 				while(rs.next()){
+					u.setID(userID);
 					u.setUsername(rs.getString("username"));
 				}
 				rs.close();
