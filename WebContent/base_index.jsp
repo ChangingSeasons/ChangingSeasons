@@ -5,11 +5,6 @@
 <%@ include file="header.jsp"%>
 <%@ include file="navbar.jsp"%>
 
-<% 
-Product[] products = (Product[]) request.getAttribute("products");
-
-out.write("<h1>"+products+"</h1>");
-%>
 
 <div class="container">
 <%

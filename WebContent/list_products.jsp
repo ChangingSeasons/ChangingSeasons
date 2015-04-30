@@ -57,10 +57,13 @@
 				</div>
 			</div>
 	</div>
-	
+	<%@page import="model.Product"%>
+<% 
+Product[] products = (Product[]) request.getAttribute("products");
+%>
 	<div class="row">
 		<%
-			if (products != null) {
+		if (products != null) {
 			for (Product p : products) {
 		%>
 		<div class="col-sm-5 col-md-3">
@@ -72,7 +75,6 @@
 						Price:<%out.write(p.getPrice()+""); %>
 					</p>
 					<p>
-
 						<a href="#" class="btn btn-primary btn-xs" role="button">View
 							Product</a> <a href="#" class="btn btn-default btn-xs" role="button">Edit
 							Product</a>
@@ -82,7 +84,7 @@
 		</div>
 
 		<%
-			} }else out.write("error"); 
+			} }else out.write("No products found"); 
 		%>
 	</div>
 </div>
