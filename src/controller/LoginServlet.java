@@ -1,5 +1,5 @@
 package controller;
-
+import static model.ProductDAO.*;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -71,10 +71,10 @@ public class LoginServlet extends HttpServlet {
 				se.setAttribute("ID", ID);
 				
 				/** Getting products depending on user type **/
-				Product[] product_list = null;
+				Product[] product_list = new Product[noOfProducts()];
 				if (getUserbyId(ID).getType().equals("sel")){
 					System.out.println("Getting products for seller "+getUserbyId(ID).getFirstname());
-					product_list = ProductDAO.productDetails(ID);
+					product_list = productDetails(ID);
 					System.out.println("length of return array: "+product_list.length);
 					for (Product p : product_list) {
 						System.out.println(p);
@@ -82,8 +82,8 @@ public class LoginServlet extends HttpServlet {
 						System.out.println(p.getProductName());
 					}
 				} else {
-					System.out.println("Not seller getting all products");
-					product_list = ProductDAO.productDetails();
+					System.out.println("No seller getting all products");
+					product_list = productDetails();
 					System.out.println("length of return array: "+product_list.length);
 					for (Product p : product_list) {
 						System.out.println(p.getProductID());

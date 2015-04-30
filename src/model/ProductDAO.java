@@ -193,7 +193,7 @@ public class ProductDAO {
 			}
 			else // List all products
 				q0="SELECT * FROM Product WHERE status <> 0";
-
+			Connect();
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 			while(rs.next()){
