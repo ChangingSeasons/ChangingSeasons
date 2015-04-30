@@ -154,10 +154,11 @@ public class ShoppingCartDAO {
 			PreparedStatement ps = cn.prepareStatement(q);
 
 			ps.setInt(1, getCartID(customerID));
+			Connect();
 			ps.setDate(2, startDate);
 			ps.setInt(3, customerID);
 			ps.setFloat(4, totalPrice);
-			Connect();
+			
 			ps.executeUpdate();
 
 			ps.close();

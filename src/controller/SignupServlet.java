@@ -1,5 +1,5 @@
 package controller;
-
+import static model.ShoppingCartDAO.*;
 import static model.EmailDAO.*;
 import java.io.IOException;
 
@@ -172,6 +172,7 @@ public class SignupServlet extends HttpServlet {
 				
 				if(status == true){
 					sendMail(email, "Welcome to Changing Seasons", "Thank you for registering with Us. We wish a pleasant shopping experience!");
+					addTocart(userId);
 					msg = "Account Created Successfully";
 					request.setAttribute("msg", msg);
 					url = "/base_login.jsp";
