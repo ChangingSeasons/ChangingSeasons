@@ -44,6 +44,8 @@ public class ViewProductServlet extends HttpServlet {
 		int productID = Integer.parseInt(request.getParameter("productID"));
 		Product p = viewProduct(productID);
 		
+		System.out.println("product id recieved: "+productID);
+		
 		url = "/view_product.jsp";
 		request.setAttribute("product", p);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
