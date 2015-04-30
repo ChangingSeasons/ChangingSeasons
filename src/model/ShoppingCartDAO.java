@@ -8,8 +8,88 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class ShoppingCartDAO {
+
+	public static ShoppingCart cartDetails(int customerID){
+		ShoppingCart sc = null;
+
+		int cartID = getCartID(customerID);
+		int noOfProducts = noOfproductsIncart(customerID);
+		int i = 0;
+		int[] productID = new int[noOfProducts];
+		int[] quantity = new int[noOfProducts];
+		
+		HashMap<Product, Integer> hm = new HashMap<Product, Integer>();
+		
+		try{
+			String q0 = "SELECT * FROM CartProducts WHERE cartID="+cartID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+
+			while(rs.next()){
+				productID[i] = rs.getInt("productID");
+				quantity[i] = rs.getInt("quantity");
+				i++;
+			}
+
+			st.close();
+			rs.close();
+
+			i = 0;
+			for(i=0; i<productID.length; i++){
+				q0 = "SELECT * FROM Product WHERE productID="+productID[i];
+				st = cn.createStatement();
+				rs = st.executeQuery(q0);
+				while(rs.next()){
+					Product p = new Product();
+					p.setProductID(rs.getInt("productID"));
+					p.setProductName(rs.getString("productName"));
+					p.setProductDesc(rs.getString("productDesc"));
+					p.setSellerID(rs.getInt("sellerID"));
+					p.setPrice(rs.getFloat("price"));
+					p.setImagePath(rs.getString("imagePath"));
+					p.setShippingCost(rs.getFloat("shippingCost"));
+					p.setSize(rs.getString("size"));
+					p.setColor(rs.getString("color"));
+					p.setImageName(rs.getString("imageName"));
+					p.setType(rs.getString("type"));
+					p.setStatus(rs.getBoolean("status"));
+					hm.put(p, quantity[i]);
+				}
+			}
+			st.close();
+			rs.close();
+			
+			
+			q0 = "SELECT * FROM ShoppingCart WHERE cartID="+cartID;
+			st = cn.createStatement();
+			rs = st.executeQuery(q0);
+			
+			sc = new ShoppingCart();
+			
+			while(rs.next()){
+				sc.setCartID(cartID);
+				sc.setCustomerID(customerID);
+				sc.setDateAdded(rs.getDate("dateAdded"));
+				sc.setTotalPrice(rs.getFloat("totalPrice"));
+				sc.setQuantity(quantity.length);
+				sc.setHm(hm);
+				sc.setNoOfProducts(noOfProducts);
+			}
+			rs.close();
+			st.close();
+			
+		}catch(SQLException e){
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+		DB_close();
+
+
+		return sc;
+	}
 
 	private static int getLastID(){
 		Connect();
@@ -142,18 +222,18 @@ public class ShoppingCartDAO {
 		int cartID = getCartID(customerID);
 		int noOfProducts = noOfproductsIncart(customerID);
 		int flag = 0;
-		
+
 		int[] productID = new int[noOfProducts];
 		int[] quantity = new int[noOfProducts];
 		float[] price = new float[noOfProducts];
-		
+
 		Connect();
 		int i = 0;
 		try{
 			String q0 = "SELECT productID, quantity FROM CartProduct WHERE cartID="+cartID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-			
+
 			if(rs.next()){
 				while(rs.next()){
 					productID[i] = rs.getInt("productID");
@@ -162,10 +242,10 @@ public class ShoppingCartDAO {
 				}
 				flag = 1;
 			}
-			
+
 			st.close();
 			rs.close();
-			
+
 			if(flag == 1){
 				for(i=0; i<productID.length; i++){
 					q0 = "SELECT price FROM Product WHERE productID="+productID[i];
@@ -176,10 +256,10 @@ public class ShoppingCartDAO {
 					}
 				}
 			}
-			
+
 			for(i=0; i<price.length; i++)
 				amount += price[i] * quantity[i];
-			
+
 		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();

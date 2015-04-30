@@ -45,7 +45,7 @@ public class User implements Serializable{
 	}
 
 	public void setID(int iD) {
-		ID = iD;
+		this.ID = iD;
 	}
 
 	public String getMiddlename() {

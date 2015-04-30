@@ -2,6 +2,7 @@ package model;
 
 import static model.ConnectDB.*;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -47,6 +48,27 @@ public class CartProductsDAO {
 			se.printStackTrace();
 		}
 
+		DB_close();
+		return true;
+	}
+	
+	public static boolean insertIntoCartProducts(int cartID, int productID, int quantity){
+		try{
+			String q = "INSERT into CartProducts (cartProductID, cartID, productID, quantity) values (?, ?, ?, ?)";
+			PreparedStatement ps = cn.prepareStatement(q);
+			ps.setInt(1, getID());
+			ps.setInt(2, cartID);
+			ps.setInt(3, productID);
+			ps.setInt(4, quantity); 
+			Connect();
+			ps.executeUpdate();
+			
+			ps.close();
+		}catch(SQLException e){
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+		
 		DB_close();
 		return true;
 	}

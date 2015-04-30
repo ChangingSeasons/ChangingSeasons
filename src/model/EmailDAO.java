@@ -63,7 +63,7 @@ public class EmailDAO {
 			msg.setText(to+" sent:\n"+message);
 			msg.setSentDate(new Date());
 			Transport.send(msg);
-
+			
 		}catch (MessagingException e){ 
 			e.printStackTrace();
 			System.out.println(e.getMessage());
