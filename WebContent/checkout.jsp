@@ -13,18 +13,10 @@
 		</h1>
 	</div>
 
-
-<% String msg = (String)request.getAttribute("msg");
-	if(msg != null) {
-		if (msg.equals("You have logged out!")) out.write("<div class=\"alert alert-success\" role=\"alert\">"+msg+"</div>");
-		else out.write("<div class=\"alert alert-danger\" role=\"alert\">"+msg+"</div>");
-	}
-%>
-
-	<form class="form-horizontal" action="/ChangingSeasons/" method="post">
-		<fieldset>
-
 <!-- Display Name and Address of the customer -->
+
+		<label style="font-weight: bold"><% out.write(user.getUsername()); %></label>
+        <label><% out.write(user.getAddress()); %></label>
 			
 			<!-- Button -->
 			<div class="form-group">

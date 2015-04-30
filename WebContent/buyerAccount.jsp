@@ -4,14 +4,6 @@
 <%@ include file="navbar.jsp"%>
 
 <div class="container">
-	<% 
-		String msg = (String)request.getAttribute("msg");
-		if(msg == null) msg="";
-		if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">"+msg+"</div>");
-		
-		String logIn = (String) session.getAttribute("loggedIn");
-		if(loggedIn != null){
-	%>
 	<form class="form-horizontal" action="/ChangingSeasons/MyAccount" method="post">
 		<fieldset>
 
@@ -23,42 +15,50 @@
 			</div>
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="username">Username: <% out.write(user.getUsername()); %></label>
+				<label class="col-md-4 control-label" for="username" style="font-weight: bold">Username:
+				</label> <% out.write(user.getUsername()); %>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="firstname">First Name: <% out.write(user.getFirstname()); %></label>
+				<label class="col-md-4 control-label" for="firstname" style="font-weight: bold">First Name:
+				</label> <% out.write(user.getUsername()); %>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="middlename">Middle Name: <% out.write(user.getMiddlename()); %></label>
+				<label class="col-md-4 control-label" for="middlename" style="font-weight: bold">Middle Name:
+				</label> <% out.write(user.getMiddlename()); %>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="lastname">Last Name: <% out.write(user.getLastname()); %></label>
+				<label class="col-md-4 control-label" for="lastname" style="font-weight: bold">Last Name:
+				</label> <% out.write(user.getLastname()); %>
 			</div>
 
 			<!-- Text area -->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="address">Address: <% out.write(user.getAddress()); %></label>
+				<label class="col-md-4 control-label" for="address" style="font-weight: bold">Address:
+				</label> <% out.write(user.getAddress()); %>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="phone">Phone Number: <% out.write(user.getPhone()+""); %></label>
+				<label class="col-md-4 control-label" for="phone" style="font-weight: bold">Phone Number:
+				</label> <% out.write(user.getPhone()+""); %>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="paypal">Paypal ID: <% out.write(user.getPayPalID() != null ? user.getPayPalID() : "Not Entered"); %></label>
+				<label class="col-md-4 control-label" for="paypal" style="font-weight: bold">Paypal ID:
+				</label> <% out.write(user.getPayPalID() != null ? user.getPayPalID() : "Not Entered"); %>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="email">Email: <% out.write(user.getEmail()); %></label>
+				<label class="col-md-4 control-label" for="email" style="font-weight: bold">Email:
+				</label> <% out.write(user.getEmail()); %>
 			</div>
 
 			<!-- Button -->
@@ -74,11 +74,6 @@
 
 		</fieldset>
 	</form>
-	<% }
-	
-	if(logIn!=null)
-		out.write("<h3>You are already LoggedIn!</h3>");%>
-
 </div>
 <!-- /container -->
 

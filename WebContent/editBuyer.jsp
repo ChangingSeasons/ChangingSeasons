@@ -4,15 +4,7 @@
 <%@ include file="navbar.jsp"%>
 
 <div class="container">
-	<% 
-		String msg = (String)request.getAttribute("msg");
-		if(msg == null) msg="";
-		if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">"+msg+"</div>");
-		
-		String logIn = (String) session.getAttribute("loggedIn");
-		if(loggedIn != null){
-	%>
-	<form class="form-horizontal" action="/ChangingSeasons/" method="post">
+	<form class="form-horizontal" action="/ChangingSeasons/Update" method="post">
 		<fieldset>
 
 			<!-- Form Name -->
@@ -23,31 +15,15 @@
 			</div>
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="username">Username: xyz</label>
-			</div>
-
-			<!-- Password input-->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="password">Password</label>
-				<div class="col-md-4">
-					<input id="password" name="password" type="password" class="form-control input-md">
-
-				</div>
-			</div>
-
-			<!-- Password input-->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="passwordc">Confirm Password</label>
-				<div class="col-md-4">
-					<input id="passwordc" name="passwordc" type="password" class="form-control input-md">
-				</div>
+				<label class="col-md-4 control-label" for="username">Username: <% out.write(user.getUsername());%></label>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="firstname">First Name: </label>
 				<div class="col-md-4">
-					<input id="firstname" name="firstname" type="text" class="form-control input-md">
+					<input id="firstname" name="firstname" type="text" class="form-control input-md" 
+					value="<% out.write(user.getFirstname());%>">
 
 				</div>
 			</div>
@@ -56,7 +32,8 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="middlename">Middle Name: </label>
 				<div class="col-md-4">
-					<input id="middlename" name="middlename" type="text" class="form-control input-md">
+					<input id="middlename" name="middlename" type="text" class="form-control input-md" 
+					value=" <% out.write(user.getMiddlename()); %>">
 
 				</div>
 			</div>
@@ -65,7 +42,8 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="lastname">Last Name: </label>
 				<div class="col-md-4">
-					<input id="lastname" name="lastname" type="text" class="form-control input-md">
+					<input id="lastname" name="lastname" type="text" class="form-control input-md" 
+					value="<% out.write(user.getLastname()); %>">
 
 				</div>
 			</div>
@@ -74,7 +52,8 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="address">Address: </label>
 				<div class="col-md-4">
-					<textarea class="form-control" id="address" name="address"></textarea>
+					<textarea class="form-control" id="address" name="address" 
+					value="<% out.write(user.getAddress()); %>"></textarea>
 				</div>
 			</div>
 
@@ -82,7 +61,8 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="phone">Phone Number: </label>
 				<div class="col-md-4">
-					<input id="phone" name="phone" type="text" class="form-control input-md">
+					<input id="phone" name="phone" type="text" class="form-control input-md" 
+					value="<% out.write(user.getPhone()+""); %>">
 
 				</div>
 			</div>
@@ -91,7 +71,8 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="paypal">Paypal ID: </label>
 				<div class="col-md-4">
-					<input id="paypal" name="paypal" type="text" class="form-control input-md">
+					<input id="paypal" name="paypal" type="text" class="form-control input-md" 
+					value="<% out.write(user.getPayPalID() != null ? user.getPayPalID() : "Not Entered"); %>">
 				</div>
 			</div>
 
@@ -99,7 +80,8 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="email">Email: </label>
 				<div class="col-md-4">
-					<input id="email" name="email" type="text" class="form-control input-md">
+					<input id="email" name="email" type="text" class="form-control input-md" 
+					value="<% out.write(user.getEmail()); %>">
 
 				</div>
 			</div>
@@ -117,11 +99,6 @@
 
 		</fieldset>
 	</form>
-	<% }
-	
-	if(logIn!=null)
-		out.write("<h3>You are already LoggedIn!</h3>");%>
-
 </div>
 <!-- /container -->
 
