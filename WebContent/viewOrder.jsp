@@ -49,7 +49,7 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="cart"></label>
 				<div class="col-md-4" >
-					<button type="button" id="lproducts" name="lproducts" onclick="location.href = 'list_products.jsp';"
+					<button type="button" id="lproducts" name="lproducts" onclick="location.href = 'base_index.jsp';"
 						class="btn btn-primary">Continue Shopping</button>
 				</div>
 			</div>

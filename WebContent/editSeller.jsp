@@ -23,7 +23,7 @@
 				<label class="col-md-4 control-label" for="company">Company Name: </label>
 				<div class="col-md-4">
 					<input id="company" name="company" type="text"class="form-control input-md"
-					value="<% out.write(user.getCompanyName()); %>">
+					value="<%=user.getCompanyName() %>">
 				</div>
 			</div>
 			
@@ -58,8 +58,8 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="address">Address: </label>
 				<div class="col-md-4">
-					<textarea class="form-control" id="address" name="address"
-					value="<% out.write(user.getAddress()); %>"></textarea>
+					<textarea class="form-control" id="address" name="address" align="left">
+					<% out.write(user.getAddress()); %></textarea>
 				</div>
 			</div>
 

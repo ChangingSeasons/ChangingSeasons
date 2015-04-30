@@ -124,7 +124,7 @@ List<Product> products = (List<Product>) session.getAttribute("products");
 				<div class="caption">
 					<h3> <%=p.getProductName()%></h3>
 					<p>
-						Price:<%=p.getPrice()+""%>
+						Price: $<%=p.getPrice()+""%>
 					</p>
 					<p> <form  action="/ChangingSeasons/ViewProductServlet" method="post">	
 						<input type="hidden" name="productID" value="<%=(id+"")%>">

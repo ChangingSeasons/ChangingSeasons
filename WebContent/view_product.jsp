@@ -22,13 +22,13 @@
 				<div class="panel-body">
 
 					<p>
-						<strong>Product Description</strong> 
+						<strong>Product Description: </strong> 
 						<%=product.getProductDesc()%>
 					</p>
 					<p>
-						<strong>Product Price</strong> <%=product.getPrice()+""%>
+						<strong>Product Price: </strong> $<%=product.getPrice()+""%>
 					</p>
-					<p><strong>Quantity</strong>
+					<p><strong>Quantity: </strong>
 					<select id="selectYear" style="width:auto;" class="form-control selectWidth">
                    <option class="">01</option>
                    <option class="">02</option>

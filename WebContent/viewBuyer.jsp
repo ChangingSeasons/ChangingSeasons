@@ -17,6 +17,7 @@
 	    <thead>
 	      <tr>
 	        <th>Sl no</th>
+	        <th>User Name</th>
 	        <th>First Name</th>
 	        <th>Last Name</th>
 	        <th>Address</th>
@@ -33,6 +34,7 @@
 	    <tbody>
 	      <tr>
 	        <td><% out.write(i*1+""); %></td>
+	        <td>aa</td>
 	        <td>Anna</td>
 	        <td>Bella</td>
 	        <td>New York</td>

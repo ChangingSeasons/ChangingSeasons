@@ -17,6 +17,7 @@
 	    <thead>
 	      <tr>
 	        <th>Sl no</th>
+	        <th>User Name</th>
 	        <th>Company Name</th>
 	        <th>Address</th>
 	        <th>Email</th>
@@ -33,6 +34,7 @@
 	    <tbody>
 	      <tr>
 	        <td><% out.write(i*1+""); %></td>
+	        <td>bb</td>
 	        <td>DC</td>
 	        <td>New York</td>
 	        <td>xyz@gmail.com</td>
