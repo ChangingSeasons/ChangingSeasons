@@ -153,7 +153,7 @@ public class AuthDAO {
 				ps.setString (2,username);
 				ps.setString (3,password);
 				ps.setString(4, type);
-				ps.setBoolean(5, true); // Account is active, by deafult, unless otherwise user itself chose to delete it
+				ps.setBoolean(5, true); // Account is active, by default, unless otherwise user itself chose to delete it
 				ps.executeUpdate();
 				ps.close();
 
@@ -172,9 +172,9 @@ public class AuthDAO {
 			String companyName = args[0], address = args[1],
 					email = args[2], URL = args[3],
 					bankAccount = args[4], routingNumber = args[5],
-					firstname = args[6], middlename = args[7], lastname = args[8];
+					firstname = args[6], middlename = args[7], lastname = args[8], payPalID = args[9];
 
-			String q1 = "INSERT into Seller (id, companyName, address, email, phone, authorized, URL, bankAccount, routingNumber, firstname, middlename, lastname)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String q1 = "INSERT into Seller (id, companyName, address, email, phone, authorized, URL, bankAccount, routingNumber, firstname, middlename, lastname, payPalID)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = cn.prepareStatement(q1);
 			ps.setInt(1, userID);
 			ps.setString(2, companyName);
@@ -188,6 +188,7 @@ public class AuthDAO {
 			ps.setString (10, firstname);
 			ps.setString(11, middlename);
 			ps.setString (12, lastname);
+			ps.setString(13, payPalID);
 			ps.executeUpdate();
 			ps.close();
 		}catch(SQLException e){
@@ -285,6 +286,52 @@ public class AuthDAO {
 		}catch(SQLException sql){
 			System.err.println(sql.getMessage());
 			sql.printStackTrace();
+		}
+		DB_close();
+		return true;
+	}
+	
+	public static boolean updateSeller(int userID, double phone, boolean authorized, String... args){
+		Connect();
+		try{
+			String companyName = args[0], address = args[1],
+					email = args[2], URL = args[3],
+					bankAccount = args[4], routingNumber = args[5],
+					firstname = args[6], middlename = args[7], lastname = args[8], payPalID = args[9];
+
+			String q = "UPDATE Seller SET companyName='"+companyName+"', address='"+address+
+					"', email='"+email+"', phone="+phone+", URL='"+URL+"', bankAccount='"+bankAccount+
+					"', routingNumber='"+routingNumber+"', firstname='"+firstname+
+					"', middlename='"+middlename+"', lastname='"+lastname+"', payPalID='"+payPalID+"' WHERE id="+userID;
+			
+			Statement st = cn.createStatement();
+			st.executeUpdate(q);
+
+			st.close();
+			
+		}catch(SQLException e){
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+		DB_close();
+		return true;
+	}
+
+	public static boolean updateBuyer(int userID, String firstname, String lastname, String address, String email, double phone, String payPalID, String middlename){
+		Connect();
+		try{
+			String q = "UPDATE Customer SET firstname='"+firstname+"', lastname='"+lastname+
+					"', address='"+address+"', email='"+email+"', phone="+phone+", payPalID='"+payPalID+
+					"', middlename='"+middlename+"' WHERE id="+userID;
+			
+			Statement st = cn.createStatement();
+			st.executeUpdate(q);
+
+			st.close();
+
+		}catch(SQLException e){
+			System.err.println(e.getMessage());
+			e.printStackTrace();
 		}
 		DB_close();
 		return true;

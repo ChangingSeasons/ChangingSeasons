@@ -37,9 +37,10 @@ public class OrderDAO {
 		return ID;
 	}
 
-	public static boolean addOrder(Date dateOfOrder, Date dateOfShipping, int customerID, String orderStatus, String shippingAddress){
+	public static int addOrder(Date dateOfOrder, Date dateOfShipping, int customerID, String orderStatus, String shippingAddress){
+		int orderID = getID();
 		try{
-			int orderID = getID();
+			
 			Connect();
 			String q0 = "SELECT totalPrice FROM ShoppingCart WHERE customerID="+customerID;
 			Statement st = cn.createStatement();
@@ -74,7 +75,7 @@ public class OrderDAO {
 			se.printStackTrace();
 		}
 		DB_close();
-		return true;
+		return orderID;
 	}
 
 	public static boolean editOrder(int orderID, Date dateOfOrder, Date dateOfShipping, String orderStatus, String shippingAddress, float total_price, float tax){

@@ -178,11 +178,11 @@ public class VendorServlet extends HttpServlet {
 				
 				if(phone.length()==0){
 					phone = "";
-					status = enterUsernameSeller(userId, 0, false, company, address, email, url, accoutno, routingno, firstname, middlename, lastname);
+					status = enterUsernameSeller(userId, 0, false, company, address, email, url, accoutno, routingno, firstname, middlename, lastname, paypal);
 				}
 				else{
 					double phno = Double.parseDouble(phone);
-					status = enterUsernameSeller(userId, phno, false, company, address, email, url, accoutno, routingno, firstname, middlename, lastname);
+					status = enterUsernameSeller(userId, phno, false, company, address, email, url, accoutno, routingno, firstname, middlename, lastname, paypal);
 				}
 				
 				if(status == true){
