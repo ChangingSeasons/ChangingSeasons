@@ -16,49 +16,49 @@
 			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="username" style="font-weight: bold">Username:
-				</label> <% out.write(user.getUsername()); %>
+				</label> <%=user.getUsername()%>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="firstname" style="font-weight: bold">First Name:
-				</label> <% out.write(user.getUsername()); %>
+				</label> <%=user.getUsername()%>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="middlename" style="font-weight: bold">Middle Name:
-				</label> <% out.write(user.getMiddlename()); %>
+				</label> <%=user.getMiddlename()%>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="lastname" style="font-weight: bold">Last Name:
-				</label> <% out.write(user.getLastname()); %>
+				</label> <%=user.getLastname()%>
 			</div>
 
 			<!-- Text area -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="address" style="font-weight: bold">Address:
-				</label> <% out.write(user.getAddress()); %>
+				</label> <%=user.getAddress()%>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="phone" style="font-weight: bold">Phone Number:
-				</label> <% out.write(user.getPhone()+""); %>
+				</label> <%=user.getPhone()+""%>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="paypal" style="font-weight: bold">Paypal ID:
-				</label> <% out.write(user.getPayPalID() != null ? user.getPayPalID() : "Not Entered"); %>
+				</label> <%=user.getPayPalID() != null ? user.getPayPalID() : "Not Entered"%>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="email" style="font-weight: bold">Email:
-				</label> <% out.write(user.getEmail()); %>
+				</label> <%=user.getEmail()%>
 			</div>
 
 			<!-- Button -->

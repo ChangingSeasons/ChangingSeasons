@@ -15,7 +15,7 @@
 
 	<div class="row">
 		<div class="col-md-6">
-			<img src="<% out.write(product.getImagePath()); %>" alt="" width="300" class="img-rounded" />
+			<img src="<%=product.getImagePath() %>" alt="" width="300" class="img-rounded" />
 		</div>
 		<div class="col-md-6">
 			<div class="panel panel-default">
@@ -23,10 +23,10 @@
 
 					<p>
 						<strong>Product Description</strong> 
-						<% out.write(product.getProductDesc()); %>
+						<%=product.getProductDesc()%>
 					</p>
 					<p>
-						<strong>Product Price</strong> <% out.write(product.getPrice()+""); %>
+						<strong>Product Price</strong> <%=product.getPrice()+""%>
 					</p>
 					<p> <strong>Rate this Product:</strong> </p>
 					<script type="text/javascript">
@@ -52,8 +52,8 @@
 				</div>
 			</div>
 			<form  action="/ChangingSeasons/AddToCartServlet" method="post">	
-						<input type="hidden" name="userID" value="<%out.write(user.getID()+""); %>">
-						<input type="hidden" name="productID" value="<%out.write(product.getProductID()+""); %>">
+						<input type="hidden" name="userID" value="<%=user.getID()+""%>">
+						<input type="hidden" name="productID" value="<%=product.getProductID()+""%>">
 						<input type="submit" class="btn btn-succes" role="button" value="Add to Car"/>
 			<button type="button" class="btn btn-success">Add to Card</button>
 

@@ -58,8 +58,10 @@
 			</div>
 	</div>
 	<%@page import="model.Product"%>
+	<%@page import="model.ProductDAO.*" %>
+	
 <% 
-Product[] products = (Product[]) request.getAttribute("products");
+Product[] products = (Product[]) session.getAttribute("products");
 %>
 	<div class="row">
 		<%
@@ -69,14 +71,14 @@ Product[] products = (Product[]) request.getAttribute("products");
 		%>
 		<div class="col-sm-5 col-md-3">
 			<div class="thumbnail">
-				<img src="<%out.write(p.getImagePath()); %>" alt="<%out.write(p.getImageName()); %>">
+				<img src="<%=p.getImagePath()%>" alt="<%=p.getImageName()%>">
 				<div class="caption">
-					<h3> <%out.write(p.getProductName()); %></h3>
+					<h3> <%=p.getProductName()%></h3>
 					<p>
-						Price:<%out.write(p.getPrice()+""); %>
+						Price:<%=p.getPrice()+""%>
 					</p>
 					<p> <form  action="/ChangingSeasons/ViewProductServlet" method="post">	
-						<input type="hidden" name="productID" value="<%out.write(id+""); %>">
+						<input type="hidden" name="productID" value="<%=(id+"")%>">
 						<input type="submit" class="btn btn-primary btn-xs" role="button" value="View Product"/> <a href="#" class="btn btn-default btn-xs" role="button">Edit
 							Product</a>
 						</form>

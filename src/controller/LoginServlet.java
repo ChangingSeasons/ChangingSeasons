@@ -1,5 +1,6 @@
 package controller;
 import static model.ProductDAO.*;
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import model.Product;
 import model.ProductDAO;
@@ -79,13 +81,14 @@ public class LoginServlet extends HttpServlet {
 					System.out.println("No seller getting all products");
 					product_list = productDetails();
 				}
-				
+
+				se.setAttribute("products", product_list);
 				/**										**/
 				
 				url = "/base_index.jsp";
 				msg = "Login Successful!";
 				
-				request.setAttribute("products", product_list);
+				
 				
 				request.setAttribute("loggedIn", loggedIn);
 				request.setAttribute("msg", msg);
