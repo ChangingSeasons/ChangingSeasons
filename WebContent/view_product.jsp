@@ -5,33 +5,28 @@
 <%@ include file="header.jsp"%>
 <%@ include file="navbar.jsp"%>
 
-<%
-%>
 <div class="container">
-	<h2>Product Name</h2>
+<%
+	Product product = (Product) request.getAttribute("product");
+	if(product != null ) { 
+%>
+
+	<h2><% out.write(product.getProductName()); %></h2>
 
 	<div class="row">
 		<div class="col-md-6">
-			<img src="imgs/CKLeatherJacket.png" alt="" width="300" class="img-rounded" />
+			<img src="<% out.write(product.getImagePath()); %>" alt="" width="300" class="img-rounded" />
 		</div>
 		<div class="col-md-6">
 			<div class="panel panel-default">
 				<div class="panel-body">
 
 					<p>
-						<strong>Product Description</strong> This is product Description.
-						This is product Description.
-						This is product Description.
-						This is product Description.
-						This is product Description.
-						This is product Description.
-						This is product Description.
-						This is product Description.
-						This is product Description.
-						This is product Description.
+						<strong>Product Description</strong> 
+						<% out.write(product.getProductDesc()); %>
 					</p>
 					<p>
-						<strong>Product Price</strong> $100.00
+						<strong>Product Price</strong> <% out.write(product.getPrice()+""); %>
 					</p>
 					<p> <strong>Rate this Product:</strong> </p>
 					<script type="text/javascript">
@@ -63,6 +58,8 @@
 			<button type="button" class="btn btn-info">Edit</button>
 		</div>
 	</div>
+	
+	<% } else out.write("No product found"); %>
 </div>
 
 

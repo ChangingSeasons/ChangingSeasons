@@ -65,19 +65,21 @@ Product[] products = (Product[]) request.getAttribute("products");
 		<%
 		if (products != null) {
 			for (Product p : products) {
+				int id = p.getProductID();
 		%>
 		<div class="col-sm-5 col-md-3">
 			<div class="thumbnail">
-				<img src="imgs/NorthFace.png" alt="...">
+				<img src="<%out.write(p.getImagePath()); %>" alt="<%out.write(p.getImageName()); %>">
 				<div class="caption">
-					<h3><%out.write(p.getProductName()); %></h3>
+					<h3> <%out.write(p.getProductName()); %></h3>
 					<p>
 						Price:<%out.write(p.getPrice()+""); %>
 					</p>
-					<p>
-						<a href="#" class="btn btn-primary btn-xs" role="button">View
-							Product</a> <a href="#" class="btn btn-default btn-xs" role="button">Edit
+					<p> <form  action="/ChangingSeasons/ViewProductServlet" method="post">	
+						<input type="hidden" name="productID" value="<%out.write(id+""); %>">
+						<input type="submit" class="btn btn-primary btn-xs" role="button" value="View Product"/> <a href="#" class="btn btn-default btn-xs" role="button">Edit
 							Product</a>
+						</form>
 					</p>
 				</div>
 			</div>

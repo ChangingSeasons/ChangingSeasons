@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class OrderDAO {
 
@@ -119,30 +120,42 @@ public class OrderDAO {
 		return countRows;
 	}
 
-	public static Order[] orderSellers(int sellerID){
-		Order[] o = null;
-		Product[] p = null;
-		int[] pid = null;
-		int i = 0;
+	public static ArrayList<Integer> orderSellers(int sellerID){
+
+		ArrayList<Integer> orders = new ArrayList<Integer>();
+		ArrayList<Integer> productID = new ArrayList<Integer>();
+
 		try{
 			Connect();
 			String q0 = "SELECT productID FROM Product WHERE sellerID="+sellerID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-			
+
 			while(rs.next()){
-				pid[i] = rs.getInt("productID");
-				i++;
+				productID.add(rs.getInt("productID"));
 			}
-			
-			
+			st.close();
+			rs.close();
+
+			for(Integer z: productID){
+				q0 = "SELECT DISTINCT orderID FROM OrderProducts WHERE productID="+z;
+				st = cn.createStatement();
+				rs = st.executeQuery(q0);
+				while(rs.next()){
+					orders.add(rs.getInt("orderID"));
+				}
+			}
+			st.close();
+			rs.close();
+
+
 		}catch(SQLException se){
 			System.err.println(se.getMessage());
 			se.printStackTrace();
 		}
 		DB_close();
 
-		return o;
+		return orders;
 	}
 
 	public static Order[] orderDetails(int... ID){
