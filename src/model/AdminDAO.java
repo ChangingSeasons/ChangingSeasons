@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.swing.text.DefaultEditorKit.CutAction;
 public class AdminDAO {
 
 	public static boolean authorizeSeller(boolean status, int sellerID){
@@ -14,23 +17,6 @@ public class AdminDAO {
 
 		try{
 			String q = "UPDATE Seller SET authorized="+status+" WHERE id="+sellerID;
-			Statement st = cn.createStatement();
-			st.executeUpdate(q);
-
-			st.close();
-		}catch(SQLException se){
-			System.err.println(se.getMessage());
-			se.printStackTrace();
-		}
-		DB_close();
-		return true;
-	}
-
-	public static boolean deleteUser(int id){
-		Connect();
-
-		try{
-			String q = "UPDATE User SET status=0 WHERE id="+id;
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);
 
@@ -67,34 +53,12 @@ public class AdminDAO {
 		return countRows;
 	}
 
-	//	public static int countUserbyType(String type){
-	//		Connect();
-	//
-	//		int countRows = 0;
-	//		try{
-	//			String q="SELECT * FROM User WHERE status <> 0 AND type='"+type+"'";
-	//
-	//			Statement st = cn.createStatement();
-	//			ResultSet rs = st.executeQuery(q);
-	//
-	//			rs.last();
-	//			countRows = rs.getRow();
-	//
-	//			st.close();
-	//			rs.close();
-	//		}catch(SQLException se){
-	//			System.err.println(se.getMessage());
-	//			se.printStackTrace();
-	//		}
-	//		DB_close();
-	//		return countRows;
-	//	}
-
-	public static User[] listSellers(){
+	public static List<User> listSellers(){
 
 		List<User> seller = new ArrayList<User>();
 		User u;
 		try{
+			Connect();
 			String q0="SELECT * FROM Seller";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
@@ -114,115 +78,106 @@ public class AdminDAO {
 					u.setRoutingNumber(rs.getString("routingNumber"));
 					u.setPayPalID(rs.getString("payPalID"));
 					u.setMiddlename(rs.getString("middlename"));
+					u.setType("sel");
+					seller.add(u);
 				}
 			}
 			rs.close();
 			st.close();
 
-			q0="SELECT * FROM User WHERE id="+userID;
-			st = cn.createStatement();
-			rs = st.executeQuery(q0);
-			while(rs.next()){
-				u.setUsername(rs.getString("username"));
+			Iterator<User> itr = seller.iterator();
+
+			while(itr.hasNext()){
+				User temp = (User) itr.next();
+				q0="SELECT username FROM User WHERE id="+temp.getID();
+				st = cn.createStatement();
+				rs = st.executeQuery(q0);
+				while(rs.next()){
+					temp.setUsername(rs.getString("username"));
+				}
 			}
 			rs.close();
 			st.close();
-			seller.add(u);
-		}catch(SQLException se){
-			System.err.println(se.getMessage());
-			se.printStackTrace();
-		}
-		DB_close();
-		return u;
-	}
-
-	public static User[] listCustomer(int ID){
-		try{
-
 
 		}catch(SQLException se){
 			System.err.println(se.getMessage());
 			se.printStackTrace();
 		}
 		DB_close();
-		return u;
+		return seller;
 	}
 
-	public static Users[] listAdmins(int ID){
-		try{
+	public static List<User> listCustomers(){
 
-
-		}catch(SQLException se){
-			System.err.println(se.getMessage());
-			se.printStackTrace();
-		}
-		DB_close();
-		return u;
-	}
-
-	public static User[] listUsers(){
-		Connect();
-		User[] u;
-		int countRows = noOfusers();
-		u = new User[countRows];
-
-		for(int i=0;i<countRows;i++)
-			u[i] = new User();
-
-		int i = 0;
+		List<User> customer = new ArrayList<User>();
+		User u;
 		try{
 			Connect();
-			String q0="SELECT * FROM User JOIN Seller ON User.id=Seller.id WHERE type='sel' AND status <> 0";
+			String q0="SELECT * FROM Customer";
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+			if(rs.next()){
+				while(rs.next()){
+					u = new User();
+					u.setID(rs.getInt("id"));
+					u.setFirstname(rs.getString("firstname"));
+					u.setLastname(rs.getString("lastname"));
+					u.setAddress(rs.getString("address"));
+					u.setEmail(rs.getString("email"));
+					u.setPhone(rs.getDouble("phone"));
+					u.setPayPalID(rs.getString("payPalID"));
+					u.setMiddlename(rs.getString("middlename"));
+					u.setType("buy");
+					customer.add(u);
+				}
+			}
+			rs.close();
+			st.close();
+
+			Iterator<User> itr = customer.iterator();
+
+			while(itr.hasNext()){
+				User temp = (User) itr.next();
+				q0="SELECT username FROM User WHERE id="+temp.getID();
+				st = cn.createStatement();
+				rs = st.executeQuery(q0);
+				while(rs.next()){
+					temp.setUsername(rs.getString("username"));
+				}
+			}
+			rs.close();
+			st.close();
+
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+		return customer;
+	}
+
+	public static List<User> listAdmins(int ID){
+		List<User> admin = new ArrayList<User>();
+		User u;
+		try{
+			Connect();
+			String q0="SELECT username FROM User WHERE type='adm'";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
 			while(rs.next()){
-
-				u[i].setFirstname(rs.getString("firstname"));
-				u[i].setLastname(rs.getString("lastname"));
-				u[i].setUsername(rs.getString("username"));
-				u[i].setType("sel");
-				i++;
+				u = new User();
+				u.setType("adm");
+				u.setUsername(rs.getString("username"));
+				admin.add(u);
 			}
 			st.close();
 			rs.close();
-			////////////
-			String q1="SELECT * FROM User JOIN Customer ON User.id=Customer.id WHERE type='buy' AND status <> 0";
-			st = cn.createStatement();
-			rs = st.executeQuery(q1);
-
-			while(rs.next()){
-
-				u[i].setFirstname(rs.getString("firstname"));
-				u[i].setLastname(rs.getString("lastname"));
-				u[i].setUsername(rs.getString("username"));
-				u[i].setType("buy");
-				i++;
-			}
-			st.close();
-			rs.close();
-
-			/////////////
-
-			String q2="SELECT * FROM User WHERE type='adm' AND status <> 0";
-
-			st = cn.createStatement();
-			rs = st.executeQuery(q2);
-
-			while(rs.next()){
-				u[i].setUsername(rs.getString("username"));
-				u[i].setType("adm");
-				i++;
-			}
-			st.close();
-			rs.close();
-
 		}catch(SQLException se){
 			System.err.println(se.getMessage());
 			se.printStackTrace();
 		}
 		DB_close();
-		return u;
+		return admin;
 	}
-
 }
