@@ -5,11 +5,13 @@ import static model.ConnectDB.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 public class AdminDAO {
 
 	public static boolean authorizeSeller(boolean status, int sellerID){
 		Connect();
-		
+
 		try{
 			String q = "UPDATE Seller SET authorized="+status+" WHERE id="+sellerID;
 			Statement st = cn.createStatement();
@@ -40,11 +42,11 @@ public class AdminDAO {
 		DB_close();
 		return true;
 	}
-	
+
 	public static int noOfusers(){
-		
+
 		Connect();
-		
+
 		int countRows = 0;
 		try{
 			String q="SELECT * FROM User WHERE status <> 0";
@@ -64,23 +66,114 @@ public class AdminDAO {
 		DB_close();
 		return countRows;
 	}
+	
+	public static int countUserbyType(String type){
+		Connect();
+
+		int countRows = 0;
+		try{
+			String q="SELECT * FROM User WHERE status <> 0 AND type='"+type+"'";
+
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q);
+
+			rs.last();
+			countRows = rs.getRow();
+
+			st.close();
+			rs.close();
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+		return countRows;
+	}
+
+	public static User[] listSellers(int ID){
+		int noOfSellers = countUserbyType("sel");
+		
+		List<User> seller = new ArrayList<User>();
+		
+		try{
+			String q0="SELECT * FROM Seller WHERE id="+ID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+			while(rs.next()){
+				u.setID(userID);
+				u.setFirstname(rs.getString("firstname"));
+				u.setLastname(rs.getString("lastname"));		
+				u.setAddress(rs.getString("address"));
+				u.setEmail(rs.getString("email"));
+				u.setPhone(rs.getDouble("phone"));
+				u.setCompanyName(rs.getString("companyName"));
+				u.setAuthorized(rs.getBoolean("authorized"));
+				u.setURL(rs.getString("URL"));
+				u.setBankAccount(rs.getString("bankAccount"));
+				u.setRoutingNumber(rs.getString("routingNumber"));
+				u.setPayPalID(rs.getString("payPalID"));
+				u.setMiddlename(rs.getString("middlename"));
+			}
+			rs.close();
+			st.close();
+			
+			q0="SELECT * FROM User WHERE id="+userID;
+			st = cn.createStatement();
+			rs = st.executeQuery(q0);
+			while(rs.next()){
+				u.setUsername(rs.getString("username"));
+			}
+			rs.close();
+			st.close();
+
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+		return u;
+	}
+
+	public static User[] listCustomer(int ID){
+		try{
+
+
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+		return u;
+	}
+
+	public static Users[] listAdmins(int ID){
+		try{
+
+
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+		return u;
+	}
 
 	public static User[] listUsers(){
 		Connect();
 		User[] u;
 		int countRows = noOfusers();
 		u = new User[countRows];
-		
+
 		for(int i=0;i<countRows;i++)
 			u[i] = new User();
-		
+
 		int i = 0;
 		try{
 			Connect();
 			String q0="SELECT * FROM User JOIN Seller ON User.id=Seller.id WHERE type='sel' AND status <> 0";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-			
+
 			while(rs.next()){
 
 				u[i].setFirstname(rs.getString("firstname"));
@@ -106,11 +199,11 @@ public class AdminDAO {
 			}
 			st.close();
 			rs.close();
-			
+
 			/////////////
-			
+
 			String q2="SELECT * FROM User WHERE type='adm' AND status <> 0";
-			
+
 			st = cn.createStatement();
 			rs = st.executeQuery(q2);
 
@@ -121,7 +214,7 @@ public class AdminDAO {
 			}
 			st.close();
 			rs.close();
-			
+
 		}catch(SQLException se){
 			System.err.println(se.getMessage());
 			se.printStackTrace();

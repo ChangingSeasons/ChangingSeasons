@@ -1,7 +1,7 @@
 package controller;
-
+import static model.ShoppingCartDAO.*;
 import static model.ProductDAO.viewProduct;
-
+import static model.CartProductsDAO.*;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -47,11 +47,11 @@ public class AddToCartServlet extends HttpServlet {
 		int productID = Integer.parseInt(request.getParameter("productID"));
 		int userID = Integer.parseInt(request.getParameter("userID"));
 
-		ShoppingCart cart = ShoppingCartDAO.cartDetails(userID);
+		ShoppingCart cart = cartDetails(userID);
 		
 		System.out.println("Current number of products on cart: "+cart.getNoOfProducts());
 		
-		CartProductsDAO.insertIntoCartProducts(cart.getCartID(), productID, 1);
+		insertIntoCartProducts(cart.getCartID(), productID, 1);
 		
 		System.out.println("Current number of products on cart: "+cart.getNoOfProducts());
 		
