@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.CartProductsDAO;
 import model.Product;
+import model.ShoppingCart;
 
 /**
  * Servlet implementation class AddtoCartServlet
@@ -39,16 +41,15 @@ public class AddToCartServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-String url = "";
-			
-	int productID = Integer.parseInt(request.getParameter("productID"));
-	Product p = viewProduct(productID);
-	
-	System.out.println("product id recieved: "+productID);
+		String url = "";
 
+		int productID = Integer.parseInt(request.getParameter("productID"));
+		int userID = Integer.parseInt(request.getParameter("user"));
+
+		ShoppingCart cart = null;
 		
 		url = "/shoppingCart.jsp";
-		request.setAttribute("product", p);
+		request.setAttribute("cart", cart);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
 	}
