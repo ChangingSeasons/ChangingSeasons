@@ -28,6 +28,20 @@
 					<p>
 						<strong>Product Price</strong> <%=product.getPrice()+""%>
 					</p>
+					<p><strong>Quantity</strong>
+					<select id="selectYear" style="width:auto;" class="form-control selectWidth">
+                   <option class="">01</option>
+                   <option class="">02</option>
+                   <option class="">03</option>
+                   <option class="">04</option>
+                   <option class="">05</option>
+                   <option class="">06</option>
+                   <option class="">07</option>
+                   <option class="">08</option>
+                   <option class="">09</option>
+                   <option class="">10</option>
+                   </select></p>
+					
 					<p> <strong>Rate this Product:</strong> </p>
 					<script type="text/javascript">
 					$("#input-id").rating();

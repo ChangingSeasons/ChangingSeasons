@@ -22,7 +22,7 @@
 			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="firstname" style="font-weight: bold">First Name:
-				</label> <%=user.getUsername()%>
+				</label> <%=user.getFirstname()%>
 			</div>
 
 			<!-- Text input-->

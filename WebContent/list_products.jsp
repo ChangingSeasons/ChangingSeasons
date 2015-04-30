@@ -3,6 +3,12 @@
 	pageEncoding="UTF-8"%>
 	<%@page import="model.Product"%>
 
+<head>
+	<meta name="robots" content="NOODP"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="/css/bootstrap.css" rel="stylesheet">
+</head>
 <script>
 $(document).ready(function() {                                 // When the HTML DOM is ready loading, then execute the following function...
     $('#somebutton').click(function() {                        // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
