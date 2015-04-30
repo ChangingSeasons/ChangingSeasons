@@ -2,6 +2,8 @@ package controller;
 import static model.ProductDAO.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -73,13 +75,13 @@ public class LoginServlet extends HttpServlet {
 				se.setAttribute("ID", ID);
 				
 				/** Getting products depending on user type **/
-				Product[] product_list = new Product[noOfProducts()];
+				List<Product> product_list = new ArrayList<Product>();
 				if (getUserbyId(ID).getType().equals("sel")){
 					System.out.println("Getting products for seller "+getUserbyId(ID).getFirstname());
-					product_list = productDetails(ID);
+					product_list = getProducts(ID);
 				} else {
 					System.out.println("No seller getting all products");
-					product_list = productDetails();
+					product_list = getProducts();
 				}
 
 				se.setAttribute("products", product_list);

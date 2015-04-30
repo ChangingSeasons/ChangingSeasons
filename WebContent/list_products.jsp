@@ -1,11 +1,30 @@
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@page import="model.Product"%>
-	
+
+<script>
+$(document).ready(function() {                                 // When the HTML DOM is ready loading, then execute the following function...
+    $('#somebutton').click(function() {                        // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
+        $.get('ProductFilterServlet', function(responseJson) {          // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response JSON...
+            var $table = $('<table>').appendTo($('#somediv')); // Create HTML <table> element and append it to HTML DOM element with ID "somediv".
+            $.each(responseJson, function(index, product) {    // Iterate over the JSON array.
+                $('<tr>').appendTo($table)                     // Create HTML <tr> element, set its text content with currently iterated item and append it to the <table>.
+                    .append($('<td>').text(product.id))        // Create HTML <td> element, set its text content with id of currently iterated product and append it to the <tr>.
+                    .append($('<td>').text(product.name))      // Create HTML <td> element, set its text content with name of currently iterated product and append it to the <tr>.
+                    .append($('<td>').text(product.price));    // Create HTML <td> element, set its text content with price of currently iterated product and append it to the <tr>.
+            });
+        });
+    });
+});
+</script>
 <div class="container"  style="width:100%">
+<div id="somediv">
+</div>
 	<div class="col-md-4" style="float:left; width:20% ; height: 100000px;margin-left:10px;margin-right:10px;">
 		<div class="panel panel-default">
 				<div class="panel-body">
+				<button type="button" class="btn btn-primary" id="somebutton">Primary</button>
 				<h3>Sort by</h3><br/>
 				<h4>Size</h4>
 					<input type="checkbox" name="size" value="XS"> XS <br/>
@@ -61,7 +80,7 @@
 	<%@page import="model.ProductDAO.*" %>
 	
 <% 
-Product[] products = (Product[]) session.getAttribute("products");
+List<Product> products = (List<Product>) session.getAttribute("products");
 %>
 	<div class="row">
 		<%
@@ -92,3 +111,5 @@ Product[] products = (Product[]) session.getAttribute("products");
 		%>
 	</div>
 </div>
+
+

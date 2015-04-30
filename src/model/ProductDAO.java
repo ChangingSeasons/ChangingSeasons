@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDAO {
 	
@@ -167,6 +169,52 @@ public class ProductDAO {
 		}
 		DB_close();
 		return countRows;
+	}
+	
+	public static List<Product> getProducts(int... ID) {
+		List<Product> productList = new ArrayList<Product>();
+		
+		int sellerID = 0;
+		String q0;
+		try{
+		
+			if(ID.length>0){ // List products by seller
+				sellerID = ID[0];
+				q0="SELECT * FROM Product WHERE sellerID="+sellerID+" AND status <> 0";
+			}
+			else // List all products
+				q0="SELECT * FROM Product WHERE status <> 0";
+			Connect();
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+			while(rs.next()){
+				Product p = new Product();
+				p.setProductID(rs.getInt("productID"));
+				p.setProductName(rs.getString("productName"));
+				p.setProductDesc(rs.getString("productDesc"));
+				p.setSellerID(rs.getInt("sellerID"));
+				p.setPrice(rs.getFloat("price"));
+				p.setImagePath(rs.getString("imagePath"));
+				p.setShippingCost(rs.getFloat("shippingCost"));
+				p.setSize(rs.getString("size"));
+				p.setColor(rs.getString("color"));
+				p.setImageName(rs.getString("imageName"));
+				p.setType(rs.getString("type"));
+				
+				productList.add(p);
+			}
+
+			st.close();
+			rs.close();
+
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		
+		DB_close();
+		
+		return productList;
 	}
 
 	public static Product[] productDetails(int... ID){
