@@ -76,6 +76,7 @@ public class AdminDAO {
 		
 		int i = 0;
 		try{
+			Connect();
 			String q0="SELECT * FROM User JOIN Seller ON User.id=Seller.id WHERE type='sel' AND status <> 0";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);

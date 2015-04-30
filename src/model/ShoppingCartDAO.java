@@ -77,6 +77,7 @@ public class ShoppingCartDAO {
 			ps.setDate(2, startDate);
 			ps.setInt(3, customerID);
 			ps.setFloat(4, totalPrice);
+			Connect();
 			ps.executeUpdate();
 
 			ps.close();
