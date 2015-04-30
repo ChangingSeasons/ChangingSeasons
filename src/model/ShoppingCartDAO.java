@@ -27,6 +27,7 @@ public class ShoppingCartDAO {
 
 		try{
 			String q0 = "SELECT * FROM CartProducts WHERE cartID="+cartID;
+			Connect();
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 

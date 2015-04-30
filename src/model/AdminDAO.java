@@ -66,57 +66,59 @@ public class AdminDAO {
 		DB_close();
 		return countRows;
 	}
-	
-	public static int countUserbyType(String type){
-		Connect();
 
-		int countRows = 0;
-		try{
-			String q="SELECT * FROM User WHERE status <> 0 AND type='"+type+"'";
+	//	public static int countUserbyType(String type){
+	//		Connect();
+	//
+	//		int countRows = 0;
+	//		try{
+	//			String q="SELECT * FROM User WHERE status <> 0 AND type='"+type+"'";
+	//
+	//			Statement st = cn.createStatement();
+	//			ResultSet rs = st.executeQuery(q);
+	//
+	//			rs.last();
+	//			countRows = rs.getRow();
+	//
+	//			st.close();
+	//			rs.close();
+	//		}catch(SQLException se){
+	//			System.err.println(se.getMessage());
+	//			se.printStackTrace();
+	//		}
+	//		DB_close();
+	//		return countRows;
+	//	}
 
-			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery(q);
+	public static User[] listSellers(){
 
-			rs.last();
-			countRows = rs.getRow();
-
-			st.close();
-			rs.close();
-		}catch(SQLException se){
-			System.err.println(se.getMessage());
-			se.printStackTrace();
-		}
-		DB_close();
-		return countRows;
-	}
-
-	public static User[] listSellers(int ID){
-		int noOfSellers = countUserbyType("sel");
-		
 		List<User> seller = new ArrayList<User>();
-		
+		User u;
 		try{
-			String q0="SELECT * FROM Seller WHERE id="+ID;
+			String q0="SELECT * FROM Seller";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-			while(rs.next()){
-				u.setID(userID);
-				u.setFirstname(rs.getString("firstname"));
-				u.setLastname(rs.getString("lastname"));		
-				u.setAddress(rs.getString("address"));
-				u.setEmail(rs.getString("email"));
-				u.setPhone(rs.getDouble("phone"));
-				u.setCompanyName(rs.getString("companyName"));
-				u.setAuthorized(rs.getBoolean("authorized"));
-				u.setURL(rs.getString("URL"));
-				u.setBankAccount(rs.getString("bankAccount"));
-				u.setRoutingNumber(rs.getString("routingNumber"));
-				u.setPayPalID(rs.getString("payPalID"));
-				u.setMiddlename(rs.getString("middlename"));
+			if(rs.next()){
+				while(rs.next()){
+					u = new User();
+					u.setID(rs.getInt("id"));
+					u.setFirstname(rs.getString("firstname"));
+					u.setLastname(rs.getString("lastname"));		
+					u.setAddress(rs.getString("address"));
+					u.setEmail(rs.getString("email"));
+					u.setPhone(rs.getDouble("phone"));
+					u.setCompanyName(rs.getString("companyName"));
+					u.setAuthorized(rs.getBoolean("authorized"));
+					u.setURL(rs.getString("URL"));
+					u.setBankAccount(rs.getString("bankAccount"));
+					u.setRoutingNumber(rs.getString("routingNumber"));
+					u.setPayPalID(rs.getString("payPalID"));
+					u.setMiddlename(rs.getString("middlename"));
+				}
 			}
 			rs.close();
 			st.close();
-			
+
 			q0="SELECT * FROM User WHERE id="+userID;
 			st = cn.createStatement();
 			rs = st.executeQuery(q0);
@@ -125,7 +127,7 @@ public class AdminDAO {
 			}
 			rs.close();
 			st.close();
-
+			seller.add(u);
 		}catch(SQLException se){
 			System.err.println(se.getMessage());
 			se.printStackTrace();
