@@ -75,20 +75,9 @@ public class LoginServlet extends HttpServlet {
 				if (getUserbyId(ID).getType().equals("sel")){
 					System.out.println("Getting products for seller "+getUserbyId(ID).getFirstname());
 					product_list = productDetails(ID);
-					System.out.println("length of return array: "+product_list.length);
-					for (Product p : product_list) {
-						System.out.println(p);
-						System.out.println(p.getProductID());
-						System.out.println(p.getProductName());
-					}
 				} else {
 					System.out.println("No seller getting all products");
 					product_list = productDetails();
-					System.out.println("length of return array: "+product_list.length);
-					for (Product p : product_list) {
-						System.out.println(p.getProductID());
-						System.out.println(p.getProductName());
-					}
 				}
 				
 				/**										**/
