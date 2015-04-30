@@ -29,7 +29,7 @@ $(document).ready(function() {                                 // When the HTML 
     		+ "&color=" + colorcheckValues
     		+ "&brand=" + brandcheckValues
     		+ "&type="  + typecheckValues
-            + "&	price=" + pricecheckValues
+            + "&price=" + pricecheckValues
             ;
     	alert(url);
     

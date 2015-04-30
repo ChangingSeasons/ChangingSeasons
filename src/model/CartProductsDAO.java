@@ -12,6 +12,7 @@ public class CartProductsDAO {
 	private static int getID(){
 		int ID = -1;
 		try{
+			Connect();
 			String q0 = "SELECT cartProductID FROM CartProducts";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
@@ -55,12 +56,14 @@ public class CartProductsDAO {
 	public static boolean insertIntoCartProducts(int cartID, int productID, int quantity){
 		try{
 			String q = "INSERT into CartProducts (cartProductID, cartID, productID, quantity) values (?, ?, ?, ?)";
+			Connect();
 			PreparedStatement ps = cn.prepareStatement(q);
 			ps.setInt(1, getID());
+			Connect();
 			ps.setInt(2, cartID);
 			ps.setInt(3, productID);
 			ps.setInt(4, quantity); 
-			Connect();
+			
 			ps.executeUpdate();
 			
 			ps.close();

@@ -51,12 +51,11 @@
 					</script>
 				</div>
 			</div>
-			<form  action="/ChangingSeasons/AddToCartServlet" method="post">	
+			<form  action="/ChangingSeasons/AddtoCartServlet" method="post">	
 						<input type="hidden" name="userID" value="<%=user.getID()+""%>">
 						<input type="hidden" name="productID" value="<%=product.getProductID()+""%>">
-						<input type="submit" class="btn btn-succes" role="button" value="Add to Car"/>
-			<button type="button" class="btn btn-success">Add to Card</button>
-
+						<input type="submit" class="btn btn-success" role="button" value="Add to Cart"/>
+			</form>
 			<!-- Contextual button for informational alert messages -->
 			<button type="button" class="btn btn-info">Edit</button>
 		</div>

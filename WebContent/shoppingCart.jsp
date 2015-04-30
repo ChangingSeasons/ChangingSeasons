@@ -1,10 +1,16 @@
+<%@page import="model.Product"%>
+<%@page import="model.ShoppingCart"%>
+<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="header.jsp"%>
 <%@ include file="navbar.jsp"%>
 
 <div class="container">
-
+<%
+	ShoppingCart cart = ShoppingCartDAO.cartDetails(user.getID());
+	HashMap<Product, Integer> cartProducts = cart.getHm();
+%>
 	<!-- Welcome -->
 	<div class="page-header">
 		<h1>
@@ -25,12 +31,13 @@
 	      </tr>
 	    </thead>
 	    <%
-				for (int i = 1; i < 4; i++) {
+	    		if (cartProducts != null) {
+				for (Product p : cartProducts.keySet()) {
 		%>
 	    <tbody>
 	      <tr>
-	        <td><% out.write(i*1+""); %></td>
-	        <td>Anna</td>
+	        <td> test </td>
+	        <td><%=p.getProductName() %></td>
 	       <td> <select id="selectYear" style="width:auto;" class="form-control selectWidth">
                    <option class="">01</option>
                    <option class="">02</option>
@@ -44,22 +51,23 @@
                    <option class="">10</option>
                  </select>
              </td>
-	        <td>25</td>
+	        <td><%=p.getProductName() %></td>
 	        <td>
 	        <button type="submit" id="submit" name="submit"
 							class="btn btn-default">Delete</button></td>
 	      </tr>
 	    </tbody>
-	    <%
+			<%
+				}
 				}
 			%>
-  </table>
+		</table>
   
 	 <div style="text-align: right; width:30%;margin-left:800px;"">
 		 <div class="panel panel-default" >
 			<div class="panel-body">
 			<h4>
-			Sub Total:</br>
+			Sub Total:<%=cart.getTotalPrice() %></br>
 			Sales Tax:</br>
 			<hr>
 			Order Total: 
