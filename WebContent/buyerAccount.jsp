@@ -23,47 +23,42 @@
 			</div>
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="username">Username: </label>
-			</div>
-
-			<!-- Password input-->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="password">Password: </label>
+				<label class="col-md-4 control-label" for="username">Username: user.getUsername()</label>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="firstname">First Name: </label>
+				<label class="col-md-4 control-label" for="firstname">First Name: user.getFirstname()</label>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="middlename">Middle Name: </label>
+				<label class="col-md-4 control-label" for="middlename">Middle Name: user.getMiddlename()</label>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="lastname">Last Name: </label>
+				<label class="col-md-4 control-label" for="lastname">Last Name: user.getLastname()</label>
 			</div>
 
 			<!-- Text area -->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="address">Address: </label>
+				<label class="col-md-4 control-label" for="address">Address: user.getAddress()</label>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="phone">Phone Number: </label>
+				<label class="col-md-4 control-label" for="phone">Phone Number: user.getPhone()</label>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="paypal">Paypal ID: </label>
+				<label class="col-md-4 control-label" for="paypal">Paypal ID: user.getPayPalID()</label>
 			</div>
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="email">Email: </label>
+				<label class="col-md-4 control-label" for="email">Email: user.getEmail()</label>
 			</div>
 
 			<!-- Button -->
