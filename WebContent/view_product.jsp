@@ -51,7 +51,10 @@
 					</script>
 				</div>
 			</div>
-
+			<form  action="/ChangingSeasons/AddToCartServlet" method="post">	
+						<input type="hidden" name="userID" value="<%out.write(user.getID()+""); %>">
+						<input type="hidden" name="productID" value="<%out.write(product.getProductID()+""); %>">
+						<input type="submit" class="btn btn-succes" role="button" value="Add to Car"/>
 			<button type="button" class="btn btn-success">Add to Card</button>
 
 			<!-- Contextual button for informational alert messages -->
