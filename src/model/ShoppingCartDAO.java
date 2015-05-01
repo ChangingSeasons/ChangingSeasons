@@ -286,5 +286,29 @@ public class ShoppingCartDAO {
 		DB_close();
 		return amount;
 	}
+	
+	public static boolean initShoppingCart(int customerID){ // This is called after Order is Placed
+		try{
+			int cartID = getCartID(customerID);
+			Connect();
+			String q0 = "DELETE FROM CartProducts WHERE cartID="+cartID;
+			Statement st = cn.createStatement();
+			st.executeUpdate(q0);
+			st.close();		
+			
+			q0 = "UPDATE ShoppingCart SET totalPrice=0 WHERE customerID="+customerID;
+			st = cn.createStatement();
+			st.executeUpdate(q0);
+
+			st.close();
+			
+		}catch(SQLException e){
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+
+		DB_close();
+		return true;
+	}
 
 }

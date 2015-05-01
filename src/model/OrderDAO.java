@@ -55,7 +55,7 @@ public class OrderDAO {
 			st.close();
 			rs.close();
 
-			float amount = (1.08f * price);
+			float amount = (1.08f * price); // Including tax
 
 			String q1 = "INSERT into Order (orderID, dateOfOrder, dateOfShipping, customerID, orderStatus, shippingAddress, total_price, tax, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = cn.prepareStatement(q1);
@@ -248,6 +248,23 @@ public class OrderDAO {
 		}
 		DB_close();
 		return o;
+	}
+	
+	public static boolean updateShippingAddress(int customerID, String address){
+		Connect();
+		try{
+			String q = "UPDATE Order SET shippingAddress='"+address+"' WHERE customerID="+customerID;
+
+			Statement st = cn.createStatement();
+			st.executeUpdate(q);
+
+			st.close();
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+		return true;
 	}
 
 }
