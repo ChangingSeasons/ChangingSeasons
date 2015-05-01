@@ -4,6 +4,13 @@
 <%@ include file="navbar.jsp"%>
 
 <div class="container">
+
+<ul class="breadcrumb">
+  <li><a href="shoppingCart.jsp">Shopping Cart</a></li>
+  <li><a href="checkout.jsp">Shipping Address</a></li>
+  <li class="active">Cart Details</li>
+</ul>
+
 	<% 
 		String msg = (String)request.getAttribute("msg");
 		if(msg == null) msg="";
