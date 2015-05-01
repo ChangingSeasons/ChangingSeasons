@@ -16,6 +16,7 @@ import javax.websocket.Session;
 
 import model.Product;
 import model.ProductDAO;
+import model.User;
 import static model.AuthDAO.*;
 /**
  * Servlet implementation class LoginServlet
@@ -23,14 +24,14 @@ import static model.AuthDAO.*;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public LoginServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -67,34 +68,49 @@ public class LoginServlet extends HttpServlet {
 		}
 		else{
 			int ID=checkUserpass(username, password);
+			
 			if(ID!=-1){ //User Is Authenticated
-				loggedIn = "true";
-				HttpSession se = request.getSession();
-				se.setAttribute("user", getUserbyId(ID));
-				se.setAttribute("loggedIn", loggedIn);
-				se.setAttribute("ID", ID);
-				
-				/** Getting products depending on user type **/
-				List<Product> product_list = new ArrayList<Product>();
-				if (getUserbyId(ID).getType().equals("sel")){
-					System.out.println("Getting products for seller "+getUserbyId(ID).getFirstname());
-					product_list = getProducts(ID);
-				} else {
-					System.out.println("No seller getting all products");
-					product_list = getProducts();
-				}
 
-				se.setAttribute("products", product_list);
-				/**										**/
+				User u = getUserbyId(ID);
 				
-				url = "/base_index.jsp";
-				msg = "Login Successful!";
+				if(u.isStatus()){ // Check status
+
+					loggedIn = "true";
+					HttpSession se = request.getSession();
+					se.setAttribute("user", u);
+					se.setAttribute("loggedIn", loggedIn);
+					se.setAttribute("ID", ID);
+
+					/** Getting products depending on user type **/
+					List<Product> product_list = new ArrayList<Product>();
+					if (getUserbyId(ID).getType().equals("sel")){
+						System.out.println("Getting products for seller "+getUserbyId(ID).getFirstname());
+						product_list = getProducts(ID);
+					} else {
+						System.out.println("No seller getting all products");
+						product_list = getProducts();
+					}
+
+					se.setAttribute("products", product_list);
+					/**										**/
+
+					url = "/base_index.jsp";
+					msg = "Login Successful!";
+
+					request.setAttribute("loggedIn", loggedIn);
+					request.setAttribute("msg", msg);
+				}
 				
+				else{
+					loggedIn = "false";
+					msg = "User not authorized";
+					url = "/base_login.jsp";
+					request.setAttribute("loggedIn", loggedIn);
+					request.setAttribute("msg", msg);
+				}
 				
-				
-				request.setAttribute("loggedIn", loggedIn);
-				request.setAttribute("msg", msg);
 			}
+			
 			else{
 				msg = "Invalid Username/Password";
 				url = "/base_login.jsp";
