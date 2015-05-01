@@ -9,6 +9,7 @@
 <div class="container">
 <%
 	ShoppingCart cart = ShoppingCartDAO.cartDetails(user.getID());
+	out.write("user id: "+user.getID()+ " cart id: "+cart.getCartID());
 	HashMap<Product, Integer> cartProducts = cart.getHm();
 %>
 	<!-- Welcome -->
@@ -20,7 +21,7 @@
 
 	<div class="container">
 	  <h4>Your shopping bag</h4>
-	  <table class="table table-bordered" align="center">
+	  <table class="table" align="center">
 	    <thead>
 	      <tr>
 	        <th>Product</th>
@@ -32,14 +33,15 @@
 	    </thead>
 	    <%
 	    		if (cartProducts != null) {
+	    			out.write("Cart products = "+cartProducts.size());
 				for (Product p : cartProducts.keySet()) {
 					double total_price = p.getPrice() * cartProducts.get(p);
 		%>
 	    <tbody>
 	      <tr>
 	        <td> <%=p.getProductName() %> </td>
-	        <td><%=p.getPrice()%></td>
-	       <td> <select id="selectYear" style="width:auto;" class="form-control selectWidth">
+	        <td> <%=p.getPrice()%></td>
+	       <td> <select id="quantity" style="width:auto;" class="form-control selectWidth">
                    <option class="">01</option>
                    <option class="">02</option>
                    <option class="">03</option>
@@ -60,7 +62,7 @@
 	    </tbody>
 			<%
 					}
-				}
+				} else out.write("No Cart Product found");
 			%>
 		</table>
   

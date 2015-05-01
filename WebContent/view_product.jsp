@@ -70,8 +70,9 @@
 						<input type="hidden" name="productID" value="<%=product.getProductID()+""%>">
 						<input type="submit" class="btn btn-success" role="button" value="Add to Cart"/>
 			</form>
-			<!-- Contextual button for informational alert messages -->
+		<% if (user.getType().equals("buy")) {  %>
 			<button type="button" class="btn btn-info">Edit</button>
+		<% } %>
 		</div>
 	</div>
 	

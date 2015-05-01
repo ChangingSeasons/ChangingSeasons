@@ -1,9 +1,6 @@
 package controller;
-import static model.ShoppingCartDAO.*;
-import static model.ProductDAO.viewProduct;
-import static model.CartProductsDAO.*;
-import java.io.IOException;
 
+import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,10 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.CartProductsDAO;
-import model.Product;
 import model.ShoppingCart;
-import model.ShoppingCartDAO;
+import static model.ShoppingCartDAO.*;
+import static model.CartProductsDAO.*;
+
 
 /**
  * Servlet implementation class AddtoCartServlet
@@ -48,13 +45,7 @@ public class AddToCartServlet extends HttpServlet {
 		int userID = Integer.parseInt(request.getParameter("userID"));
 
 		ShoppingCart cart = cartDetails(userID);
-		
-		//System.out.println("Current number of products on cart: "+cart.getNoOfProducts());
-		
 		insertIntoCartProducts(cart.getCartID(), productID, 1);
-		
-		System.out.println("Current number of products on cart: "+cart.getNoOfProducts());
-		
 		url = "/shoppingCart.jsp";
 		//request.setAttribute("cart", cart);
 		
