@@ -39,7 +39,7 @@ public class SignupServlet extends HttpServlet {
 	 */
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String check = request.getParameter("check"); //Check button for username
+		//String check = request.getParameter("check"); //Check button for username
 		String username = request.getParameter("username");
 		String firstname = request.getParameter("firstname");
 		String middlename = request.getParameter("middlename");
@@ -171,7 +171,7 @@ public class SignupServlet extends HttpServlet {
 				}
 				
 				if(status == true){
-					sendMail(email, "Welcome to Changing Seasons", "Thank you for registering with Us. We wish a pleasant shopping experience!");
+					sendMail(email, "Welcome to Changing Seasons", "Thank you for registering with Us. We wish you a pleasant shopping experience!");
 					createCart(userId); // Generate a new cart for the user
 					msg = "Account Created Successfully";
 					request.setAttribute("msg", msg);

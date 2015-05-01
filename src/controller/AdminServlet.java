@@ -2,9 +2,11 @@ package controller;
 import model.Order;
 import model.Product;
 import model.User;
+import static model.EmailDAO.*;
 import static model.AdminDAO.*;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,8 +51,10 @@ public class AdminServlet extends HttpServlet {
 			int ID = Integer.parseInt(request.getParameter("ID"));
 			boolean status = false;
 			if(status){
+				String email = (String)request.getParameter("email");
 				authorizeSeller(true, ID);
 				msg = "Seller Authorized!";
+				sendMail(email, "Authorization Status", "Thank you for Registering with Us. You have been Authorized by the Admin. We wish you a pleasant selling experience!");
 			}
 			else{
 				authorizeSeller(false, ID);
@@ -66,9 +70,20 @@ public class AdminServlet extends HttpServlet {
 			url = "/base_index.jsp";
 			request.setAttribute("msg", msg);
 		}
-		else if(action.equals("ListUsers")){
-			
-			// Need to call 3 functions depending on User Type
+		else if(action.equals("ListCustomers")){
+			List<User> customers = listCustomers();
+			request.setAttribute("customers", customers);
+			url = "/base_index.jsp";
+		}
+		else if(action.equals("ListSellers")){
+			List<User> sellers = listSellers();
+			request.setAttribute("sellers", sellers);
+			url = "/base_index.jsp";
+		}
+		else if(action.equals("ListAdmins")){
+			List<User> admins = listAdmins();
+			request.setAttribute("admins", admins);
+			url = "/base_index.jsp";
 		}
 		else if(action.equals("ListProducts")){
 			Product[] p = productDetails();

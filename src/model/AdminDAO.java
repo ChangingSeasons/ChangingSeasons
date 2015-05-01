@@ -172,7 +172,7 @@ public class AdminDAO {
 		return customer;
 	}
 
-	public static List<User> listAdmins(int ID){
+	public static List<User> listAdmins(){
 		List<User> admin = new ArrayList<User>();
 		User u;
 		try{
