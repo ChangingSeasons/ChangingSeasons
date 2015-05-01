@@ -56,17 +56,20 @@ public class CartProductsDAO {
 	public static boolean insertIntoCartProducts(int cartID, int productID, int quantity){
 		
 		try{
+			System.out.println("INSERTING PRODUCT "+productID);
 			Connect();
 			String q0 = "SELECT productID, quantity FROM CartProducts WHERE cartID="+cartID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-
+			
 			if(rs.next()){
+				System.out.println("INSIDE RS");
 				while(rs.next()){
 					
 					int quan = rs.getInt("quantity");
 
 					if( rs.getInt("productID") == productID){
+						System.out.println("DUPLICATE FOUND, INCREMENTING ");
 						String q1 = "UPDATE CartProducts SET quantity="+(quan+quantity);
 						Statement st2 = cn.createStatement();
 						st2.executeUpdate(q1);
@@ -74,6 +77,7 @@ public class CartProductsDAO {
 					}
 					
 					else{
+						System.out.println("INSERTING INTO CART");
 						String q = "INSERT into CartProducts (cartProductID, cartID, productID, quantity) values (?, ?, ?, ?)";
 						Connect();
 						PreparedStatement ps = cn.prepareStatement(q);
