@@ -49,7 +49,7 @@ public class AddToCartServlet extends HttpServlet {
 
 		ShoppingCart cart = cartDetails(userID);
 		
-		System.out.println("Current number of products on cart: "+cart.getNoOfProducts());
+		//System.out.println("Current number of products on cart: "+cart.getNoOfProducts());
 		
 		insertIntoCartProducts(cart.getCartID(), productID, 1);
 		
