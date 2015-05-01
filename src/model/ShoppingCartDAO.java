@@ -7,8 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 public class ShoppingCartDAO {
 
@@ -244,54 +247,59 @@ public class ShoppingCartDAO {
 
 	public static float totalPrice(int customerID){
 		float amount = 0.0f;
-		int cartID = getCartID(customerID);
-		int noOfProducts = noOfproductsIncart(customerID);
-
-		if(noOfProducts==0) // Empty Cart, Total price --> 0
+	
+		if(noOfproductsIncart(customerID)==0) // Empty Cart, Total price --> 0
 			return 0;
 
-		int flag = 0;
+		List<Integer> pID = new ArrayList<Integer>();
+		List<Integer> quant = new ArrayList<Integer>();
+		List<Float> cost = new ArrayList<Float>();
 
-		int[] productID = new int[noOfProducts];
-		int[] quantity = new int[noOfProducts];
-		float[] price = new float[noOfProducts];
-
-		Connect();
-		int i = 0;
 		try{
+			int cartID = getCartID(customerID);
+			Connect();
 			String q0 = "SELECT productID, quantity FROM CartProduct WHERE cartID="+cartID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
 			if(rs.next()){
 				while(rs.next()){
-					productID[i] = rs.getInt("productID");
-					quantity[i] = rs.getInt("quantity");
-					i++;
+					pID.add(rs.getInt("productID"));
+					quant.add(rs.getInt("quantity"));
 				}
-				flag = 1;
 			}
-
+			
 			st.close();
 			rs.close();
-
-			if(flag == 1){
-				for(i=0; i<productID.length; i++){
-					q0 = "SELECT price FROM Product WHERE productID="+productID[i];
-					st = cn.createStatement();
-					rs = st.executeQuery(q0);
-					while(rs.next()){
-						price[i] = rs.getFloat("price");
-					}
+			
+			Iterator<Integer> itr = pID.iterator();
+			while(itr.hasNext()){
+				int temp = (int)itr.next();
+				q0 = "SELECT price FROM Product WHERE productID="+temp;
+				st = cn.createStatement();
+				rs = st.executeQuery(q0);
+				while(rs.next()){
+					cost.add(rs.getFloat("price"));
 				}
-				for(i=0; i<price.length; i++)
-					amount += price[i] * quantity[i];
+			}
+			rs.close();
+			st.close();
+			
+			Iterator<Integer> itr2 = quant.iterator();
+			Iterator<Float> itr3 = cost.iterator();
+			
+			while(itr2.hasNext()){
+				int temp_quant = (int)itr2.next();
+				float temp_cost = (float)itr3.next();
+				
+				amount += temp_quant * temp_cost;
 			}
 
 		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
-		}	
+		}
+		
 		DB_close();
 		return amount;
 	}
