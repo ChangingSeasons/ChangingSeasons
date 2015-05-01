@@ -33,11 +33,12 @@
 	    <%
 	    		if (cartProducts != null) {
 				for (Product p : cartProducts.keySet()) {
+					double total_price = p.getPrice() * cartProducts.get(p);
 		%>
 	    <tbody>
 	      <tr>
-	        <td> test </td>
-	        <td><%=p.getProductName() %></td>
+	        <td> <%=p.getProductName() %> </td>
+	        <td><%=p.getPrice()%></td>
 	       <td> <select id="selectYear" style="width:auto;" class="form-control selectWidth">
                    <option class="">01</option>
                    <option class="">02</option>
@@ -51,14 +52,14 @@
                    <option class="">10</option>
                  </select>
              </td>
-	        <td><%=p.getProductName() %></td>
+	        <td><%=total_price%></td>
 	        <td>
 	        <button type="submit" id="submit" name="submit"
 							class="btn btn-default">Delete</button></td>
 	      </tr>
 	    </tbody>
 			<%
-				}
+					}
 				}
 			%>
 		</table>
@@ -82,7 +83,7 @@
 				<div class="col-md-4" >
 					<button type="button" id="lproducts" name="lproducts" onclick="location.href = 'base_index.jsp';"
 						class="btn btn-primary">Continue Shopping</button>
-					<button type="button" id="checkout" name="checkout" onclick="location.href = 'checkout.jsp';"
+					<button type="button" id="checkout" name="checkout" onclick="location.href = 'checkout.jsp?cart=<%=cart.getCartID()%>';"
 						class="btn btn-primary">Checkout</button>
 				</div>
 			</div>

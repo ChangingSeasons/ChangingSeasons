@@ -10,8 +10,6 @@ import java.sql.Statement;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import javax.swing.text.DefaultEditorKit.CutAction;
-
 public class ShoppingCartDAO {
 
 	public static ShoppingCart cartDetails(int customerID){
@@ -26,6 +24,7 @@ public class ShoppingCartDAO {
 		HashMap<Product, Integer> hm = new HashMap<Product, Integer>();
 
 		try{
+			Connect();
 			String q0 = "SELECT * FROM CartProducts WHERE cartID="+cartID;
 			Connect();
 			Statement st = cn.createStatement();
