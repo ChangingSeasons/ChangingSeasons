@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAO {
-	
+
 	public static int getlastUpdate(){
 		Connect();
 		int ID = -1;
@@ -19,9 +19,8 @@ public class ProductDAO {
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
-			
-				rs.last(); // Get ID of last Product
-				ID = rs.getInt("productID");
+			rs.last(); // Get ID of last Product
+			ID = rs.getInt("productID");
 
 			rs.close();
 			st.close();
@@ -54,7 +53,7 @@ public class ProductDAO {
 	public static int insertProduct(String productName, String productDesc, int sellerID, float price, String imagepath, float shippingCost, String size, String color, String imageName, String type){
 		int productID = getID();
 		try{
-			
+
 			Connect();
 			String q1 = "INSERT into Product (productID, productName, productDesc, sellerID, price, imagePath, shippingCost, size, color, imageName, type, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = cn.prepareStatement(q1);
@@ -73,7 +72,7 @@ public class ProductDAO {
 			ps.executeUpdate();
 
 			ps.close();
-			
+
 		}catch(SQLException se){
 			System.err.println(se.getMessage());
 			se.printStackTrace();
@@ -170,14 +169,14 @@ public class ProductDAO {
 		DB_close();
 		return countRows;
 	}
-	
+
 	public static List<Product> getProducts(int... ID) {
 		List<Product> productList = new ArrayList<Product>();
-		
+
 		int sellerID = 0;
 		String q0;
 		try{
-		
+
 			if(ID.length>0){ // List products by seller
 				sellerID = ID[0];
 				q0="SELECT * FROM Product WHERE sellerID="+sellerID+" AND status <> 0";
@@ -200,7 +199,7 @@ public class ProductDAO {
 				p.setColor(rs.getString("color"));
 				p.setImageName(rs.getString("imageName"));
 				p.setType(rs.getString("type"));
-				
+
 				productList.add(p);
 			}
 
@@ -211,9 +210,9 @@ public class ProductDAO {
 			System.err.println(se.getMessage());
 			se.printStackTrace();
 		}
-		
+
 		DB_close();
-		
+
 		return productList;
 	}
 
@@ -248,110 +247,46 @@ public class ProductDAO {
 		return p;
 	}
 
-	public static Product[] searchProduct(String... search){
-		Connect();
-
-		int countRows = 0;
-		int i = 0;
-		Product[] p = null;
-		try{
-			String q0="SELECT * FROM Product WHERE productName like %"+search[0]+"% OR productDesc like %"+search[0]+"%";
-			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery(q0);
-
-			rs.last();
-			countRows = rs.getRow();
-
-			st.close();
-			rs.close();
-			if(countRows>0){ // Some products found from Search query
-				p = new Product[countRows];
-				for(i=0; i<countRows; i++)
-					p[i] = new Product();
-
-				q0="SELECT * FROM Product WHERE productName like %"+search[0]+"% OR productDesc like %"+search[0]+"%";
-				st = cn.createStatement();
-				rs = st.executeQuery(q0);
-
-				while(rs.next()){
-					p[i].setProductID(rs.getInt("productID"));
-					p[i].setProductName(rs.getString("productName"));
-					p[i].setProductDesc(rs.getString("productDesc"));
-					p[i].setSellerID(rs.getInt("sellerID"));
-					p[i].setPrice(rs.getFloat("price"));
-					p[i].setImagePath(rs.getString("imagePath"));
-					p[i].setShippingCost(rs.getFloat("shippingCost"));
-					p[i].setSize(rs.getString("size"));
-					p[i].setColor(rs.getString("color"));
-					p[i].setImageName(rs.getString("imageName"));
-					p[i].setType(rs.getString("type"));
-				}
-				st.close();
-				rs.close();
-			}
-		}catch(SQLException se){
-			System.err.println(se.getMessage());
-			se.printStackTrace();
-		}
-		DB_close();
-		return p;
-	}
-	
-	public static Product[] search(String... search){
+	public static List<Product> search(String... search){
 		Connect();
 
 		List<Product> products = new ArrayList<Product>();
+		String q0 = "";
 		try{
-			String q0="SELECT * FROM Product WHERE productName like %"+search[0]+"% OR productDesc like %"+search[0]+"%";
-			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery(q0);
-		}catch(SQLException e){}
-		
-		
-		int countRows = 0;
-		int i = 0;
-		Product[] p = null;
-		try{
-			String q0="SELECT * FROM Product WHERE productName like %"+search[0]+"% OR productDesc like %"+search[0]+"%";
+			if(search.length==1)
+				q0="SELECT * FROM Product WHERE productName like '%"+search[0]+"%' OR productDesc like '%"+search[0]+"%'";
+			else if(search.length==2)
+				q0="SELECT * FROM Product WHERE productName like '%"+search[0]+"%' OR productName like '%"+search[1]+"%' OR productDesc like '%"+search[0]+"%' OR productDesc like '%"+search[1]+"%'";
+
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
-			rs.last();
-			countRows = rs.getRow();
-
+			if(rs.next()){
+				while(rs.next()){
+					Product p = new Product();
+					p.setProductID(rs.getInt("productID"));
+					p.setProductName(rs.getString("productName"));
+					p.setProductDesc(rs.getString("productDesc"));
+					p.setSellerID(rs.getInt("sellerID"));
+					p.setPrice(rs.getFloat("price"));
+					p.setImagePath(rs.getString("imagePath"));
+					p.setShippingCost(rs.getFloat("shippingCost"));
+					p.setSize(rs.getString("size"));
+					p.setColor(rs.getString("color"));
+					p.setImageName(rs.getString("imageName"));
+					p.setType(rs.getString("type"));
+					products.add(p);
+				}
+			}
 			st.close();
 			rs.close();
-			if(countRows>0){ // Some products found from Search query
-				p = new Product[countRows];
-				for(i=0; i<countRows; i++)
-					p[i] = new Product();
-
-				q0="SELECT * FROM Product WHERE productName like %"+search[0]+"% OR productDesc like %"+search[0]+"%";
-				st = cn.createStatement();
-				rs = st.executeQuery(q0);
-
-				while(rs.next()){
-					p[i].setProductID(rs.getInt("productID"));
-					p[i].setProductName(rs.getString("productName"));
-					p[i].setProductDesc(rs.getString("productDesc"));
-					p[i].setSellerID(rs.getInt("sellerID"));
-					p[i].setPrice(rs.getFloat("price"));
-					p[i].setImagePath(rs.getString("imagePath"));
-					p[i].setShippingCost(rs.getFloat("shippingCost"));
-					p[i].setSize(rs.getString("size"));
-					p[i].setColor(rs.getString("color"));
-					p[i].setImageName(rs.getString("imageName"));
-					p[i].setType(rs.getString("type"));
-				}
-				st.close();
-				rs.close();
-			}
 		}catch(SQLException se){
 			System.err.println(se.getMessage());
 			se.printStackTrace();
 		}
+
 		DB_close();
-		return p;
+		return products;
 	}
 
 }
