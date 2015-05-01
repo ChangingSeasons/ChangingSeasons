@@ -54,48 +54,49 @@ public class CartProductsDAO {
 	}
 
 	public static boolean insertIntoCartProducts(int cartID, int productID, int quantity){
-		
+
 		try{
 			System.out.println("INSERTING PRODUCT "+productID);
 			Connect();
-			String q0 = "SELECT productID, quantity FROM CartProducts WHERE cartID="+cartID;
+			String q0 = "SELECT productID, quantity FROM CartProducts WHERE cartID="+cartID+
+					" AND productID="+productID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-			
+
 			if(rs.next()){
 				System.out.println("INSIDE RS");
 				while(rs.next()){
-					
+
 					int quan = rs.getInt("quantity");
 
-					if( rs.getInt("productID") == productID){
-						System.out.println("DUPLICATE FOUND, INCREMENTING ");
-						String q1 = "UPDATE CartProducts SET quantity="+(quan+quantity);
-						Statement st2 = cn.createStatement();
-						st2.executeUpdate(q1);
-						st2.close();
-					}
-					
-					else{
-						System.out.println("INSERTING INTO CART");
-						String q = "INSERT into CartProducts (cartProductID, cartID, productID, quantity) values (?, ?, ?, ?)";
-						Connect();
-						PreparedStatement ps = cn.prepareStatement(q);
-						ps.setInt(1, getID());
-						Connect();
-						ps.setInt(2, cartID);
-						ps.setInt(3, productID);
-						ps.setInt(4, quantity); 
+					System.out.println("DUPLICATE FOUND, INCREMENTING ");
+					String q1 = "UPDATE CartProducts SET quantity="+(quan+quantity);
+					Statement st2 = cn.createStatement();
+					st2.executeUpdate(q1);
+					st2.close();
 
-						ps.executeUpdate();
-
-						ps.close();
-					}
 				}
+				st.close();
+				rs.close();
+			}
+			
+			else{
+				
+				String q = "INSERT into CartProducts (cartProductID, cartID, productID, quantity) values (?, ?, ?, ?)";
+				Connect();
+				PreparedStatement ps = cn.prepareStatement(q);
+				ps.setInt(1, getID());
+				Connect();
+				ps.setInt(2, cartID);
+				ps.setInt(3, productID);
+				ps.setInt(4, quantity); 
+
+				ps.executeUpdate();
+
+				ps.close();
 			}
 			st.close();
 			rs.close();
-
 		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
