@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 import static model.ShoppingCartDAO.*;
 public class OrderProductsDAO {
 
@@ -38,10 +41,10 @@ public class OrderProductsDAO {
 		int cartID = getCartID(customerID);
 		try{
 			Connect();
-			String q0 = "SELECT productID, quantity FROM CartProducts WHERE cartID="+cartID;
+			String q0 = "SELECT productID, quantity, size, color FROM CartProducts WHERE cartID="+cartID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-			String q1 = "INSERT into OrderProducts (orderID, productID, quantity, OrderProductID) values (?, ?, ?, ?)";
+			String q1 = "INSERT into OrderProducts (orderID, productID, quantity, OrderProductID, size, color) values (?, ?, ?, ?, ?, ?)";
 			while(rs.next()){
 				Connect();
 				PreparedStatement ps = cn.prepareStatement(q1);
@@ -50,6 +53,8 @@ public class OrderProductsDAO {
 				ps.setInt(3, rs.getInt("quantity"));
 				ps.setInt(4, getID());  // OrderProductID
 				Connect();
+				ps.setString(5, rs.getString("size"));
+				ps.setString(6, rs.getString("color"));
 				ps.executeUpdate();
 
 				ps.close();
@@ -61,7 +66,40 @@ public class OrderProductsDAO {
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
+		DB_close();
 		return true;
+	}
+
+	public static List<OrderProducts> viewOrderProducts(int orderID){
+		List<OrderProducts> op = new ArrayList<OrderProducts>();
+
+		try{
+			Connect();
+			String q0 = "SELECT * FROM OrderProducts WHERE orderID="+orderID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+			
+			while(rs.next()){
+				
+				OrderProducts o = new OrderProducts();
+				o.setOrderID(orderID);
+				o.setColor(rs.getString("color"));
+				o.setOrderProductID(rs.getInt("OrderProductsID"));
+				o.setProductID(rs.getInt("productID"));
+				o.setQuantity(rs.getInt("quantity"));
+				o.setSize(rs.getString("size"));
+				
+				op.add(o);
+			}
+			
+			rs.close();
+			st.close();
+		}catch(SQLException e){
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+		DB_close();
+		return op;
 	}
 
 }

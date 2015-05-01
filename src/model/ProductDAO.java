@@ -249,7 +249,7 @@ public class ProductDAO {
 
 	public static List<Product> search(String... search){
 		Connect();
-
+		
 		List<Product> products = new ArrayList<Product>();
 		String q0 = "";
 		try{
@@ -257,7 +257,7 @@ public class ProductDAO {
 				q0="SELECT * FROM Product WHERE productName like '%"+search[0]+"%' OR productDesc like '%"+search[0]+"%'";
 			else if(search.length==2)
 				q0="SELECT * FROM Product WHERE productName like '%"+search[0]+"%' OR productName like '%"+search[1]+"%' OR productDesc like '%"+search[0]+"%' OR productDesc like '%"+search[1]+"%'";
-
+			
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 

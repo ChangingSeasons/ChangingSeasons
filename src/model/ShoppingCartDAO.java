@@ -173,10 +173,10 @@ public class ShoppingCartDAO {
 			}catch(SQLException e){
 				System.err.println(e.getMessage());
 				e.printStackTrace();
-			}	
-			DB_close();
+			}		
 		}
-
+		
+		DB_close();
 		return price;
 	}
 
@@ -187,13 +187,13 @@ public class ShoppingCartDAO {
 
 		try{
 			Connect();
-			String q0 = "SELECT distinct productID FROM cartProducts WHERE cartID="+cartID;
+			String q0 = "SELECT productID FROM cartProducts WHERE cartID="+cartID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
 			if(rs.next()){
 				rs.last();
-				count = rs.getRow(); // Total Number of Distinct products in Cart
+				count = rs.getRow(); // Total Number of products in Cart
 			}
 			else
 				count = 0; // Cart is empty
@@ -209,12 +209,13 @@ public class ShoppingCartDAO {
 		return count;
 	}
 
-	public static boolean removeProduct(int customerID, int productID){
+	public static boolean removeProduct(int customerID, int productID, String size, String color){
 		int cartID = getCartID(customerID);
 
 		try{
 			Connect();
-			String q = "DELETE FROM CartProducts WHERE cartID="+cartID+" AND productID="+productID;
+			String q = "DELETE FROM CartProducts WHERE cartID="+cartID+" AND productID="+productID+
+					" AND size='"+size+"' AND color='"+color+"'";
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);
 
@@ -250,7 +251,6 @@ public class ShoppingCartDAO {
 				productID.add(rs.getInt("productID"));
 				quantity.add(rs.getInt("quantity"));
 			}
-
 
 			st.close();
 			rs.close();
@@ -288,6 +288,7 @@ public class ShoppingCartDAO {
 	}
 	
 	public static boolean initShoppingCart(int customerID){ // This is called after Order is Placed
+	
 		try{
 			int cartID = getCartID(customerID);
 			Connect();

@@ -17,6 +17,7 @@ public class ShoppingCart implements Serializable{
 	private float totalPrice;
 	private HashMap<Product, Integer> hm;
 	private int noOfProducts;
+	private String size, color;
 	
 	public ShoppingCart(){
 		this.cartID = 0;
@@ -25,8 +26,25 @@ public class ShoppingCart implements Serializable{
 		this.hm = null;
 		this.dateAdded = new Date(Calendar.getInstance().getTime().getTime());
 		this.noOfProducts = 0;
+		this.size = "";
+		this.color = "";
 	}
 	
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
 
 	public int getNoOfProducts() {
 		return noOfProducts;

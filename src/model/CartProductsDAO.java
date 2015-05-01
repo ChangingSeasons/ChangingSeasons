@@ -35,11 +35,11 @@ public class CartProductsDAO {
 		return ID;
 	}
 
-	public static boolean editCart(int quantity, int cartID, int productID){
+	public static boolean editCart(String size, String color, int quantity, int cartID, int productID){
 
 		Connect();
 		try{
-			String q = "UPDATE CartProducts SET quantity="+quantity+" WHERE cartID="+cartID+" AND productID="+productID;
+			String q = "UPDATE CartProducts SET size='"+size+"', color='"+color+"', quantity="+quantity+" WHERE cartID="+cartID+" AND productID="+productID;
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);
 
@@ -53,28 +53,33 @@ public class CartProductsDAO {
 		return true;
 	}
 
-	public static boolean insertIntoCartProducts(int cartID, int productID, int quantity){
+	public static boolean insertIntoCartProducts(int cartID, int productID, int quantity, String size, String color){
 
 		try{
 			Connect();
-			String q0 = "SELECT productID, quantity FROM CartProducts WHERE cartID="+cartID+
+			String q0 = "SELECT productID, quantity, size, color FROM CartProducts WHERE cartID="+cartID+
 					" AND productID="+productID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
 			if(rs.next()){
 				int quan = rs.getInt("quantity");
-				String q1 = "UPDATE CartProducts SET quantity="+(quan+quantity);
-				Statement st2 = cn.createStatement();
-				st2.executeUpdate(q1);
-				st2.close();
+				String tempsize = rs.getString("size");
+				String tempcolor = rs.getString("color");
 
-				st.close();
-				rs.close();
+				if(tempsize.equals(size) && tempcolor.equals(color)){
+					String q1 = "UPDATE CartProducts SET quantity="+(quan+quantity);
+					Statement st2 = cn.createStatement();
+					st2.executeUpdate(q1);
+					st2.close();
+
+					st.close();
+					rs.close();
+				}
 			}
-			
+
 			else{
-				String q = "INSERT into CartProducts (cartProductID, cartID, productID, quantity) values (?, ?, ?, ?)";
+				String q = "INSERT into CartProducts (cartProductID, cartID, productID, quantity, size, color) values (?, ?, ?, ?, ?, ?)";
 				Connect();
 				PreparedStatement ps = cn.prepareStatement(q);
 				ps.setInt(1, getID());
@@ -82,12 +87,13 @@ public class CartProductsDAO {
 				ps.setInt(2, cartID);
 				ps.setInt(3, productID);
 				ps.setInt(4, quantity); 
-
+				ps.setString(5, size);
+				ps.setString(6, color);
 				ps.executeUpdate();
 
 				ps.close();
 			}
-			
+
 			st.close();
 			rs.close();
 		}catch(SQLException e){
@@ -98,9 +104,9 @@ public class CartProductsDAO {
 		DB_close();
 		return true;
 	}
-	
+
 	public static boolean removeProductfromCart(int cartID, int productID){
-		
+
 		Connect();
 		try{
 			String q = "DELETE FROM CartProducts WHERE cartID="+cartID+" AND productID="+productID;
