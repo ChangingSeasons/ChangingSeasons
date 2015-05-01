@@ -52,26 +52,51 @@ public class CartProductsDAO {
 		DB_close();
 		return true;
 	}
-	
+
 	public static boolean insertIntoCartProducts(int cartID, int productID, int quantity){
+		
 		try{
-			String q = "INSERT into CartProducts (cartProductID, cartID, productID, quantity) values (?, ?, ?, ?)";
 			Connect();
-			PreparedStatement ps = cn.prepareStatement(q);
-			ps.setInt(1, getID());
-			Connect();
-			ps.setInt(2, cartID);
-			ps.setInt(3, productID);
-			ps.setInt(4, quantity); 
-			
-			ps.executeUpdate();
-			
-			ps.close();
+			String q0 = "SELECT productID, quantity FROM CartProducts WHERE cartID="+cartID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+
+			if(rs.next()){
+				while(rs.next()){
+					
+					int quan = rs.getInt("quantity");
+
+					if( rs.getInt("productID") == productID){
+						String q1 = "UPDATE CartProducts SET quantity="+(quan+quantity);
+						Statement st2 = cn.createStatement();
+						st2.executeUpdate(q1);
+						st2.close();
+					}
+					
+					else{
+						String q = "INSERT into CartProducts (cartProductID, cartID, productID, quantity) values (?, ?, ?, ?)";
+						Connect();
+						PreparedStatement ps = cn.prepareStatement(q);
+						ps.setInt(1, getID());
+						Connect();
+						ps.setInt(2, cartID);
+						ps.setInt(3, productID);
+						ps.setInt(4, quantity); 
+
+						ps.executeUpdate();
+
+						ps.close();
+					}
+				}
+			}
+			st.close();
+			rs.close();
+
 		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 		DB_close();
 		return true;
 	}

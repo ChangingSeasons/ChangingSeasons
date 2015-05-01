@@ -23,66 +23,37 @@ public class ShoppingCartDAO {
 		int cartID = getCartID(customerID);
 		int noOfProducts = noOfproductsIncart(customerID);
 
-		List<Integer> productID = new ArrayList<Integer>();
-		List<Integer> quantity = new ArrayList<Integer>();
-
 		HashMap<Product, Integer> hm = new HashMap<Product, Integer>();
-
+		
 		try{
 			Connect();
-			String q0 = "SELECT * FROM CartProducts WHERE cartID="+cartID;
+			String q0 = "SELECT * FROM CartProducts JOIN Products ON "
+					+ "CartProducts.productID=Product.productID WHERE cartID="+cartID;
+			
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
 			while(rs.next()){
-				productID.add(rs.getInt("productID"));
-				quantity.add(rs.getInt("quantity"));
-			}
-
-			st.close();
-			rs.close();
-
-			Iterator<Integer> itr1 = productID.iterator();
-			Iterator<Integer> itr2 = quantity.iterator();
-
-			while(itr1.hasNext()){
-				int temp_productID = (int)itr1.next();
-				int temp_quant = (int)itr2.next();
-				q0 = "SELECT * FROM Product WHERE productID="+temp_productID;
-				st = cn.createStatement();
-				rs = st.executeQuery(q0);
-				while(rs.next()){
-
-					Product p = new Product();
-					p.setProductID(rs.getInt("productID"));
-					p.setProductName(rs.getString("productName"));
-					p.setProductDesc(rs.getString("productDesc"));
-					p.setSellerID(rs.getInt("sellerID"));
-					p.setPrice(rs.getFloat("price"));
-					p.setImagePath(rs.getString("imagePath"));
-					p.setShippingCost(rs.getFloat("shippingCost"));
-					p.setSize(rs.getString("size"));
-					p.setColor(rs.getString("color"));
-					p.setImageName(rs.getString("imageName"));
-					p.setType(rs.getString("type"));
-					p.setStatus(rs.getBoolean("status"));
-
-					for(Product temp_p : hm.keySet()){
-
-						// If same productID, then update quantity, else it add it to hashmap
-						if(p.getProductID() == temp_p.getProductID())
-							hm.put(p, hm.get(p)+1);
-						else
-							hm.put(p, temp_quant);
-					}
-
-				}
-
+				Product p = new Product();
+				p.setProductID(rs.getInt("productID"));
+				p.setProductName(rs.getString("productName"));
+				p.setProductDesc(rs.getString("productDesc"));
+				p.setSellerID(rs.getInt("sellerID"));
+				p.setPrice(rs.getFloat("price"));
+				p.setImagePath(rs.getString("imagePath"));
+				p.setShippingCost(rs.getFloat("shippingCost"));
+				p.setSize(rs.getString("size"));
+				p.setColor(rs.getString("color"));
+				p.setImageName(rs.getString("imageName"));
+				p.setType(rs.getString("type"));
+				p.setStatus(rs.getBoolean("status"));
+				
+				hm.put(p, rs.getInt("quantity"));
 			}
 			st.close();
 			rs.close();
 
-
+			
 			q0 = "SELECT * FROM ShoppingCart WHERE cartID="+cartID;
 			st = cn.createStatement();
 			rs = st.executeQuery(q0);
