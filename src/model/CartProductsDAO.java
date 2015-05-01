@@ -65,17 +65,17 @@ public class CartProductsDAO {
 
 			if(rs.next()){
 				System.out.println("INSIDE RS");
-				while(rs.next()){
 
-					int quan = rs.getInt("quantity");
 
-					System.out.println("DUPLICATE FOUND, INCREMENTING ");
-					String q1 = "UPDATE CartProducts SET quantity="+(quan+quantity);
-					Statement st2 = cn.createStatement();
-					st2.executeUpdate(q1);
-					st2.close();
+				int quan = rs.getInt("quantity");
 
-				}
+				System.out.println("DUPLICATE FOUND, INCREMENTING ");
+				String q1 = "UPDATE CartProducts SET quantity="+(quan+quantity);
+				Statement st2 = cn.createStatement();
+				st2.executeUpdate(q1);
+				st2.close();
+
+
 				st.close();
 				rs.close();
 			}
