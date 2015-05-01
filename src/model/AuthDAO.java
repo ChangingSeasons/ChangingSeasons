@@ -58,6 +58,10 @@ public class AuthDAO {
 					u.setPhone(rs.getDouble("phone"));
 					u.setPayPalID(rs.getString("payPalID"));
 					u.setMiddlename(rs.getString("middlename"));
+					if(!rs.getBoolean("status"))
+						u.setAuthorized(false);
+					else
+						u.setAuthorized(true);
 				}
 				rs.close();
 				st.close();
