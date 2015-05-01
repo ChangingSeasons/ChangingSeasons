@@ -69,13 +69,11 @@ public class CartProductsDAO {
 				st2.executeUpdate(q1);
 				st2.close();
 
-
 				st.close();
 				rs.close();
 			}
 			
 			else{
-				
 				String q = "INSERT into CartProducts (cartProductID, cartID, productID, quantity) values (?, ?, ?, ?)";
 				Connect();
 				PreparedStatement ps = cn.prepareStatement(q);
@@ -89,6 +87,7 @@ public class CartProductsDAO {
 
 				ps.close();
 			}
+			
 			st.close();
 			rs.close();
 		}catch(SQLException e){
@@ -99,5 +98,22 @@ public class CartProductsDAO {
 		DB_close();
 		return true;
 	}
+	
+	public static boolean removeProductfromCart(int cartID, int productID){
+		
+		Connect();
+		try{
+			String q = "DELETE FROM CartProducts WHERE cartID="+cartID+" AND productID="+productID;
+			Statement st = cn.createStatement();
+			st.executeUpdate(q);
 
+			st.close();
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+
+		DB_close();
+		return true;
+	}
 }

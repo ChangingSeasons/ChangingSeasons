@@ -261,23 +261,23 @@ public class ProductDAO {
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
-			if(rs.next()){
-				while(rs.next()){
-					Product p = new Product();
-					p.setProductID(rs.getInt("productID"));
-					p.setProductName(rs.getString("productName"));
-					p.setProductDesc(rs.getString("productDesc"));
-					p.setSellerID(rs.getInt("sellerID"));
-					p.setPrice(rs.getFloat("price"));
-					p.setImagePath(rs.getString("imagePath"));
-					p.setShippingCost(rs.getFloat("shippingCost"));
-					p.setSize(rs.getString("size"));
-					p.setColor(rs.getString("color"));
-					p.setImageName(rs.getString("imageName"));
-					p.setType(rs.getString("type"));
-					products.add(p);
-				}
+
+			while(rs.next()){
+				Product p = new Product();
+				p.setProductID(rs.getInt("productID"));
+				p.setProductName(rs.getString("productName"));
+				p.setProductDesc(rs.getString("productDesc"));
+				p.setSellerID(rs.getInt("sellerID"));
+				p.setPrice(rs.getFloat("price"));
+				p.setImagePath(rs.getString("imagePath"));
+				p.setShippingCost(rs.getFloat("shippingCost"));
+				p.setSize(rs.getString("size"));
+				p.setColor(rs.getString("color"));
+				p.setImageName(rs.getString("imageName"));
+				p.setType(rs.getString("type"));
+				products.add(p);
 			}
+
 			st.close();
 			rs.close();
 		}catch(SQLException se){

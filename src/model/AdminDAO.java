@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class AdminDAO {
-	
+
 	public static boolean deleteUser(int userID){
 		Connect();
 
@@ -78,26 +78,26 @@ public class AdminDAO {
 			String q0="SELECT * FROM Seller";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-			if(rs.next()){
-				while(rs.next()){
-					u = new User();
-					u.setID(rs.getInt("id"));
-					u.setFirstname(rs.getString("firstname"));
-					u.setLastname(rs.getString("lastname"));		
-					u.setAddress(rs.getString("address"));
-					u.setEmail(rs.getString("email"));
-					u.setPhone(rs.getDouble("phone"));
-					u.setCompanyName(rs.getString("companyName"));
-					u.setAuthorized(rs.getBoolean("authorized"));
-					u.setURL(rs.getString("URL"));
-					u.setBankAccount(rs.getString("bankAccount"));
-					u.setRoutingNumber(rs.getString("routingNumber"));
-					u.setPayPalID(rs.getString("payPalID"));
-					u.setMiddlename(rs.getString("middlename"));
-					u.setType("sel");
-					seller.add(u);
-				}
+
+			while(rs.next()){
+				u = new User();
+				u.setID(rs.getInt("id"));
+				u.setFirstname(rs.getString("firstname"));
+				u.setLastname(rs.getString("lastname"));		
+				u.setAddress(rs.getString("address"));
+				u.setEmail(rs.getString("email"));
+				u.setPhone(rs.getDouble("phone"));
+				u.setCompanyName(rs.getString("companyName"));
+				u.setAuthorized(rs.getBoolean("authorized"));
+				u.setURL(rs.getString("URL"));
+				u.setBankAccount(rs.getString("bankAccount"));
+				u.setRoutingNumber(rs.getString("routingNumber"));
+				u.setPayPalID(rs.getString("payPalID"));
+				u.setMiddlename(rs.getString("middlename"));
+				u.setType("sel");
+				seller.add(u);
 			}
+
 			rs.close();
 			st.close();
 
@@ -132,21 +132,21 @@ public class AdminDAO {
 			String q0="SELECT * FROM Customer";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-			if(rs.next()){
-				while(rs.next()){
-					u = new User();
-					u.setID(rs.getInt("id"));
-					u.setFirstname(rs.getString("firstname"));
-					u.setLastname(rs.getString("lastname"));
-					u.setAddress(rs.getString("address"));
-					u.setEmail(rs.getString("email"));
-					u.setPhone(rs.getDouble("phone"));
-					u.setPayPalID(rs.getString("payPalID"));
-					u.setMiddlename(rs.getString("middlename"));
-					u.setType("buy");
-					customer.add(u);
-				}
+
+			while(rs.next()){
+				u = new User();
+				u.setID(rs.getInt("id"));
+				u.setFirstname(rs.getString("firstname"));
+				u.setLastname(rs.getString("lastname"));
+				u.setAddress(rs.getString("address"));
+				u.setEmail(rs.getString("email"));
+				u.setPhone(rs.getDouble("phone"));
+				u.setPayPalID(rs.getString("payPalID"));
+				u.setMiddlename(rs.getString("middlename"));
+				u.setType("buy");
+				customer.add(u);
 			}
+
 			rs.close();
 			st.close();
 

@@ -24,12 +24,12 @@ public class ShoppingCartDAO {
 		int noOfProducts = noOfproductsIncart(customerID);
 
 		HashMap<Product, Integer> hm = new HashMap<Product, Integer>();
-		
+
 		try{
 			Connect();
 			String q0 = "SELECT * FROM CartProducts JOIN Product ON "
 					+ "CartProducts.productID=Product.productID WHERE cartID="+cartID;
-			
+
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
@@ -47,13 +47,13 @@ public class ShoppingCartDAO {
 				p.setImageName(rs.getString("imageName"));
 				p.setType(rs.getString("type"));
 				p.setStatus(rs.getBoolean("status"));
-				
+
 				hm.put(p, rs.getInt("quantity"));
 			}
 			st.close();
 			rs.close();
 
-			
+
 			q0 = "SELECT * FROM ShoppingCart WHERE cartID="+cartID;
 			st = cn.createStatement();
 			rs = st.executeQuery(q0);
@@ -245,12 +245,12 @@ public class ShoppingCartDAO {
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
-			if(rs.next()){
-				while(rs.next()){
-					productID.add(rs.getInt("productID"));
-					quantity.add(rs.getInt("quantity"));
-				}
+
+			while(rs.next()){
+				productID.add(rs.getInt("productID"));
+				quantity.add(rs.getInt("quantity"));
 			}
+
 
 			st.close();
 			rs.close();
