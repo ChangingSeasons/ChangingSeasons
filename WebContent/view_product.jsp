@@ -70,7 +70,7 @@
 						<input type="hidden" name="productID" value="<%=product.getProductID()+""%>">
 						<input type="submit" class="btn btn-success" role="button" value="Add to Cart"/>
 			</form>
-		<% if (user.getType().equals("buy")) {  %>
+		<% if (!user.getType().equals("buy")) {  %>
 			<button type="button" class="btn btn-info">Edit</button>
 		<% } %>
 		</div>
