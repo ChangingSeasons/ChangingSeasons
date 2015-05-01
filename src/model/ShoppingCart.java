@@ -12,7 +12,7 @@ public class ShoppingCart implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int cartID, customerID, quantity;
+	private int cartID, customerID;
 	private Date dateAdded;
 	private float totalPrice;
 	private HashMap<Product, Integer> hm;
@@ -32,31 +32,17 @@ public class ShoppingCart implements Serializable{
 		return noOfProducts;
 	}
 
-
 	public void setNoOfProducts(int noOfProducts) {
 		this.noOfProducts = noOfProducts;
-	}
-
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
 	}
 
 	public HashMap<Product, Integer> getHm() {
 		return hm;
 	}
 
-
-
 	public void setHm(HashMap<Product, Integer> hm) {
 		this.hm = hm;
 	}
-
-
 
 	public int getCartID() {
 		return cartID;

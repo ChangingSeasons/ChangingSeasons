@@ -13,41 +13,46 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+
 public class ShoppingCartDAO {
 
 	public static ShoppingCart cartDetails(int customerID){
+
 		ShoppingCart sc = null;
 
 		int cartID = getCartID(customerID);
 		int noOfProducts = noOfproductsIncart(customerID);
-		int i = 0;
-		int[] productID = new int[noOfProducts];
-		int[] quantity = new int[noOfProducts];
+
+		List<Integer> productID = new ArrayList<Integer>();
+		List<Integer> quantity = new ArrayList<Integer>();
 
 		HashMap<Product, Integer> hm = new HashMap<Product, Integer>();
 
 		try{
 			Connect();
 			String q0 = "SELECT * FROM CartProducts WHERE cartID="+cartID;
-			Connect();
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
 			while(rs.next()){
-				productID[i] = rs.getInt("productID");
-				quantity[i] = rs.getInt("quantity");
-				i++;
+				productID.add(rs.getInt("productID"));
+				quantity.add(rs.getInt("quantity"));
 			}
 
 			st.close();
 			rs.close();
 
-			i = 0;
-			for(i=0; i<productID.length; i++){
-				q0 = "SELECT * FROM Product WHERE productID="+productID[i];
+			Iterator<Integer> itr1 = productID.iterator();
+			Iterator<Integer> itr2 = quantity.iterator();
+
+			while(itr1.hasNext()){
+				int temp_productID = (int)itr1.next();
+				int temp_quant = (int)itr2.next();
+				q0 = "SELECT * FROM Product WHERE productID="+temp_productID;
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
 				while(rs.next()){
+
 					Product p = new Product();
 					p.setProductID(rs.getInt("productID"));
 					p.setProductName(rs.getString("productName"));
@@ -61,8 +66,18 @@ public class ShoppingCartDAO {
 					p.setImageName(rs.getString("imageName"));
 					p.setType(rs.getString("type"));
 					p.setStatus(rs.getBoolean("status"));
-					hm.put(p, quantity[i]);
+
+					for(Product temp_p : hm.keySet()){
+
+						// If same productID, then update quantity, else it add it to hashmap
+						if(p.getProductID() == temp_p.getProductID())
+							hm.put(p, hm.get(p)+1);
+						else
+							hm.put(p, temp_quant);
+					}
+
 				}
+
 			}
 			st.close();
 			rs.close();
@@ -79,7 +94,6 @@ public class ShoppingCartDAO {
 				sc.setCustomerID(customerID);
 				sc.setDateAdded(rs.getDate("dateAdded"));
 				sc.setTotalPrice(rs.getFloat("totalPrice"));
-				sc.setQuantity(quantity.length);
 				sc.setHm(hm);
 				sc.setNoOfProducts(noOfProducts);
 			}
@@ -91,8 +105,6 @@ public class ShoppingCartDAO {
 			e.printStackTrace();
 		}
 		DB_close();
-
-
 		return sc;
 	}
 
@@ -178,7 +190,7 @@ public class ShoppingCartDAO {
 		float price = 0.0f;
 
 		price = totalPrice(customerID);
-		
+
 		if(price>0){ // Its 0 by default, hence a check
 			try{
 				Connect();
@@ -193,7 +205,7 @@ public class ShoppingCartDAO {
 			}	
 			DB_close();
 		}
-		
+
 		return price;
 	}
 
@@ -247,13 +259,13 @@ public class ShoppingCartDAO {
 
 	public static float totalPrice(int customerID){
 		float amount = 0.0f;
-	
+
 		if(noOfproductsIncart(customerID)==0) // Empty Cart, Total price --> 0
 			return 0;
 
-		List<Integer> pID = new ArrayList<Integer>();
-		List<Integer> quant = new ArrayList<Integer>();
-		List<Float> cost = new ArrayList<Float>();
+		List<Integer> productID = new ArrayList<Integer>();
+		List<Integer> quantity = new ArrayList<Integer>();
+		List<Float> price = new ArrayList<Float>();
 
 		try{
 			int cartID = getCartID(customerID);
@@ -264,34 +276,34 @@ public class ShoppingCartDAO {
 
 			if(rs.next()){
 				while(rs.next()){
-					pID.add(rs.getInt("productID"));
-					quant.add(rs.getInt("quantity"));
+					productID.add(rs.getInt("productID"));
+					quantity.add(rs.getInt("quantity"));
 				}
 			}
-			
+
 			st.close();
 			rs.close();
-			
-			Iterator<Integer> itr = pID.iterator();
+
+			Iterator<Integer> itr = productID.iterator();
 			while(itr.hasNext()){
 				int temp = (int)itr.next();
 				q0 = "SELECT price FROM Product WHERE productID="+temp;
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
 				while(rs.next()){
-					cost.add(rs.getFloat("price"));
+					price.add(rs.getFloat("price"));
 				}
 			}
 			rs.close();
 			st.close();
-			
-			Iterator<Integer> itr2 = quant.iterator();
-			Iterator<Float> itr3 = cost.iterator();
-			
+
+			Iterator<Integer> itr2 = quantity.iterator();
+			Iterator<Float> itr3 = price.iterator();
+
 			while(itr2.hasNext()){
 				int temp_quant = (int)itr2.next();
 				float temp_cost = (float)itr3.next();
-				
+
 				amount += temp_quant * temp_cost;
 			}
 
@@ -299,7 +311,7 @@ public class ShoppingCartDAO {
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 		DB_close();
 		return amount;
 	}
