@@ -9,8 +9,24 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.text.DefaultEditorKit.CutAction;
 public class AdminDAO {
+	
+	public static boolean deleteUser(int userID){
+		Connect();
+
+		try{
+			String q = "UPDATE User SET status=0 WHERE id="+userID;
+			Statement st = cn.createStatement();
+			st.executeUpdate(q);
+
+			st.close();
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+		return true;
+	}
 
 	public static boolean authorizeSeller(boolean status, int sellerID){
 		Connect();

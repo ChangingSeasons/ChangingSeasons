@@ -19,7 +19,7 @@ public class CartProductsDAO {
 
 			if(rs.next()){
 				rs.last(); // Get ID of last Cart
-				ID = rs.getInt("cartID");
+				ID = rs.getInt("cartProductID");
 				ID++;
 			}
 			else

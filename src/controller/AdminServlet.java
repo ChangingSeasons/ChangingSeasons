@@ -67,9 +67,8 @@ public class AdminServlet extends HttpServlet {
 			request.setAttribute("msg", msg);
 		}
 		else if(action.equals("ListUsers")){
-			User [] u = listUsers();
-			url = "/base_index.jsp";
-			request.setAttribute("Users", u);
+			
+			// Need to call 3 functions depending on User Type
 		}
 		else if(action.equals("ListProducts")){
 			Product[] p = productDetails();
