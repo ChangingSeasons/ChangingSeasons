@@ -104,7 +104,7 @@ public class ProductDAO {
 		return true;
 	}
 
-	public static boolean statusProduct(int productID){
+	public static boolean deleteProduct(int productID){
 		Connect();
 
 		try{
@@ -217,67 +217,15 @@ public class ProductDAO {
 		return productList;
 	}
 
-	public static Product[] productDetails(int... ID){
-		
-
-		int noOfproducts = noOfProducts();
-
-		Product p[] = new Product[noOfproducts];
-		int i=0;
-
-		for(i=0; i<noOfproducts; i++) 
-			p[i] = new Product();
-
-		int sellerID = 0;
-		String q0;
-		try{
-			i = 0;
-		
-			if(ID.length>0){ // List products by seller
-				sellerID = ID[0];
-				q0="SELECT * FROM Product WHERE sellerID="+sellerID+" AND status <> 0";
-			}
-			else // List all products
-				q0="SELECT * FROM Product WHERE status <> 0";
-			Connect();
-			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery(q0);
-			while(rs.next()){
-				p[i].setProductID(rs.getInt("productID"));
-				p[i].setProductName(rs.getString("productName"));
-				p[i].setProductDesc(rs.getString("productDesc"));
-				p[i].setSellerID(rs.getInt("sellerID"));
-				p[i].setPrice(rs.getFloat("price"));
-				p[i].setImagePath(rs.getString("imagePath"));
-				p[i].setShippingCost(rs.getFloat("shippingCost"));
-				p[i].setSize(rs.getString("size"));
-				p[i].setColor(rs.getString("color"));
-				p[i].setImageName(rs.getString("imageName"));
-				p[i].setType(rs.getString("type"));
-				i++;
-			}
-
-			st.close();
-			rs.close();
-
-		}catch(SQLException se){
-			System.err.println(se.getMessage());
-			se.printStackTrace();
-		}
-		
-		DB_close();
-		return p;
-
-	}
-
 	public static Product viewProduct(int productID){
 		Connect();
-		Product p = new Product();
+		Product p = null;
 		try{
 			String q0="SELECT * FROM Product WHERE productID="+productID+" AND status <> 0";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 			while(rs.next()){
+				p = new Product();
 				p.setProductID(productID);
 				p.setProductName(rs.getString("productName"));
 				p.setProductDesc(rs.getString("productDesc"));

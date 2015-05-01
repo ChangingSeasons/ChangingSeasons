@@ -86,8 +86,8 @@ public class AdminServlet extends HttpServlet {
 			url = "/base_index.jsp";
 		}
 		else if(action.equals("ListProducts")){
-			Product[] p = productDetails();
-			request.setAttribute("Products", p);
+			List<Product> products = getProducts();
+			request.setAttribute("Products", products);
 			url = "/base_index.jsp";
 		}
 		else if(action.equals("EditProducts")){
@@ -99,14 +99,14 @@ public class AdminServlet extends HttpServlet {
 			
 			int productID = Integer.parseInt(request.getParameter("productID"));
 			
-			statusProduct(productID);
+			deleteProduct(productID);
 
 			url = "/base_index.jsp";
 		}
 		else if(action.equals("ViewOrders")){
 
-			Order[] o = orderDetails();
-			request.setAttribute("Orders", o);
+			List<Order> order = orderDetails();
+			request.setAttribute("Orders", order);
 			url = "/base_index.jsp";
 		}
 		else if(action.equals("EditOrder")){

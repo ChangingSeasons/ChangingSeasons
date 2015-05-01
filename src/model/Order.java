@@ -6,9 +6,6 @@ import java.util.Calendar;
 
 public class Order implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int orderID, customerID;
 	private Date dateOfOrder, dateOfShipping;

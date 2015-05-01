@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class OrderDAO {
 
@@ -47,7 +48,7 @@ public class OrderDAO {
 			ResultSet rs = st.executeQuery(q0);
 
 			float price=0f;
-
+		
 			while(rs.next())
 				price = rs.getFloat("totalPrice");
 
@@ -149,7 +150,6 @@ public class OrderDAO {
 			st.close();
 			rs.close();
 
-
 		}catch(SQLException se){
 			System.err.println(se.getMessage());
 			se.printStackTrace();
@@ -159,43 +159,38 @@ public class OrderDAO {
 		return orders;
 	}
 
-	public static Order[] orderDetails(int... ID){
+	public static List<Order> orderDetails(int... ID){
 
-		int noOforders = noOfOrders();
+		List<Order> order = new ArrayList<Order>();
 
-		Order o[] = new Order[noOforders];
-		int i=0;
-
-		for(i=0; i<noOforders; i++)
-			o[i] = new Order();
-
-		int customerID = 0;
 		String q0;
+		int customerID=0;
+		
 		try{
 			Connect();
-			i = 0;
-
+			
 			if(ID.length>0){ // List orders by Customer
 				customerID = ID[0];
 				q0="SELECT * FROM Order WHERE customerID="+customerID+" AND status <> 0";
 			}
-			else // List all Orders
+			else // List all Orders (For Admin)
 				q0="SELECT * FROM Order WHERE status <> 0";
 
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
+			
 			while(rs.next()){
-				o[i].setOrderID(rs.getInt("orderID"));
-				o[i].setDateOfOrder(rs.getDate("dateOfOrder"));
-				o[i].setDateOfShipping(rs.getDate("dateOfShipping"));
-				o[i].setCustomerID(rs.getInt("customerID"));
-				o[i].setOrderStatus(rs.getString("orderStatus"));
-				o[i].setShippingAddress(rs.getString("shippingAddress"));
-				o[i].setTotal_price(rs.getFloat("total_price"));
-				o[i].setTax(rs.getFloat("tax"));
-				i++;
+				Order o = new Order();
+				o.setOrderID(rs.getInt("orderID"));
+				o.setDateOfOrder(rs.getDate("dateOfOrder"));
+				o.setDateOfShipping(rs.getDate("dateOfShipping"));
+				o.setCustomerID(rs.getInt("customerID"));
+				o.setOrderStatus(rs.getString("orderStatus"));
+				o.setShippingAddress(rs.getString("shippingAddress"));
+				o.setTotal_price(rs.getFloat("total_price"));
+				o.setTax(rs.getFloat("tax"));
+				order.add(o);
 			}
-
 			st.close();
 			rs.close();
 
@@ -205,10 +200,9 @@ public class OrderDAO {
 		}
 
 		DB_close();
-		return o;
-
+		return order;
 	}
-
+	
 	public static boolean deleteOrder(int orderID){
 		Connect();
 
@@ -255,7 +249,5 @@ public class OrderDAO {
 		DB_close();
 		return o;
 	}
-
-
 
 }
