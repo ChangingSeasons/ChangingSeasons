@@ -13,7 +13,7 @@ public class AuthDAO {
 		int userId=-1;
 		Connect();
 		try{
-			String q="SELECT id FROM User WHERE username='"+username+"' AND password='"+password+"' AND status <> 0";
+			String q="SELECT id FROM User WHERE username='"+username+"' AND password='"+password+"'";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q);
 			while(rs.next()){
@@ -68,6 +68,7 @@ public class AuthDAO {
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
 				while(rs.next()){
+					u.setStatus(rs.getBoolean("status"));
 					u.setUsername(rs.getString("username"));
 				}
 				rs.close();
@@ -102,6 +103,7 @@ public class AuthDAO {
 				rs = st.executeQuery(q0);
 				while(rs.next()){
 					u.setUsername(rs.getString("username"));
+					u.setStatus(rs.getBoolean("status"));
 				}
 				rs.close();
 				st.close();

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Product;
 import model.User;
+import model.User.*;
 import static model.AuthDAO.*;
 /**
  * Servlet implementation class LoginServlet
@@ -67,10 +68,10 @@ public class LoginServlet extends HttpServlet {
 		else{
 			int ID=checkUserpass(username, password);
 			
+			
 			if(ID!=-1){ //User Is Authenticated
-
-				User u = getUserbyId(ID);
 				
+				User u = getUserbyId(ID);
 				if(u.isStatus() && u.isAuthorized()){ // Check status
 
 					loggedIn = "true";
@@ -98,17 +99,20 @@ public class LoginServlet extends HttpServlet {
 					request.setAttribute("loggedIn", loggedIn);
 					request.setAttribute("msg", msg);
 				}
-				
+
 				else{
+					if(u.getType().equals("sel"))
+						msg = "User not authorized";
+					else
+						msg = "User account Deleted by Admin";
+					request.setAttribute("msg", msg);
 					loggedIn = "false";
-					msg = "User not authorized";
 					url = "/base_login.jsp";
 					request.setAttribute("loggedIn", loggedIn);
-					request.setAttribute("msg", msg);
 				}
-				
+
 			}
-			
+
 			else{
 				msg = "Invalid Username/Password";
 				url = "/base_login.jsp";
