@@ -9,7 +9,7 @@ public class OrderProducts implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String color, size;
-	private List<String> name;
+	private String name;
 	
 	private int quantity, productID, orderID, OrderProductID;
 
@@ -20,7 +20,16 @@ public class OrderProducts implements Serializable{
 		this.productID = 0;
 		this.orderID = 0;
 		this.OrderProductID = 0;
+		this.name = "";
 	}
+
+
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 
 	public String getColor() {
 		return color;
@@ -70,13 +79,5 @@ public class OrderProducts implements Serializable{
 		OrderProductID = orderProductID;
 	}
 
-	public List<String> getName() {
-		return name;
-	}
-
-	public void setName(List<String> name) {
-		this.name = name;
-	}
-	
 
 }
