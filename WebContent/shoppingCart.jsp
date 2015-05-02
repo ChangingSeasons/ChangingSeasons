@@ -64,7 +64,7 @@
 							</select>
 					 -->
 					</td>
-					<td><%=total_price%></td>
+					<td>$ <%=total_price%></td>
 					<td><a
 						href="RemoveFromCartServlet?cartProductID=<%=p.getCartProductID()%>&userID=<%=user.getID() %>">
 							<button type="submit" id="submit" name="submit"
@@ -83,9 +83,9 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<h4>
-						Sub Total:<%=cart.getTotalPrice() %></br> Sales Tax: 8.00%</br>
+						Sub Total: $ <%=cart.getTotalPrice() %></br> Sales Tax: 8.00%</br>
 						<hr>
-						Order Total:<%=cart.getTotalWithtax() %>
+						Order Total: $ <%=cart.getTotalPrice() %>
 					</h4>
 				</div>
 			</div>

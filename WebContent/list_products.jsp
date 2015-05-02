@@ -146,7 +146,7 @@ List<Product> products = (List<Product>) session.getAttribute("products");
 						
 							if (!listUser.getType().equals("buy")) {
 						%>
-							<a href="#" class="btn btn-default btn-xs" role="button">Edit
+							<a href="#" class="btn btn-default btn-xs" role="button" onclick="location.href = 'editProduct.jsp';">Edit
 								Product</a>
 								<%
 										}
