@@ -73,7 +73,7 @@ public class LoginServlet extends HttpServlet {
 
 				User u = getUserbyId(ID);
 				
-				if(u.isStatus()){ // Check status
+				if(u.isStatus() && u.isAuthorized()){ // Check status
 
 					loggedIn = "true";
 					HttpSession se = request.getSession();

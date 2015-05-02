@@ -58,14 +58,12 @@ public class AuthDAO {
 					u.setPhone(rs.getDouble("phone"));
 					u.setPayPalID(rs.getString("payPalID"));
 					u.setMiddlename(rs.getString("middlename"));
-					if(!rs.getBoolean("status"))
-						u.setAuthorized(false);
-					else
-						u.setAuthorized(true);
+					u.setAuthorized(true);
 				}
 				rs.close();
 				st.close();
 				
+
 				q0="SELECT * FROM User WHERE id="+userID;
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
@@ -74,7 +72,7 @@ public class AuthDAO {
 				}
 				rs.close();
 				st.close();
-				
+
 			}
 
 			else if (type.equalsIgnoreCase("sel")){ // Seller
@@ -98,7 +96,7 @@ public class AuthDAO {
 				}
 				rs.close();
 				st.close();
-				
+
 				q0="SELECT * FROM User WHERE id="+userID;
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
@@ -107,7 +105,7 @@ public class AuthDAO {
 				}
 				rs.close();
 				st.close();
-				
+
 			}
 
 			else{ // Admin
@@ -116,6 +114,7 @@ public class AuthDAO {
 				rs = st.executeQuery(q0);
 				while(rs.next()){
 					u.setID(userID);
+					u.setAuthorized(true);
 					u.setUsername(rs.getString("username"));
 				}
 				rs.close();
@@ -296,7 +295,7 @@ public class AuthDAO {
 		DB_close();
 		return true;
 	}
-	
+
 	public static boolean updateSeller(int userID, double phone, boolean authorized, String... args){
 		Connect();
 		try{
@@ -309,12 +308,12 @@ public class AuthDAO {
 					"', email='"+email+"', phone="+phone+", URL='"+URL+"', bankAccount='"+bankAccount+
 					"', routingNumber='"+routingNumber+"', firstname='"+firstname+
 					"', middlename='"+middlename+"', lastname='"+lastname+"', payPalID='"+payPalID+"' WHERE id="+userID;
-			
+
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);
 
 			st.close();
-			
+
 		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();
@@ -329,7 +328,7 @@ public class AuthDAO {
 			String q = "UPDATE Customer SET firstname='"+firstname+"', lastname='"+lastname+
 					"', address='"+address+"', email='"+email+"', phone="+phone+", payPalID='"+payPalID+
 					"', middlename='"+middlename+"' WHERE id="+userID;
-			
+
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);
 
