@@ -8,6 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import model.OrderDAO;
+import model.OrderProductsDAO;
+import model.User;
 
 /**
  * Servlet implementation class CardDetailsServlet
@@ -79,8 +84,27 @@ public class CardDetailsServlet extends HttpServlet {
 		
 		if(cflag== 1 && cvflag == 1 && cardholder.length()!=0){
 			// Everything is filled-in
-			url = "/final.jsp";
+			
+			
+			int customerID = Integer.parseInt(request.getParameter("user"));
+			String orderStatus = "Order Placed";
+			HttpSession se = request.getSession();
+			String shippingAddress= "";
+			if (se.getAttribute("shippingAddress")!= null){
+				shippingAddress = (String) se.getAttribute("shippingAddress");
+			} else {
+				User currentUser = (User) se.getAttribute("user");
+				shippingAddress = currentUser.getAddress();
+				
+			}
+			
+			int orderID = OrderDAO.addOrder(customerID, orderStatus, shippingAddress);
+			
+			OrderProductsDAO.insertIntoOrderProducts(customerID, orderID);
+			
+			url = "/final.jsp?orderID="+orderID;
 			msg = "";
+			
 			request.setAttribute("msg", msg);
 		}
 		

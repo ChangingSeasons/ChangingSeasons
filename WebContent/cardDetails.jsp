@@ -92,7 +92,10 @@
 
 				</div>
 			</div>
-
+			
+			<!--  Hidden input for userId -->
+			<input type="hidden" name = "user" id="user" value="<%=user.getID()%>" />
+			
 			<!-- Button -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="submit"></label>

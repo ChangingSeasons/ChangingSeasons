@@ -10,15 +10,15 @@
 			<!-- Form Name -->
 			<div class="page-header">
 				<h1>
-					<span class="title">Changing Seasons</span></br>
+					<span class="title">Changing Seasons</span><br/>
 					<small>Thank You!</small>
 				</h1>
 			</div>
 			
 			<div style="text-align: center;">
 			<h4>
-			Your order has been successfully placed.</br>
-			Your order ID is ......
+			Your order has been successfully placed.<br/>
+			Your order ID is <%=request.getParameter("orderID") %>
 			</h4>
 			</div>
 			

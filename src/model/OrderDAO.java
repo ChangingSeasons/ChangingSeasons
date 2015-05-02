@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class OrderDAO {
@@ -38,9 +39,12 @@ public class OrderDAO {
 		return ID;
 	}
 
-	public static int addOrder(Date dateOfOrder, Date dateOfShipping, int customerID, String orderStatus, String shippingAddress){
+	public static int addOrder(int customerID, String orderStatus, String shippingAddress){
 		int orderID = getID();
 		try{
+			Calendar calendar = Calendar.getInstance();
+			Date dateOfOrder = new Date(calendar.getTime().getTime());
+			Date dateOfShipping = new Date(calendar.getTime().getTime());; 
 			
 			Connect();
 			String q0 = "SELECT totalPrice FROM ShoppingCart WHERE customerID="+customerID;
@@ -57,17 +61,17 @@ public class OrderDAO {
 
 			float amount = (1.08f * price); // Including tax
 
-			String q1 = "INSERT into Order (orderID, dateOfOrder, dateOfShipping, customerID, orderStatus, shippingAddress, total_price, tax, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String q1 = "INSERT into Order (orderID, dateOfOrder, customerID, orderStatus, shippingAddress, total_price, tax, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = cn.prepareStatement(q1);
 			ps.setInt(1, orderID);
 			ps.setDate(2, dateOfOrder);
-			ps.setDate(3, dateOfShipping);
-			ps.setInt(4, customerID);
-			ps.setString(5, orderStatus);
-			ps.setString(6, shippingAddress);
-			ps.setFloat(7, amount); // Total Price includes 8% tax
-			ps.setFloat(8, 8); // tax = 8% of total
-			ps.setBoolean(9, true);
+			//ps.setDate(3, dateOfShipping);		// Not setting Date of Shipping at start
+			ps.setInt(3, customerID);
+			ps.setString(4, orderStatus);
+			ps.setString(5, shippingAddress);
+			ps.setFloat(6, amount); // Total Price includes 8% tax
+			ps.setFloat(7, 8); // tax = 8% of total
+			ps.setBoolean(8, true);
 			ps.executeUpdate();
 
 			ps.close();

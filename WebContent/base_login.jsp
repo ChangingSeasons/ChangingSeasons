@@ -62,14 +62,6 @@
 	}
 %>
 
-	<!-- 
-
-	<div class="alert alert-success" role="alert">alert success!</div>
-	<div class="alert alert-info" role="alert">alert info</div>
-	<div class="alert alert-warning" role="alert">alert warning</div>
-
- -->
-
 	<form class="form-horizontal" action="/ChangingSeasons/LoginServlet"
 		method="post">
 		<fieldset>

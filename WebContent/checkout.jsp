@@ -29,20 +29,18 @@
 			<div class="panel-body">
 
 				<form class="form-horizontal" action="" method="post">
-					<!-- Address input-->
+				
+					<!-- Buyer address same as shipping address-->
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="fullname">Address</label>
 						<div class="col-md-4">
-						<div>
-							<%= user.getAddress()%>
-							</div>
-							<!-- 
-							<input class="form-control" id="disabledTextInput" type="text"
-								placeholder="<%= user.getAddress()%>"> -->
+							<p class="form-control-static">
+								<%= user.getAddress()%>
+							</p>
 						</div>
 					</div>
 
-					<!-- Button -->
+					<!-- If new shipping address -->
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="submit"></label>
 						<div class="col-md-4">
@@ -65,7 +63,7 @@
 				</h3>
 			</div>
 			<div class="panel-body">
-				<form class="form-horizontal" action="" method="post">
+				<form class="form-horizontal" action="AddOrderShippingAddressServlet" method="post">
 
 
 					<!-- Text input
@@ -102,8 +100,7 @@
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="submit"></label>
 						<div class="col-md-4">
-							<button type="button" id="submit" name="submit"
-								onclick="location.href = 'cardDetails.jsp';"
+							<button type="submit" id="submit" name="submit"
 								class="btn btn-default">Ship to this address</button>
 						</div>
 					</div>
