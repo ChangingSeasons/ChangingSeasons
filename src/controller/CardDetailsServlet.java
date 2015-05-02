@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import model.OrderDAO;
 import model.OrderProductsDAO;
+import model.ShoppingCartDAO;
 import model.User;
 
 /**
@@ -101,6 +102,7 @@ public class CardDetailsServlet extends HttpServlet {
 			int orderID = OrderDAO.addOrder(customerID, orderStatus, shippingAddress);
 			
 			OrderProductsDAO.insertIntoOrderProducts(customerID, orderID);
+			ShoppingCartDAO.initShoppingCart(customerID);
 			
 			url = "/final.jsp?orderID="+orderID;
 			msg = "";
