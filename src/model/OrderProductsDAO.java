@@ -70,6 +70,37 @@ public class OrderProductsDAO {
 		return true;
 	}
 
+	public static List<String> getProductnameByorderID(int orderID){
+		List<String> names = new ArrayList<String>();
+		
+		try{
+			Connect();
+			String q0 = "SELECT productID FROM OrderProducts WHERE orderID="+orderID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+			
+			String q1 = "";
+			while(rs.next()){
+				q1 = "SELECT productName FROM Produc WHERE productID="+rs.getInt("productID");
+				Statement st1 = cn.createStatement();
+				ResultSet rs1 = st.executeQuery(q1);
+				
+				while(rs1.next()){
+					names.add(rs1.getString("productName"));
+				}
+				st1.close();
+				rs1.close();
+			}
+			st.close();
+			rs.close();
+			}catch(SQLException e){
+				System.err.println(e.getMessage());
+				e.printStackTrace();
+			}
+			DB_close();
+			return names;
+	}
+	
 	public static List<OrderProducts> viewOrderProducts(int orderID){
 		List<OrderProducts> op = new ArrayList<OrderProducts>();
 
@@ -88,7 +119,7 @@ public class OrderProductsDAO {
 				o.setProductID(rs.getInt("productID"));
 				o.setQuantity(rs.getInt("quantity"));
 				o.setSize(rs.getString("size"));
-				
+				o.setName(getProductnameByorderID(orderID));
 				op.add(o);
 			}
 			

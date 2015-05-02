@@ -183,6 +183,17 @@ public class ShoppingCartDAO {
 		DB_close();
 		return price;
 	}
+	
+	public static float totalWithtax(int customerID){
+		float price = 0.0f;
+
+		price = totalPrice(customerID);
+		
+		if(price > 0)
+			return (price * 1.08f);
+		return 0;
+		
+	}
 
 	public static int noOfproductsIncart(int userID){
 		int count = 0;

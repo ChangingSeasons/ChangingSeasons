@@ -1,13 +1,15 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class OrderProducts implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String color, size, name;
+	private String color, size;
+	private List<String> name;
 	
 	private int quantity, productID, orderID, OrderProductID;
 
@@ -18,7 +20,6 @@ public class OrderProducts implements Serializable{
 		this.productID = 0;
 		this.orderID = 0;
 		this.OrderProductID = 0;
-		this.name="";
 	}
 
 	public String getColor() {
@@ -68,11 +69,14 @@ public class OrderProducts implements Serializable{
 	public void setOrderProductID(int orderProductID) {
 		OrderProductID = orderProductID;
 	}
-	public String getName() {
+
+	public List<String> getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(List<String> name) {
 		this.name = name;
 	}
+	
+
 }
