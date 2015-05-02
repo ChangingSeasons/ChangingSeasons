@@ -47,8 +47,8 @@ public class OrderDAO {
 			Date dateOfOrder = new Date(calendar.getTime().getTime());
 			Date dateOfShipping = new Date(calendar.getTime().getTime());; 
 			
-			Connect();
 			updateTotalPrice(customerID);
+			Connect();
 			String q0 = "SELECT totalPrice FROM ShoppingCart WHERE customerID="+customerID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);

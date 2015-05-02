@@ -246,7 +246,7 @@ public class ShoppingCartDAO {
 		try{
 			int cartID = getCartID(customerID);
 			Connect();
-			String q0 = "SELECT productID, quantity FROM CartProduct WHERE cartID="+cartID;
+			String q0 = "SELECT productID, quantity FROM CartProducts WHERE cartID="+cartID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
