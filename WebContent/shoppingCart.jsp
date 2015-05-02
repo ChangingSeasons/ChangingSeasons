@@ -1,6 +1,6 @@
 <%@page import="model.Product"%>
 <%@page import="model.ShoppingCart"%>
-<%@page import="java.util.HashMap"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="header.jsp"%>
@@ -9,7 +9,7 @@
 <div class="container">
 	<%
 	ShoppingCart cart = ShoppingCartDAO.cartDetails(user.getID());
-	HashMap<Product, Integer> cartProducts = cart.getHm();
+	List<Product> cartProducts = cart.getCartProducts();
 	%>
 
 	<!-- Breadcrumb -->
@@ -41,28 +41,28 @@
 			</thead>
 			<%
 	    		if (cartProducts != null) {
-					for (Product p : cartProducts.keySet()) {
-						double total_price = p.getPrice() * cartProducts.get(p);
+					for (Product p : cartProducts) {
+						double total_price = p.getPrice() * p.getQuantity();
 		%>
 			<tbody>
 				<tr>
 					<td><%=p.getProductName() %></td>
-					<td> COLOR </td>
-					<td> SIZE </td>
+					<td> <%=p.getColor() %> </td>
+					<td> <%=p.getSize() %> </td>
 					<td> 
-					<%=cartProducts.get(p) %>
+					<%=p.getQuantity() %>
 					<!--  
 							<select id="quantity" style="width: auto;" class="form-control selectWidth">
 							<% 
 							for (int i=0;i<20;i++) {
 								String nonselected = "<option>"+i+"</option>";
 								String selected = "<option selected>"+i+"</option>";
-								if (i == cartProducts.get(p)) out.write(selected);
+								if (i == p.getQuantity()) out.write(selected);
 								else out.write(nonselected);
 							}
 							%>
 							</select>
-							 -->
+					 -->
 					</td>
 					<td><%=total_price%></td>
 					<td><a

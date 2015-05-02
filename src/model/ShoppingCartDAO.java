@@ -29,7 +29,7 @@ public class ShoppingCartDAO {
 
 		try{
 			Connect();
-			String q0 = "SELECT c.porductID,p.productName,p.productDesc,p.sellerID,p.price,p.imagePath,p.shippingCost,c.size,c.color,p.imageName,p.type,p.status,c.quantity FROM CartProducts c JOIN Product p ON "
+			String q0 = "SELECT c.productID,p.productName,p.productDesc,p.sellerID,p.price,p.imagePath,p.shippingCost,c.size,c.color,p.imageName,p.type,p.status,c.quantity FROM CartProducts c JOIN Product p ON "
 					+ "c.productID=p.productID WHERE cartID="+cartID;
 
 			Statement st = cn.createStatement();
