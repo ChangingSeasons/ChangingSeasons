@@ -250,7 +250,7 @@ public class OrderDAO {
 				o.setDateOfShipping(rs.getDate("dateOfShipping"));
 				o.setCustomerID(rs.getInt("customerID"));
 				o.setOrderStatus(rs.getString("orderStatus"));
-				o.setShippingAddress(rs.getString("shippingAddress"));
+				if(rs.getString("shippingAddress")!= null) o.setShippingAddress(rs.getString("shippingAddress"));
 				o.setTotal_price(rs.getFloat("total_price"));
 				o.setTax(rs.getFloat("tax"));
 			}
