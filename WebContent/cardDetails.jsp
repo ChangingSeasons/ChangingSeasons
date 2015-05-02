@@ -16,7 +16,7 @@
 		if(msg == null) msg="";
 		if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">"+msg+"</div>");
 	%>
-	<form class="form-horizontal" action="/ChangingSeasons/" method="post">
+	<form class="form-horizontal" action="/ChangingSeasons/CardDetailsServlet" method="post">
 		<fieldset>
 
 			<!-- Form Name -->
@@ -97,8 +97,8 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="submit"></label>
 				<div class="col-md-4">
-					<button type="button" id="submit" name="submit" onclick="location.href = 'final.jsp';"
-						class="btn btn-primary">Confirm Payment</button>
+					<button type="submit" id="submit" name="submit" 
+					class="btn btn-primary">Confirm Payment</button>
 				</div>
 			</div>
 
