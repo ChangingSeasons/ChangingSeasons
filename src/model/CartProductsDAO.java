@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import static model.ShoppingCartDAO.*;
 public class CartProductsDAO {
 
 	private static int getID(){
@@ -121,7 +121,7 @@ public class CartProductsDAO {
 			System.err.println(se.getMessage());
 			se.printStackTrace();
 		}
-
+		
 		DB_close();
 		return true;
 	}

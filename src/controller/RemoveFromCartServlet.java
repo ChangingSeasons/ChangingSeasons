@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static model.CartProductsDAO.removeProductfromCart;
 import static model.ShoppingCartDAO.getCartID;
+import static model.ShoppingCartDAO.updateTotalPrice;
 
 /**
  * Servlet implementation class RemoveFromCart
@@ -42,7 +43,8 @@ public class RemoveFromCartServlet extends HttpServlet {
 		//int userID = Integer.parseInt(request.getParameter("userID"));
 		//int cartId = getCartID(userID);
 		removeProductfromCart(productToBeRemoved);
-		
+		int ID = (int)request.getSession().getAttribute("ID");
+		updateTotalPrice(ID);
 		String url = "/shoppingCart.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
