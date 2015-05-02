@@ -10,8 +10,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-
+import static model.OrderProductsDAO.*;
 public class OrderDAO {
 
 	private static int getID(){
@@ -128,11 +130,12 @@ public class OrderDAO {
 		return countRows;
 	}
 
-	public static ArrayList<Integer> orderSellers(int sellerID){
+	public static HashMap<Order, List<OrderProducts>> orderSellers(int sellerID){
 
 		ArrayList<Integer> orders = new ArrayList<Integer>();
 		ArrayList<Integer> productID = new ArrayList<Integer>();
-
+		HashMap<Order, List<OrderProducts>> orderDetails = new HashMap<Order, List<OrderProducts>>();
+		
 		try{
 			Connect();
 			String q0 = "SELECT productID FROM Product WHERE sellerID="+sellerID;
@@ -144,9 +147,11 @@ public class OrderDAO {
 			}
 			st.close();
 			rs.close();
-
-			for(Integer z: productID){
-				q0 = "SELECT DISTINCT orderID FROM OrderProducts WHERE productID="+z;
+			
+			Iterator<Integer> itr = productID.iterator();
+			while(itr.hasNext()){
+				int temp_id = (int)itr.next();
+				q0 = "SELECT DISTINCT orderID FROM OrderProducts WHERE productID="+temp_id;
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
 				while(rs.next()){
@@ -155,6 +160,13 @@ public class OrderDAO {
 			}
 			st.close();
 			rs.close();
+			
+			for(Integer z:orders){
+				Order o = viewOrder(z);
+				List<OrderProducts> op = viewOrderProducts(z);
+				
+				orderDetails.put(o, op);
+			}
 
 		}catch(SQLException se){
 			System.err.println(se.getMessage());
@@ -162,7 +174,7 @@ public class OrderDAO {
 		}
 		DB_close();
 
-		return orders;
+		return orderDetails;
 	}
 
 	public static List<Order> orderDetails(int... ID){
@@ -177,7 +189,7 @@ public class OrderDAO {
 			
 			if(ID.length>0){ // List orders by Customer
 				customerID = ID[0];
-				q0="SELECT * FROM Order WHERE customerID="+customerID+" AND status <> 0";
+				q0="SELECT * FROM Orders WHERE customerID="+customerID+" AND status <> 0";
 			}
 			else // List all Orders (For Admin)
 				q0="SELECT * FROM Orders WHERE status <> 0";
