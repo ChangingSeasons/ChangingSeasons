@@ -11,9 +11,11 @@
 <div class="container">
 <%
 HashMap<Order, List<OrderProducts>> orders; 
+
 if (user.getType().equals("sel")) orders = OrderDAO.orderSellers(user.getID());
 if (user.getType().equals("buy")) orders = OrderDAO.orderDetails(user.getID());
 else orders = OrderDAO.orderDetails(user.getID());
+out.write("HASHMAPS RECIEVED SUCCESFUL!");
 %>
 
 	<!-- Welcome -->
@@ -39,31 +41,33 @@ else orders = OrderDAO.orderDetails(user.getID());
 	    </thead>
 	       <tbody>
 	    <%
-	    	int count;
+	    	int count = 0;
 	    	for (Order order : orders.keySet()) {
 	    %>
 	    		<tr>
-	    		<td> </td>
+	    		<td><%=count %> </td>
+	    		<td><%=order.getOrderID() %></td>
+	    		<td><%=order.getDateOfOrder().getTime() %> </td>
+	    		
+	    		<td><%=order.getOrderStatus()  %></td>
+	    		<td><%=order.getShippingAddress() %> </td>
+	    		<td><%=order.getTotal_price() %></td>
 	    		</tr>
 	    		<%
-				for (;; ) { 
+	    		count++;
+				for (OrderProducts product : orders.get(order)) { 
 				%>
-	 
-	      <tr>
-	        <td><% out.write(""); %></td>
-	        <td><% out.write(""); %></td>
-	       	<td>25</td>
-	        <td>29</td>
-	        <td>Shipped</td>
-	        <td>Albany</td>
-	        <td>189</td>
-	      </tr>
-
-		<%
-			}
-	    }
-	    
-	    %>
+				      <tr>
+				        <td><%=product.getName()%></td>
+				        <td><%=product.getSize() %></td>
+				       	<td><%=product.getColor() %></td>
+				        <td><%=product.getQuantity() %></td>
+				      </tr>
+					<%
+					}
+			    }
+			    %>
+		
 		</tbody>
   </table>
 	

@@ -11,6 +11,8 @@ public class OrderProducts implements Serializable{
 	private String color, size;
 	private String name;
 	
+	
+
 	private int quantity, productID, orderID, OrderProductID;
 
 	public OrderProducts(){
@@ -29,7 +31,9 @@ public class OrderProducts implements Serializable{
 		this.name = name;
 	}
 
-
+	public String getName() {
+		return name;
+	}
 
 	public String getColor() {
 		return color;

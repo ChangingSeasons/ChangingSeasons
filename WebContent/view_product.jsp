@@ -24,7 +24,6 @@
 			<fieldset>
 				<div class="panel panel-default">
 					<div class="panel-body">
-
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="description">
 								Description</label>
@@ -83,10 +82,10 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="price"> Price</label>
+							<label class="col-md-4 control-label" for="price"> Price</label> 
 							<div class="col-md-4">
 								<p class="form-control-static">
-									<%=product.getPrice()%>
+									$ <%=product.getPrice()%>
 								</p>
 							</div>
 						</div>
@@ -101,7 +100,7 @@
 								<%
 									if (!user.getType().equals("buy")) {
 								%>
-								<button type="button" class="btn btn-info">Edit</button>
+								<button type="button" class="btn btn-info" onclick="location.href = 'editProduct.jsp';">Edit</button>
 								<%
 									} else {
 								%>

@@ -72,7 +72,7 @@
 						<li><a href="AboutUs.jsp">About Us</a></li>
 						<li><a href="contactUs.jsp">Contact Us</a></li>
 						<% } else if(user.getType().equals("adm")) { %>
-						<li><a href="#">Seller Authentication</a></li>
+						<li><a href="viewSeller.jsp">Seller Authentication</a></li>
 						<li><a href="viewBuyer.jsp">View Customer</a></li>
 						<li><a href="viewSeller.jsp">View Sellers</a></li>
 						<li class="divider"></li>

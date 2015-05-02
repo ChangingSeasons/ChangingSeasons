@@ -109,7 +109,7 @@ public class OrderProductsDAO {
 				OrderProducts o = new OrderProducts();
 				o.setOrderID(orderID);
 				o.setColor(rs.getString("color"));
-				o.setOrderProductID(rs.getInt("OrderProductsID"));
+				o.setOrderProductID(rs.getInt("OrderProductID"));
 				o.setProductID(rs.getInt("productID"));
 				o.setQuantity(rs.getInt("quantity"));
 				o.setSize(rs.getString("size"));
