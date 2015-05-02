@@ -176,50 +176,91 @@ public class OrderDAO {
 
 		return orderDetails;
 	}
-
-	public static List<Order> orderDetails(int... ID){
-
-		List<Order> order = new ArrayList<Order>();
-
+	
+	public static HashMap<Order, List<OrderProducts>> orderDetails(int... ID){
+		
+		HashMap<Order, List<OrderProducts>> orderDetails = new HashMap<Order, List<OrderProducts>>();
+		ArrayList<Integer> orders = new ArrayList<Integer>();
+		
 		String q0;
 		int customerID=0;
-		
 		try{
 			Connect();
-			
 			if(ID.length>0){ // List orders by Customer
 				customerID = ID[0];
-				q0="SELECT * FROM Orders WHERE customerID="+customerID+" AND status <> 0";
+				q0="SELECT orderID FROM Orders WHERE customerID="+customerID+" AND status <> 0";
 			}
 			else // List all Orders (For Admin)
-				q0="SELECT * FROM Orders WHERE status <> 0";
+				q0="SELECT orderID FROM Orders WHERE status <> 0";
 
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 			
 			while(rs.next()){
-				Order o = new Order();
-				o.setOrderID(rs.getInt("orderID"));
-				o.setDateOfOrder(rs.getDate("dateOfOrder"));
-				o.setDateOfShipping(rs.getDate("dateOfShipping"));
-				o.setCustomerID(rs.getInt("customerID"));
-				o.setOrderStatus(rs.getString("orderStatus"));
-				o.setShippingAddress(rs.getString("shippingAddress"));
-				o.setTotal_price(rs.getFloat("total_price"));
-				o.setTax(rs.getFloat("tax"));
-				order.add(o);
+				orders.add(rs.getInt("orderID"));			
 			}
 			st.close();
 			rs.close();
-
+			
+			for(Integer z:orders){
+				Order o = viewOrder(z);
+				List<OrderProducts> op = viewOrderProducts(z);
+				
+				orderDetails.put(o, op);
+			}
+			
 		}catch(SQLException se){
 			System.err.println(se.getMessage());
 			se.printStackTrace();
 		}
 
 		DB_close();
-		return order;
+		return orderDetails;
 	}
+
+//	public static List<Order> orderDetails(int... ID){
+//
+//		List<Order> order = new ArrayList<Order>();
+//
+//		String q0;
+//		int customerID=0;
+//		
+//		try{
+//			Connect();
+//			
+//			if(ID.length>0){ // List orders by Customer
+//				customerID = ID[0];
+//				q0="SELECT * FROM Orders WHERE customerID="+customerID+" AND status <> 0";
+//			}
+//			else // List all Orders (For Admin)
+//				q0="SELECT * FROM Orders WHERE status <> 0";
+//
+//			Statement st = cn.createStatement();
+//			ResultSet rs = st.executeQuery(q0);
+//			
+//			while(rs.next()){
+//				Order o = new Order();
+//				o.setOrderID(rs.getInt("orderID"));
+//				o.setDateOfOrder(rs.getDate("dateOfOrder"));
+//				o.setDateOfShipping(rs.getDate("dateOfShipping"));
+//				o.setCustomerID(rs.getInt("customerID"));
+//				o.setOrderStatus(rs.getString("orderStatus"));
+//				o.setShippingAddress(rs.getString("shippingAddress"));
+//				o.setTotal_price(rs.getFloat("total_price"));
+//				o.setTax(rs.getFloat("tax"));
+//				order.add(o);
+//			}
+//			st.close();
+//			rs.close();
+//
+//		}catch(SQLException se){
+//			System.err.println(se.getMessage());
+//			se.printStackTrace();
+//		}
+//
+//		DB_close();
+//		return order;
+//	}
 	
 	public static boolean deleteOrder(int orderID){
 		Connect();
