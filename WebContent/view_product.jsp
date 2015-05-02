@@ -101,7 +101,7 @@
 								<%
 									if (!user.getType().equals("buy")) {
 								%>
-								<button type="button" class="btn btn-info">Edit</button>
+								<button type="button" class="btn btn-info" onclick="location.href = 'editProduct.jsp';">Edit</button>
 								<%
 									} else {
 								%>

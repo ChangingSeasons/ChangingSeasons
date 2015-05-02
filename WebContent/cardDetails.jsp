@@ -45,7 +45,7 @@
 				</div>
 			</div>
 			
-			</hr>
+			<hr>
 			
 			<h3> Enter your card details &nbsp&nbsp<img src="imgs/Cards.jpg" alt="" width="250" height="30"></h3>
 			

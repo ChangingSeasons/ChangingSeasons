@@ -83,9 +83,9 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<h4>
-						Sub Total:<%=cart.getTotalPrice() %></br> Sales Tax:</br>
+						Sub Total:<%=cart.getTotalPrice() %></br> Sales Tax: 8.00%</br>
 						<hr>
-						Order Total:
+						Order Total:<%=cart.getTotalWithtax() %>
 					</h4>
 				</div>
 			</div>
