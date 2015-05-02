@@ -187,7 +187,7 @@ public class VendorServlet extends HttpServlet {
 				}
 				
 				if(status == true){
-					sendMail(email, "Welcome to Changing Seasons", "Thank you for registering with Us. We wish you a pleasant experience!");
+					sendMail(email, "Welcome to Changing Seasons", "Thank you for registering with Us. We wish you a pleasant experience!","register");
 					msg = "Account Created Successfully";
 					request.setAttribute("msg", msg);
 					url = "/base_login.jsp";

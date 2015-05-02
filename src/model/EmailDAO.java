@@ -1,5 +1,7 @@
 package model;
 
+import static model.EmailDAO.sendMail;
+
 import java.util.Date;
 import java.util.Properties;
 
@@ -14,7 +16,7 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailDAO {
 
-	public static void sendMail(String to, String subject, String message){
+	public static void sendMail(String to, String subject, String message, String type){
 
 		final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 		Properties props = System.getProperties();
@@ -39,24 +41,33 @@ public class EmailDAO {
 					return new PasswordAuthentication(username, password);
 				}
 			});
-
-			// -- Create a new message --
+			
 			Message msg = new MimeMessage(session);
-
-			// -- Set the FROM and TO fields --
 			msg.setFrom(new InternetAddress(username));
 			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to,false));
-			msg.setSubject(subject);
-			msg.setText("Thank you for Contacting Us. Our Customer support team will get back to you soon.");
+			
+			if(type.equalsIgnoreCase("register")){
+				msg.setSubject(subject); // Welcome to Changing Seasons
+				msg.setText(message); // Thank you for registering with Us. We wish you a pleasant shopping experience!
+			}
+			else if(type.equalsIgnoreCase("authorization")){
+				msg.setSubject(subject); //Authorization Status
+				msg.setText(message); //Thank you for Registering with Us. You have been Authorized by the Admin. We wish you a pleasant selling experience!
+			}
+			else if(type.equalsIgnoreCase("order")){
+				
+			}
+			else if(type.equalsIgnoreCase("contactus")){
+				msg.setSubject(subject); //Authorization Status
+				msg.setText(message); //Thank you for Contacting Us. Our Customer support team will get back to you soon.
+			}
 			msg.setSentDate(new Date());
 			Transport.send(msg);
 
+			
 			// Store the mail in Company's inbox as well
 
-			// -- Create a new message --
-			msg = new MimeMessage(session);
-
-			// -- Set the FROM and TO fields --
+			msg = new MimeMessage(session); // Create a new message
 			msg.setFrom(new InternetAddress(username));
 			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(username,false));
 			msg.setSubject(subject + " From: " + to);

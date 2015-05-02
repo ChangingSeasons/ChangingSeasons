@@ -59,7 +59,7 @@ public class ContactUsServlet extends HttpServlet {
 			msg = "Thank you for Contacting Us. Our Customer support team will get back to you soon.";
 			url = "/contactUs.jsp";
 			request.setAttribute("msg", msg);
-			sendMail(email.toString(), title.toString(), message.toString());
+			sendMail(email.toString(), title.toString(), message.toString(),"contactus");
 			
 		}
 		

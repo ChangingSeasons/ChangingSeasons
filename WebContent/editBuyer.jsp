@@ -4,7 +4,7 @@
 <%@ include file="navbar.jsp"%>
 
 <div class="container">
-	<form class="form-horizontal" action="/ChangingSeasons/Update" method="post">
+	<form class="form-horizontal" action="/ChangingSeasons/UpdateServlet" method="post">
 		<fieldset>
 
 			<!-- Form Name -->

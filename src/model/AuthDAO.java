@@ -296,16 +296,15 @@ public class AuthDAO {
 		return true;
 	}
 
-	public static boolean updateSeller(int userID, double phone, boolean authorized, String... args){
+	public static boolean updateSeller(int userID, double phone, String... args){
 		Connect();
 		try{
 			String companyName = args[0], address = args[1],
-					email = args[2], URL = args[3],
-					bankAccount = args[4], routingNumber = args[5],
-					firstname = args[6], middlename = args[7], lastname = args[8], payPalID = args[9];
+					email = args[2], bankAccount = args[3], routingNumber = args[4],
+					firstname = args[5], middlename = args[6], lastname = args[7], payPalID = args[8];
 
 			String q = "UPDATE Seller SET companyName='"+companyName+"', address='"+address+
-					"', email='"+email+"', phone="+phone+", URL='"+URL+"', bankAccount='"+bankAccount+
+					"', email='"+email+"', phone="+phone+", bankAccount='"+bankAccount+
 					"', routingNumber='"+routingNumber+"', firstname='"+firstname+
 					"', middlename='"+middlename+"', lastname='"+lastname+"', payPalID='"+payPalID+"' WHERE id="+userID;
 
