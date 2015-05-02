@@ -17,7 +17,7 @@ public class OrderDAO {
 		Connect();
 		int ID = -1;
 		try{
-			String q0 = "SELECT orderID FROM Order";
+			String q0 = "SELECT orderID FROM Orders";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
@@ -61,7 +61,7 @@ public class OrderDAO {
 
 			float amount = (1.08f * price); // Including tax
 
-			String q1 = "INSERT into Order (orderID, dateOfOrder, customerID, orderStatus, shippingAddress, total_price, tax, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String q1 = "INSERT into Orders (orderID, dateOfOrder, customerID, orderStatus, shippingAddress, total_price, tax, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = cn.prepareStatement(q1);
 			ps.setInt(1, orderID);
 			ps.setDate(2, dateOfOrder);
@@ -87,7 +87,7 @@ public class OrderDAO {
 		Connect();
 		try{
 
-			String q = "UPDATE Order SET dateOfOrder='"+dateOfOrder+"', dateOfShipping='"+dateOfShipping
+			String q = "UPDATE Orders SET dateOfOrder='"+dateOfOrder+"', dateOfShipping='"+dateOfShipping
 					+"', orderStatus='"+orderStatus+"', shippingAddress="+shippingAddress+", total_price="+total_price
 					+", tax="+tax+" WHERE orderID="+orderID;
 
@@ -108,7 +108,7 @@ public class OrderDAO {
 		Connect();
 		int countRows = 0;
 		try{
-			String q="SELECT * FROM Order WHERE status <> 0";
+			String q="SELECT * FROM Orders WHERE status <> 0";
 
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q);
@@ -178,7 +178,7 @@ public class OrderDAO {
 				q0="SELECT * FROM Order WHERE customerID="+customerID+" AND status <> 0";
 			}
 			else // List all Orders (For Admin)
-				q0="SELECT * FROM Order WHERE status <> 0";
+				q0="SELECT * FROM Orders WHERE status <> 0";
 
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
@@ -211,7 +211,7 @@ public class OrderDAO {
 		Connect();
 
 		try{
-			String q = "UPDATE Order SET status=0 WHERE orderID="+orderID;
+			String q = "UPDATE Orders SET status=0 WHERE orderID="+orderID;
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);
 
@@ -230,7 +230,7 @@ public class OrderDAO {
 		Order o = new Order();
 
 		try{
-			String q0="SELECT * FROM Order WHERE orderID="+orderID;
+			String q0="SELECT * FROM Orders WHERE orderID="+orderID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 			while(rs.next()){
@@ -257,7 +257,7 @@ public class OrderDAO {
 	public static boolean updateShippingAddress(int customerID, String address){
 		Connect();
 		try{
-			String q = "UPDATE Order SET shippingAddress='"+address+"' WHERE customerID="+customerID;
+			String q = "UPDATE Orders SET shippingAddress='"+address+"' WHERE customerID="+customerID;
 
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);
