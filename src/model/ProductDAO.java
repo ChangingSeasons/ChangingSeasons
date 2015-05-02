@@ -249,7 +249,7 @@ public class ProductDAO {
 
 	public static List<Product> search(String... search){
 		Connect();
-		
+
 		List<Product> products = new ArrayList<Product>();
 		String q0 = "";
 		try{
@@ -257,7 +257,7 @@ public class ProductDAO {
 				q0="SELECT * FROM Product WHERE productName like '%"+search[0]+"%' OR productDesc like '%"+search[0]+"%'";
 			else if(search.length==2)
 				q0="SELECT * FROM Product WHERE productName like '%"+search[0]+"%' OR productName like '%"+search[1]+"%' OR productDesc like '%"+search[0]+"%' OR productDesc like '%"+search[1]+"%'";
-			
+
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
@@ -285,6 +285,42 @@ public class ProductDAO {
 			se.printStackTrace();
 		}
 
+		DB_close();
+		return products;
+	}
+
+
+	public static List<Product> lastFour(){
+
+		List<Product> products = new ArrayList<Product>();
+		Connect();
+		try{
+			String q0 = "SELECT * FROM Product ORDER BY productID DESC LIMIT 0,4;";
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+
+			while(rs.next()){
+				Product p = new Product();
+				p.setProductID(rs.getInt("productID"));
+				p.setProductName(rs.getString("productName"));
+				p.setProductDesc(rs.getString("productDesc"));
+				p.setSellerID(rs.getInt("sellerID"));
+				p.setPrice(rs.getFloat("price"));
+				p.setImagePath(rs.getString("imagePath"));
+				p.setShippingCost(rs.getFloat("shippingCost"));
+				p.setSize(rs.getString("size"));
+				p.setColor(rs.getString("color"));
+				p.setImageName(rs.getString("imageName"));
+				p.setType(rs.getString("type"));
+				products.add(p);
+			}
+
+			st.close();
+			rs.close();
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
 		DB_close();
 		return products;
 	}
