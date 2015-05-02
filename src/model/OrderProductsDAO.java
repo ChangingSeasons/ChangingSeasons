@@ -70,6 +70,31 @@ public class OrderProductsDAO {
 		return true;
 	}
 
+	public static String getProductnamebyProductID(int productID){
+		String names = "";
+
+		try{
+			Connect();
+
+			String q1 = "SELECT productName FROM Product WHERE productID="+productID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q1);
+
+			while(rs.next()){
+				names = rs.getString("productName");
+			}
+			st.close();
+			rs.close();
+
+
+		}catch(SQLException e){
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+		DB_close();
+		return names;
+	}
+
 	public static List<OrderProducts> viewOrderProducts(int orderID){
 		List<OrderProducts> op = new ArrayList<OrderProducts>();
 
@@ -78,9 +103,9 @@ public class OrderProductsDAO {
 			String q0 = "SELECT * FROM OrderProducts WHERE orderID="+orderID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-			
+
 			while(rs.next()){
-				
+
 				OrderProducts o = new OrderProducts();
 				o.setOrderID(orderID);
 				o.setColor(rs.getString("color"));
@@ -88,10 +113,10 @@ public class OrderProductsDAO {
 				o.setProductID(rs.getInt("productID"));
 				o.setQuantity(rs.getInt("quantity"));
 				o.setSize(rs.getString("size"));
-				
+				o.setName(getProductnamebyProductID(rs.getInt("productID")));
 				op.add(o);
 			}
-			
+
 			rs.close();
 			st.close();
 		}catch(SQLException e){

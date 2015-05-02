@@ -1,9 +1,20 @@
+<%@page import="model.OrderProducts"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.List"%>
+<%@page import="model.OrderDAO"%>
+<%@page import="model.Order"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="header.jsp"%>
 <%@ include file="navbar.jsp"%>
 
 <div class="container">
+<%
+HashMap<Order, List<OrderProducts>> orders; 
+if (user.getType().equals("sel")) orders = OrderDAO.orderSellers(user.getID());
+if (user.getType().equals("buy")) orders = OrderDAO.orderDetails(user.getID());
+else orders = OrderDAO.orderDetails(user.getID());
+%>
 
 	<!-- Welcome -->
 	<div class="page-header">
@@ -14,7 +25,7 @@
 
 	<div class="container">
 	  <h4>Order Details</h4>
-	  <table class="table table-bordered" align="center">
+	  <table class="table table-striped" align="center">
 	    <thead>
 	      <tr>
 	      	<th>Sl no</th>
@@ -26,23 +37,34 @@
 	        <th>Cost</th>
 	      </tr>
 	    </thead>
+	       <tbody>
 	    <%
-				for (int i = 1; i < 4; i++) {
-		%>
-	    <tbody>
+	    	int count;
+	    	for (Order order : orders.keySet()) {
+	    %>
+	    		<tr>
+	    		<td> </td>
+	    		</tr>
+	    		<%
+				for (;; ) { 
+				%>
+	 
 	      <tr>
-	        <td><% out.write(i*1+""); %></td>
-	        <td><% out.write(i*5+""); %></td>
+	        <td><% out.write(""); %></td>
+	        <td><% out.write(""); %></td>
 	       	<td>25</td>
 	        <td>29</td>
 	        <td>Shipped</td>
 	        <td>Albany</td>
 	        <td>189</td>
 	      </tr>
-	    </tbody>
-	    <%
-				}
-			%>
+
+		<%
+			}
+	    }
+	    
+	    %>
+		</tbody>
   </table>
 	
 	<!-- Button -->

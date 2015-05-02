@@ -45,8 +45,10 @@ public class CardDetailsServlet extends HttpServlet {
 		String cardno = request.getParameter("cardno");
 		String cvv = request.getParameter("cvv");
 		String cardholder = request.getParameter("cardholder");
-		
+		String paypal = request.getParameter("paypal");
 		String msg = "", url = "";
+		
+		if(paypal.equals("Not Entered"))
 		
 		int cflag = 0, cvflag = 0;
 		

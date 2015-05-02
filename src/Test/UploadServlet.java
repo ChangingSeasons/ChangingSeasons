@@ -48,7 +48,7 @@ public class UploadServlet extends HttpServlet {
 		for (Part part : request.getParts()) {
 			String fileName = extractFileName(part);
 			part.write(savePath + File.separator + fileName);
-			path = savePath + File.separator + fileName;
+			path = "imgs" + File.separator + fileName;
 			addImage(path);
 		}
 		url = "/base_index.jsp";

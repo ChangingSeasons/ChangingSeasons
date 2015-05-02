@@ -25,7 +25,7 @@
 			<div class="form-group" style="text-align: center;">
 				<label class="col-md-4 control-label" for="signup"></label>
 				<div class="col-md-4">
-					<button type="button" id="submit" name="submit" onclick="location.href = 'list_products.jsp';"
+					<button type="button" id="submit" name="submit" onclick="location.href = 'base_index.jsp';"
 						class="btn btn-primary">Continue Shopping</button>
 				</div>
 			</div>

@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class OrderProducts implements Serializable{
 	/**
@@ -8,6 +9,8 @@ public class OrderProducts implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String color, size;
+	private String name;
+	
 	private int quantity, productID, orderID, OrderProductID;
 
 	public OrderProducts(){
@@ -17,7 +20,16 @@ public class OrderProducts implements Serializable{
 		this.productID = 0;
 		this.orderID = 0;
 		this.OrderProductID = 0;
+		this.name = "";
 	}
+
+
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 
 	public String getColor() {
 		return color;
@@ -66,5 +78,6 @@ public class OrderProducts implements Serializable{
 	public void setOrderProductID(int orderProductID) {
 		OrderProductID = orderProductID;
 	}
-	
+
+
 }

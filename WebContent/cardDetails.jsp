@@ -29,7 +29,7 @@
 			
 			<h3>PayPal Account &nbsp&nbsp<img src="imgs/Paypal.jpg" alt="" width="100" height="30"></h3>
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="paypal">Paypal ID: 
+				<label class="col-md-4 control-label" name ="paypal" for="paypal">Paypal ID: 
 				</label> <%=user.getPayPalID() != null ? user.getPayPalID() : "Not Entered"%> 
 			</div>
 			
