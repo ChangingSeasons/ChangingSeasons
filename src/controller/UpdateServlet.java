@@ -70,6 +70,8 @@ public class UpdateServlet extends HttpServlet {
 			String address = (String)request.getParameter("address");
 			updateBuyer(u.getID(), firstname, lastname, address, email, phone, paypal, middlename);
 		}
+		u = new User();
+		se.setAttribute("user", getUserbyId(ID));
 		request.setAttribute("msg", "Profile Updated!");
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/base_index.jsp");
 		dispatcher.forward(request, response);

@@ -51,6 +51,7 @@ public class AddToCartServlet extends HttpServlet {
 		System.out.println("INserting into cart product "+productID + " "+color+" "+ size+ " "+quantity);
 		
 		insertIntoCartProducts(cartId, productID, quantity,size,color);
+		updateTotalPrice(userID);
 		url = "/shoppingCart.jsp";
 		//request.setAttribute("cart", cart);
 		

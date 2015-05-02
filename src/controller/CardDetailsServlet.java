@@ -42,12 +42,12 @@ public class CardDetailsServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-		String paypal = request.getParameter("paypal");
 		String msg = "", url = "";
 		int cflag = 0, cvflag = 0;
 
-		if(paypal.equals("Not Entered")){ //PayPal not entered, proceed with Card Details
+		if(request.getParameter("submit")!=null){ // Submit is clicked
+
+			//PayPal not entered, proceed with Card Details
 
 			String cardno = request.getParameter("cardno");
 			String cvv = request.getParameter("cvv");
@@ -112,30 +112,43 @@ public class CardDetailsServlet extends HttpServlet {
 				request.setAttribute("msg", msg);
 			}
 		}
-		
-		else{ // Proceed with PayPal
-			int customerID = Integer.parseInt(request.getParameter("user"));
-			String orderStatus = "Order Placed";
-			HttpSession se = request.getSession();
-			String shippingAddress= "";
-			if (se.getAttribute("shippingAddress")!= null){
-				shippingAddress = (String) se.getAttribute("shippingAddress");
-			} else {
-				User currentUser = (User) se.getAttribute("user");
-				shippingAddress = currentUser.getAddress();
+
+		else{ // PayPal button is clicked
+
+			String paypal = request.getParameter("hidden-paypal");
+
+			if(paypal!=null && !paypal.equalsIgnoreCase("Not Entered")){
+				int customerID = Integer.parseInt(request.getParameter("user"));
+				String orderStatus = "Order Placed";
+				HttpSession se = request.getSession();
+				String shippingAddress= "";
+				if (se.getAttribute("shippingAddress")!= null){
+					shippingAddress = (String) se.getAttribute("shippingAddress");
+				} else {
+					User currentUser = (User) se.getAttribute("user");
+					shippingAddress = currentUser.getAddress();
+				}
+
+				int orderID = OrderDAO.addOrder(customerID, orderStatus, shippingAddress);
+
+				OrderProductsDAO.insertIntoOrderProducts(customerID, orderID);
+				ShoppingCartDAO.initShoppingCart(customerID);
+
+				url = "/final.jsp?orderID="+orderID;
+				msg = "";
+
+				request.setAttribute("msg", msg);
+				
 			}
 
-			int orderID = OrderDAO.addOrder(customerID, orderStatus, shippingAddress);
-
-			OrderProductsDAO.insertIntoOrderProducts(customerID, orderID);
-			ShoppingCartDAO.initShoppingCart(customerID);
-
-			url = "/final.jsp?orderID="+orderID;
-			msg = "";
-
-			request.setAttribute("msg", msg);
+			else{
+				
+				msg = "PayPay ID Not Entered";
+				url = "/cardDetails.jsp";
+				request.setAttribute("msg", msg);
+			}
 		}
-		
+
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);	
 
