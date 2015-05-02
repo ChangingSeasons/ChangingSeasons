@@ -26,8 +26,7 @@
 	</div>
 
 	<div class="container">
-		<h4>Your shopping bag</h4>
-		<table class="table" align="center">
+		<table class="table table-striped" align="center">
 			<thead>
 				<tr>
 					<th>Product</th>
@@ -66,7 +65,7 @@
 					</td>
 					<td><%=total_price%></td>
 					<td><a
-						href="RemoveFromCartServlet?productID=<%=p.getProductID()%>&userID=<%=user.getID() %>">
+						href="RemoveFromCartServlet?cartProductID=<%=p.getCartProductID()%>&userID=<%=user.getID() %>">
 							<button type="submit" id="submit" name="submit"
 								class="btn btn-default">Delete</button>
 					</a></td>

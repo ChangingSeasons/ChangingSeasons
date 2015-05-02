@@ -38,10 +38,10 @@ public class RemoveFromCartServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int productToBeRemoved = Integer.parseInt(request.getParameter("productID"));
-		int userID = Integer.parseInt(request.getParameter("userID"));
-		int cartId = getCartID(userID);
-		removeProductfromCart(cartId, productToBeRemoved);
+		int productToBeRemoved = Integer.parseInt(request.getParameter("cartProductID"));
+		//int userID = Integer.parseInt(request.getParameter("userID"));
+		//int cartId = getCartID(userID);
+		removeProductfromCart(productToBeRemoved);
 		
 		String url = "/shoppingCart.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

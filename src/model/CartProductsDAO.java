@@ -56,6 +56,8 @@ public class CartProductsDAO {
 	public static boolean insertIntoCartProducts(int cartID, int productID, int quantity, String size, String color){
 
 		try{
+			boolean isDuplicate = false;
+			
 			Connect();
 			String q0 = "SELECT productID, quantity, size, color FROM CartProducts WHERE cartID="+cartID+
 					" AND productID="+productID;
@@ -68,6 +70,7 @@ public class CartProductsDAO {
 				String tempcolor = rs.getString("color");
 
 				if(tempsize.equals(size) && tempcolor.equals(color)){
+					isDuplicate = true;
 					String q1 = "UPDATE CartProducts SET quantity="+(quan+quantity);
 					Statement st2 = cn.createStatement();
 					st2.executeUpdate(q1);
@@ -78,7 +81,7 @@ public class CartProductsDAO {
 				}
 			}
 
-			else{
+			if (!isDuplicate) {
 				String q = "INSERT into CartProducts (cartProductID, cartID, productID, quantity, size, color) values (?, ?, ?, ?, ?, ?)";
 				Connect();
 				PreparedStatement ps = cn.prepareStatement(q);
@@ -105,11 +108,11 @@ public class CartProductsDAO {
 		return true;
 	}
 
-	public static boolean removeProductfromCart(int cartID, int productID){
+	public static boolean removeProductfromCart(int cartProductID){
 
 		Connect();
 		try{
-			String q = "DELETE FROM CartProducts WHERE cartID="+cartID+" AND productID="+productID;
+			String q = "DELETE FROM CartProducts WHERE cartProductID="+cartProductID;
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);
 

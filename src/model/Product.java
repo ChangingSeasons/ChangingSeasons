@@ -7,7 +7,7 @@ public class Product implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int productID, sellerID, quantity;
+	private int productID, sellerID, quantity, cartProductID;
 	
 
 	private float price, shippingCost;
@@ -129,6 +129,14 @@ public class Product implements Serializable{
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public int getCartProductID() {
+		return cartProductID;
+	}
+
+	public void setCartProductID(int cartProductID) {
+		this.cartProductID = cartProductID;
 	}
 
 }
