@@ -31,8 +31,10 @@
 			<thead>
 				<tr>
 					<th>Product</th>
-					<th>Price</th>
+					<th>Color </th>
+					<th>Size </th>
 					<th>Quantity</th>
+					<th>Price</th>
 					<th>Total</th>
 					<th></th>
 				</tr>
@@ -45,9 +47,12 @@
 			<tbody>
 				<tr>
 					<td><%=p.getProductName() %></td>
-					<td><%=p.getPrice()%></td>
-					<td><select id="quantity" style="width: auto;"
-						class="form-control selectWidth">
+					<td> COLOR </td>
+					<td> SIZE </td>
+					<td> 
+					<%=cartProducts.get(p) %>
+					<!--  
+							<select id="quantity" style="width: auto;" class="form-control selectWidth">
 							<% 
 							for (int i=0;i<20;i++) {
 								String nonselected = "<option>"+i+"</option>";
@@ -56,7 +61,9 @@
 								else out.write(nonselected);
 							}
 							%>
-					</select></td>
+							</select>
+							 -->
+					</td>
 					<td><%=total_price%></td>
 					<td><a
 						href="RemoveFromCartServlet?productID=<%=p.getProductID()%>&userID=<%=user.getID() %>">

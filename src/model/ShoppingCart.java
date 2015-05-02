@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 public class ShoppingCart implements Serializable{
 
@@ -16,6 +17,9 @@ public class ShoppingCart implements Serializable{
 	private Date dateAdded;
 	private float totalPrice;
 	private HashMap<Product, Integer> hm;
+	private List<Product> cartProducts;
+	
+
 	private int noOfProducts;
 	private String size, color;
 	
@@ -92,6 +96,14 @@ public class ShoppingCart implements Serializable{
 
 	public void setTotalPrice(float totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+	
+	public List<Product> getCartProducts() {
+		return cartProducts;
+	}
+
+	public void setCartProducts(List<Product> cartProducts) {
+		this.cartProducts = cartProducts;
 	}
 
 }

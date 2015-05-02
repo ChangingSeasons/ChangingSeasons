@@ -7,7 +7,9 @@ public class Product implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int productID, sellerID;
+	private int productID, sellerID, quantity;
+	
+
 	private float price, shippingCost;
 	private String productName, productDesc, imagePath, size, color, imageName, type;
 	
@@ -18,6 +20,7 @@ public class Product implements Serializable{
 		this.sellerID = 0;
 		this.price = 0.0f;
 		this.shippingCost = 0.0f;
+		this.quantity = 0;
 		this.productName = "";
 		this.productDesc = "";
 		this.imagePath = "";
@@ -121,6 +124,11 @@ public class Product implements Serializable{
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 
 }

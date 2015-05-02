@@ -24,11 +24,13 @@ public class ShoppingCartDAO {
 		int noOfProducts = noOfproductsIncart(customerID);
 
 		HashMap<Product, Integer> hm = new HashMap<Product, Integer>();
+		
+		List<Product> cartProducts = new ArrayList<Product>();
 
 		try{
 			Connect();
-			String q0 = "SELECT * FROM CartProducts JOIN Product ON "
-					+ "CartProducts.productID=Product.productID WHERE cartID="+cartID;
+			String q0 = "SELECT c.porductID,p.productName,p.productDesc,p.sellerID,p.price,p.imagePath,p.shippingCost,c.size,c.color,p.imageName,p.type,p.status,c.quantity FROM CartProducts c JOIN Product p ON "
+					+ "c.productID=p.productID WHERE cartID="+cartID;
 
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
@@ -47,8 +49,9 @@ public class ShoppingCartDAO {
 				p.setImageName(rs.getString("imageName"));
 				p.setType(rs.getString("type"));
 				p.setStatus(rs.getBoolean("status"));
+				p.setQuantity(rs.getInt("quantity"));
 
-				hm.put(p, rs.getInt("quantity"));
+				cartProducts.add(p);
 			}
 			st.close();
 			rs.close();
@@ -65,7 +68,7 @@ public class ShoppingCartDAO {
 				sc.setCustomerID(customerID);
 				sc.setDateAdded(rs.getDate("dateAdded"));
 				sc.setTotalPrice(rs.getFloat("totalPrice"));
-				sc.setHm(hm);
+				sc.setCartProducts(cartProducts);
 				sc.setNoOfProducts(noOfProducts);
 			}
 			rs.close();

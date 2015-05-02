@@ -43,9 +43,15 @@ public class AddToCartServlet extends HttpServlet {
 
 		int productID = Integer.parseInt(request.getParameter("productID"));
 		int userID = Integer.parseInt(request.getParameter("userID"));
-
 		int cartId = getCartID(userID);
-		insertIntoCartProducts(cartId, productID, 1,"XL","Red");
+		
+		String color = request.getParameter("color");
+		String size = request.getParameter("size");
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		
+		System.out.println("INserting into cart product "+productID + " "+color+" "+ size+ " "+quantity);
+		
+		insertIntoCartProducts(cartId, productID, quantity,size,color);
 		url = "/shoppingCart.jsp";
 		//request.setAttribute("cart", cart);
 		
