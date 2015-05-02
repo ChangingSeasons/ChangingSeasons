@@ -21,7 +21,7 @@
 	</div>
 
 	<div class="container">
-
+<div class="col-md-4" style="float:left; width:40%;">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Current Address</h3>
@@ -29,7 +29,6 @@
 			<div class="panel-body">
 
 				<form class="form-horizontal" action="" method="post">
-				
 					<!-- Buyer address same as shipping address-->
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="fullname">Address</label>
@@ -52,9 +51,10 @@
 				</form>
 			</div>
 		</div>
+</div>
 
 
-
+<div class="col-md-4" style="float:right; width:50%;">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">
@@ -108,5 +108,6 @@
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 <%@ include file="footer.jsp"%>

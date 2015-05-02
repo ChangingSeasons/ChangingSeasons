@@ -27,7 +27,27 @@
 				</h1>
 			</div>
 			
-			<h3> Enter your card details</h3>
+			<h3>PayPal Account &nbsp&nbsp<img src="imgs/Paypal.jpg" alt="" width="100" height="30"></h3>
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="paypal">Paypal ID: 
+				</label> <%=user.getPayPalID() != null ? user.getPayPalID() : "Not Entered"%> 
+			</div>
+			
+			<!--  Hidden input for userId -->
+			<input type="hidden" name = "user" id="user" value="<%=user.getID()%>" />
+			
+			<!-- Button -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="submit"></label>
+				<div class="col-md-4">
+					<button type="submit" id="submit" name="submit" 
+					class="btn btn-primary">Confirm Payment</button>
+				</div>
+			</div>
+			
+			</hr>
+			
+			<h3> Enter your card details &nbsp&nbsp<img src="imgs/Cards.jpg" alt="" width="250" height="30"></h3>
 			
 			<!-- Text input-->
 			<div class="form-group required">
