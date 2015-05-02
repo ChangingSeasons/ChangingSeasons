@@ -1,11 +1,13 @@
 package controller;
 import model.Order;
+import model.OrderProducts;
 import model.Product;
 import model.User;
 import static model.EmailDAO.*;
 import static model.AdminDAO.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -105,7 +107,7 @@ public class AdminServlet extends HttpServlet {
 		}
 		else if(action.equals("ViewOrders")){
 
-			List<Order> order = orderDetails();
+			HashMap<Order, List<OrderProducts>> order = orderDetails();
 			request.setAttribute("Orders", order);
 			url = "/base_index.jsp";
 		}
