@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Product;
 import model.User;
-import model.User.*;
+
 import static model.AuthDAO.*;
 /**
  * Servlet implementation class LoginServlet

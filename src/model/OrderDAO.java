@@ -1,6 +1,7 @@
 package model;
 
 import static model.ConnectDB.*;
+import static model.ShoppingCartDAO.*;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -47,6 +48,7 @@ public class OrderDAO {
 			Date dateOfShipping = new Date(calendar.getTime().getTime());; 
 			
 			Connect();
+			updateTotalPrice(customerID);
 			String q0 = "SELECT totalPrice FROM ShoppingCart WHERE customerID="+customerID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);

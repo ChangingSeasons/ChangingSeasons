@@ -23,7 +23,7 @@ public class ShoppingCartDAO {
 		int cartID = getCartID(customerID);
 		int noOfProducts = noOfproductsIncart(customerID);
 
-		HashMap<Product, Integer> hm = new HashMap<Product, Integer>();
+		//HashMap<Product, Integer> hm = new HashMap<Product, Integer>();
 		
 		List<Product> cartProducts = new ArrayList<Product>();
 
