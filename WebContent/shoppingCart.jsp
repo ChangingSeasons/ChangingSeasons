@@ -38,12 +38,13 @@
 					<th></th>
 				</tr>
 			</thead>
+			<tbody>
 			<%
 	    		if (cartProducts != null) {
 					for (Product p : cartProducts) {
 						double total_price = p.getPrice() * p.getQuantity();
 		%>
-			<tbody>
+			
 				<tr>
 					<td><%=p.getProductName() %></td>
 					<td> <%=p.getColor() %> </td>
@@ -70,11 +71,12 @@
 								class="btn btn-default">Delete</button>
 					</a></td>
 				</tr>
-			</tbody>
+			
 			<%
 					}
 				} else out.write("No Cart Product found");
 			%>
+			</tbody>
 		</table>
 
 		<div style="text-align: right; width: 30%; margin-left: 800px;"">
