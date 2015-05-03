@@ -115,7 +115,12 @@
 	<%@page import="model.ProductDAO.*"%>
 
 	<% 
-List<Product> products = (List<Product>) session.getAttribute("products");
+	List<Product> products;
+		if (request.getAttribute("searchProducts") != null) {
+			products = (List<Product>) request.getAttribute("searchProducts");
+			out.write("GOT SEARCH RESULT!!! "+products.size());
+		} else 
+		 products = (List<Product>) session.getAttribute("products");
 %>
 	<div class="row">
 		<%
