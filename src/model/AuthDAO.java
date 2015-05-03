@@ -118,6 +118,7 @@ public class AuthDAO {
 					u.setID(userID);
 					u.setAuthorized(true);
 					u.setUsername(rs.getString("username"));
+					u.setStatus(rs.getBoolean("status"));
 				}
 				rs.close();
 				st.close();

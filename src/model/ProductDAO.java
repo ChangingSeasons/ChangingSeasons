@@ -201,7 +201,8 @@ public class ProductDAO {
 				p.setColor(rs.getString("color"));
 				p.setImageName(rs.getString("imageName"));
 				p.setType(rs.getString("type"));
-
+				p.setCompanyName(getCompanyNameForProduct(rs.getInt("sellerID")));
+				Connect();
 				productList.add(p);
 			}
 
@@ -216,6 +217,29 @@ public class ProductDAO {
 		DB_close();
 
 		return productList;
+	}
+	
+	public static String getCompanyNameForProduct(int sellerID){
+		String companyName = "";
+		try{
+			Connect();
+			String q0 = "SELECT companyName FROM Seller WHERE id="+sellerID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+			
+			while(rs.next())
+				companyName = (rs.getString("companyName"));
+			
+			rs.close();
+			st.close();
+			
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+
+		DB_close();
+		return companyName;
 	}
 
 	public static Product viewProduct(int productID){
@@ -238,6 +262,9 @@ public class ProductDAO {
 				p.setColor(rs.getString("color"));
 				p.setImageName(rs.getString("imageName"));
 				p.setType(rs.getString("type"));
+				p.setCompanyName(getCompanyNameForProduct(rs.getInt("sellerID")));
+				Connect();
+				
 			}
 			st.close();
 			rs.close();
@@ -277,6 +304,8 @@ public class ProductDAO {
 				p.setColor(rs.getString("color"));
 				p.setImageName(rs.getString("imageName"));
 				p.setType(rs.getString("type"));
+				p.setCompanyName(getCompanyNameForProduct(rs.getInt("sellerID")));
+				Connect();
 				products.add(p);
 			}
 
@@ -314,6 +343,8 @@ public class ProductDAO {
 				p.setColor(rs.getString("color"));
 				p.setImageName(rs.getString("imageName"));
 				p.setType(rs.getString("type"));
+				p.setCompanyName(getCompanyNameForProduct(rs.getInt("sellerID")));
+				Connect();
 				products.add(p);
 			}
 

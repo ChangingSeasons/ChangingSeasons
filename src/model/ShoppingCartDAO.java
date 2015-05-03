@@ -1,5 +1,6 @@
 package model;
 
+import static model.ProductDAO.*;
 import static model.ConnectDB.*;
 
 import java.sql.Date;
@@ -51,7 +52,8 @@ public class ShoppingCartDAO {
 				p.setType(rs.getString("type"));
 				p.setStatus(rs.getBoolean("status"));
 				p.setQuantity(rs.getInt("quantity"));
-
+				p.setCompanyName(getCompanyNameForProduct(rs.getInt("sellerID")));
+				Connect();
 				cartProducts.add(p);
 			}
 			st.close();

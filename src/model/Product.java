@@ -9,7 +9,7 @@ public class Product implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int productID, sellerID, quantity, cartProductID;
 	
-
+	private String companyName;
 	private float price, shippingCost;
 	private String productName, productDesc, imagePath, size, color, imageName, type;
 	
@@ -29,8 +29,18 @@ public class Product implements Serializable{
 		this.imageName = "";
 		this.type = "";
 		this.status = true;
+		this.companyName = "";
 	}
 	
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
 	public boolean isStatus() {
 		return status;
 	}
