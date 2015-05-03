@@ -54,12 +54,17 @@ public class EmailDAO {
 				msg.setSubject(subject); //Authorization Status
 				msg.setText(message); //Thank you for Registering with Us. You have been Authorized by the Admin. We wish you a pleasant selling experience!
 			}
-			else if(type.equalsIgnoreCase("order")){
-				
+			else if(type.equalsIgnoreCase("orderDetailsToCustomer")){
+				msg.setSubject(subject); // Order Details
+				msg.setText(message);
 			}
 			else if(type.equalsIgnoreCase("contactus")){
 				msg.setSubject(subject); //Authorization Status
 				msg.setText(message); //Thank you for Contacting Us. Our Customer support team will get back to you soon.
+			}
+			else if(type.equalsIgnoreCase("orderDetailsToSeller")){
+				msg.setSubject(subject); // Order Details
+				msg.setText(message);
 			}
 			msg.setSentDate(new Date());
 			Transport.send(msg);

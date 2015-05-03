@@ -57,7 +57,7 @@ public class AdminServlet extends HttpServlet {
 				String email = (String)request.getParameter("email");
 				authorizeSeller(true, ID);
 				msg = "Seller Authorized!";
-				//sendMail(email, "Authorization Status", "Thank you for Registering with Us. You have been Authorized by the Admin. We wish you a pleasant selling experience!","authorization");
+				sendMail(email, "Authorization Status", "Thank you for Registering with Us. You have been Authorized by the Admin. We wish you a pleasant selling experience!","authorization");
 			} else{
 				authorizeSeller(false, ID);
 				msg = "Seller De-Authorized!";

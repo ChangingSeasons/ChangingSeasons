@@ -15,6 +15,33 @@ import java.util.List;
 import static model.OrderProductsDAO.*;
 public class OrderDAO {
 
+	public static int sellerDetails(int orderID){
+		List<OrderProducts> op = viewOrderProducts(orderID);
+
+		int productID = op.get(0).getProductID();
+		
+		int sellerID = 0;
+		
+		try{
+			Connect();
+			String q0 = "SELECT sellerID FROM Product WHERE productID="+productID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+			
+			while(rs.next())
+				sellerID = rs.getInt("sellerID");
+			
+			rs.close();
+			st.close();
+			
+		}catch(SQLException e){
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+		DB_close();
+		return sellerID;
+	} 
+
 	private static int getID(){
 		Connect();
 		int ID = -1;
@@ -47,7 +74,7 @@ public class OrderDAO {
 			Calendar calendar = Calendar.getInstance();
 			Date dateOfOrder = new Date(calendar.getTime().getTime());
 			Date dateOfShipping = new Date(calendar.getTime().getTime());; 
-			
+
 			updateTotalPrice(customerID);
 			Connect();
 			String q0 = "SELECT totalPrice FROM ShoppingCart WHERE customerID="+customerID;
@@ -55,7 +82,7 @@ public class OrderDAO {
 			ResultSet rs = st.executeQuery(q0);
 
 			float price=0f;
-		
+
 			while(rs.next())
 				price = rs.getFloat("totalPrice");
 
@@ -134,7 +161,7 @@ public class OrderDAO {
 		List<Integer> orders = new ArrayList<Integer>();
 		List<Integer> productID = new ArrayList<Integer>();
 		HashMap<Order, List<OrderProducts>> orderDetails = new HashMap<Order, List<OrderProducts>>();
-		
+
 		try{
 			Connect();
 			String q0 = "SELECT productID FROM Product WHERE sellerID="+sellerID;
@@ -146,7 +173,7 @@ public class OrderDAO {
 			}
 			st.close();
 			rs.close();
-			
+
 			for(Integer z : productID){
 				q0 = "SELECT DISTINCT orderID FROM OrderProducts WHERE productID="+z;
 				st = cn.createStatement();
@@ -155,15 +182,15 @@ public class OrderDAO {
 					orders.add(rs.getInt("orderID"));
 				}
 			}
-			
+
 			st.close();
 			rs.close();
-			
+
 			for(Integer z:orders){
 				Order o = viewOrder(z);
-				
+
 				List<OrderProducts> op = viewOrderProducts(z);
-				
+
 				orderDetails.put(o, op);
 			}
 
@@ -175,12 +202,12 @@ public class OrderDAO {
 
 		return orderDetails;
 	}
-	
+
 	public static HashMap<Order, List<OrderProducts>> orderDetails(int... ID){
-		
+
 		HashMap<Order, List<OrderProducts>> orderDetails = new HashMap<Order, List<OrderProducts>>();
 		ArrayList<Integer> orders = new ArrayList<Integer>();
-		
+
 		String q0;
 		int customerID=0;
 		try{
@@ -194,20 +221,20 @@ public class OrderDAO {
 
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
-			
+
 			while(rs.next()){
 				orders.add(rs.getInt("orderID"));			
 			}
 			st.close();
 			rs.close();
-			
+
 			for(Integer z:orders){
 				Order o = viewOrder(z);
 				List<OrderProducts> op = viewOrderProducts(z);
-				
+
 				orderDetails.put(o, op);
 			}
-			
+
 		}catch(SQLException se){
 			System.err.println(se.getMessage());
 			se.printStackTrace();
@@ -216,7 +243,7 @@ public class OrderDAO {
 		DB_close();
 		return orderDetails;
 	}
-	
+
 	public static boolean deleteOrder(int orderID){
 		Connect();
 
@@ -234,7 +261,7 @@ public class OrderDAO {
 		DB_close();
 		return true;
 	}
-	
+
 	public static boolean updateStatus(int orderID, String status){
 		Connect();
 
@@ -281,7 +308,7 @@ public class OrderDAO {
 		DB_close();
 		return o;
 	}
-	
+
 	public static boolean updateShippingAddress(int customerID, String address){
 		Connect();
 		try{

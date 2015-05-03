@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,8 +15,10 @@ import static model.OrderDAO.*;
 import static model.OrderProductsDAO.*;
 import static model.ShoppingCartDAO.*;
 import model.Order;
+import model.OrderProducts;
 import model.User;
 import static model.EmailDAO.*;
+import static model.AuthDAO.*;
 
 /**
  * Servlet implementation class CardDetailsServlet
@@ -63,7 +66,7 @@ public class CardDetailsServlet extends HttpServlet {
 
 			User u = (User)se.getAttribute("user");
 			emailCustomer(u, orderID);
-			
+			emailSeller(u, orderID);
 		}
 
 		else{
@@ -150,9 +153,10 @@ public class CardDetailsServlet extends HttpServlet {
 			msg = "";
 
 			request.setAttribute("msg", msg);
-			
+
 			User u = (User)se.getAttribute("user");
 			emailCustomer(u, orderID);
+			emailSeller(u, orderID);
 		}
 
 
@@ -160,22 +164,58 @@ public class CardDetailsServlet extends HttpServlet {
 		dispatcher.forward(request, response);	
 
 	}
-	
+
 	public static void emailCustomer(User u, int orderID){
+
+		Order o = viewOrder(orderID);
+
+		List<OrderProducts> op = viewOrderProducts(orderID);
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("Hello "+u.getFirstname()+" "+u.getLastname()+",");
+		sb.append("\nYou recently placed an Order with ChangingSeasons. Order Details:\n");
+		sb.append("Order ID: "+o.getOrderID());
+		sb.append("\nDate of Order: "+o.getDateOfOrder());
+		sb.append("\nOrder Status: "+o.getOrderStatus());
+		sb.append("\nShipping Address: "+u.getAddress());
+		sb.append("\nTotal Price (Includes 8% Tax): "+o.getTotal_price()+"\n\nOrder Includes:\n");
+
+		for(OrderProducts temp : op)
+			sb.append("Name: "+temp.getName()+"\tColor: "+
+					temp.getColor()+"\tSize: "+temp.getSize()+"\tQuantity: "+temp.getQuantity()+"\n");
 		
-        Order o = viewOrder(orderID);
-        
-        StringBuilder sb = new StringBuilder();
-        sb.append("Hello "+u.getFirstname()+" "+u.getLastname());
-        sb.append("\nYou recently placed an Order with ChangingSeasons. Order Details:\n");
-        sb.append("Order ID: "+o.getOrderID());
-        sb.append("\nDate of Order: "+o.getDateOfOrder());
-        sb.append("\nOrder Status: "+o.getOrderStatus());
-        sb.append("\nShipping Address: "+u.getAddress());
-        sb.append("\nTotal Price (Includes 8% Tax): "+o.getTotal_price());
-        sb.append("\n\nThank you for shopping with Us. We Hope to See you again soon!\nChangingSeasons.com");
-        
-        sendMail(u.getEmail(), "Order Details", sb.toString(), "orderDetailsToCustomer");
+		sb.append("\n\nThank you for shopping with Us. We Hope to See you again soon!\nChangingSeasons.com");
+
+		sendMail(u.getEmail(), "Order Details", sb.toString(), "orderDetailsToCustomer");
+	}
+	
+	public static void emailSeller(User customer, int orderID){
+		int ID = sellerDetails(orderID);
+		
+		User u = getUserbyId(ID);
+		
+		Order o = viewOrder(orderID);
+
+		List<OrderProducts> op = viewOrderProducts(orderID);
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Hello "+u.getFirstname()+" "+u.getLastname()+",");
+		sb.append("\nCongratulations, One of our Customers bought some of your products. Order Details:\n");
+		sb.append("Order ID: "+o.getOrderID());
+		sb.append("\nDate of Order: "+o.getDateOfOrder());
+		sb.append("\nOrder Status: "+o.getOrderStatus());
+		sb.append("\nShipping Address: "+customer.getAddress());
+		sb.append("\nTotal Price (Includes 8% Tax): "+o.getTotal_price()+"\n\nOrder Includes:\n");
+		
+		for(OrderProducts temp : op)
+			sb.append("Name: "+temp.getName()+"\tColor: "+
+					temp.getColor()+"\tSize: "+temp.getSize()+"\tQuantity: "+temp.getQuantity()+"\n");
+		
+		sb.append("\n\nWe Hope to see more Customer purchasing your great Products! You are our valued Seller\n");
+		sb.append("\nThank you From ChanginSeasons.com");
+		
+		sendMail(u.getEmail(), "Order Details", sb.toString(), "orderDetailsToSeller");
+		
 	}
 
 }
