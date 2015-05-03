@@ -34,28 +34,30 @@
 	        <th></th>
 	      </tr>
 	    </thead>
+	     <tbody>
 	    <%
 				for (User b : buyers) {
 		%>
-	    <tbody>
+	   
 	      <tr>
 	        <td><%  %></td>
 	        <td><%= b.getUsername() %></td>
-	        <td><%= b.getFirstname() %>/td>
+	        <td><%= b.getFirstname() %></td>
 	        <td><%= b.getLastname() %></td>
 	        <td><%= b.getAddress() %></td>
 	        <td><%= b.getEmail() %></td>
 	        <td><%= b.getPhone() %></td>
 	        <td><%= b.getPayPalID() %></td>
-	        <td><%=  %>STATUS</td>
+	        <td><%= b.isStatus() %></td>
 	        <td>
 	        <button type="submit" id="submit" name="submit"
 							class="btn btn-default">Deactivate</button></td>
 	      </tr>
-	    </tbody>
+	   
 	    <%
 				}
 			%>
+			 </tbody>
   </table>
 	
 </div>

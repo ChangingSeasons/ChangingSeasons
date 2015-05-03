@@ -9,7 +9,6 @@
 			function() { // When the HTML DOM is ready loading, then execute the following function...
 				$(":checkbox").click(
 						function() { 
-							
 							var brandcheckValues = $('.brand:checked').map(
 									function() {
 										return $(this).val();
@@ -22,14 +21,11 @@
 									function() {
 										return $(this).val();
 									}).get();
-
 							url = "ProductFilterServlet" + "?brand="
 									+ brandcheckValues + "&type="
 									+ typecheckValues + "&price="
 									+ pricecheckValues;
-
-							$.get(url, function(responseJson) { // Execute Ajax GET request on URL of "ProductFilterServlet" and execute the following function with Ajax response JSON...
-								
+							$.get(url, function(responseJson) { 
 								$.each(responseJson, function(outer, lists) { // Iterate over the JSON array.
 									$.each(lists, function(inner, item) { // Iterate over the Lists 
 										if(outer == 0) $( "."+item ).show();
