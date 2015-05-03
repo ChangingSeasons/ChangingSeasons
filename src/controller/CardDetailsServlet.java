@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +13,9 @@ import javax.servlet.http.HttpSession;
 import static model.OrderDAO.*;
 import static model.OrderProductsDAO.*;
 import static model.ShoppingCartDAO.*;
+import model.Order;
 import model.User;
+import static model.EmailDAO.*;
 
 /**
  * Servlet implementation class CardDetailsServlet
@@ -60,6 +61,9 @@ public class CardDetailsServlet extends HttpServlet {
 
 			request.setAttribute("msg", msg);
 
+			User u = (User)se.getAttribute("user");
+			emailCustomer(u, orderID);
+			
 		}
 
 		else{
@@ -146,12 +150,32 @@ public class CardDetailsServlet extends HttpServlet {
 			msg = "";
 
 			request.setAttribute("msg", msg);
+			
+			User u = (User)se.getAttribute("user");
+			emailCustomer(u, orderID);
 		}
 
 
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);	
 
+	}
+	
+	public static void emailCustomer(User u, int orderID){
+		
+        Order o = viewOrder(orderID);
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hello "+u.getFirstname()+" "+u.getLastname());
+        sb.append("\nYou recently placed an Order with ChangingSeasons. Order Details:\n");
+        sb.append("Order ID: "+o.getOrderID());
+        sb.append("\nDate of Order: "+o.getDateOfOrder());
+        sb.append("\nOrder Status: "+o.getOrderStatus());
+        sb.append("\nShipping Address: "+u.getAddress());
+        sb.append("\nTotal Price (Includes 8% Tax): "+o.getTotal_price());
+        sb.append("\n\nThank you for shopping with Us. We Hope to See you again soon!\nChangingSeasons.com");
+        
+        sendMail(u.getEmail(), "Order Details", sb.toString(), "orderDetailsToCustomer");
 	}
 
 }
