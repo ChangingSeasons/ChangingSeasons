@@ -85,7 +85,7 @@
 					<h4>
 						Sub Total: $ <%=cart.getTotalPrice() %></br> Sales Tax: 8.00%</br>
 						<hr>
-						Order Total: $ <%=cart.getTotalPrice() %>
+						Order Total: $ <%=cart.getTotalPrice() *1.08f %>
 					</h4>
 				</div>
 			</div>

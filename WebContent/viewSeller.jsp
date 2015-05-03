@@ -23,7 +23,7 @@
 	  <table class="table table-bordered" align="center">
 	    <thead>
 	      <tr>
-	        <th>Sl no</th>
+	        <th>User ID</th>
 	        <th>User Name</th>
 	        <th>Company Name</th>
 	        <th>Address</th>
@@ -32,6 +32,7 @@
 	        <th>PayPal ID</th>
 	        <th>Bank Account Number</th>
 	        <th>Routing Number</th>
+	        <th>Authorization </th>
 	        <th >Status</th>
 	      </tr>
 	    </thead>
@@ -41,7 +42,7 @@
 		%>
 	   
 	      <tr>
-		        <td><%  %></td>
+		    <td><%= s.getID()  %></td>
 	        <td><%= s.getUsername() %></td>
 	        <td><%= s.getCompanyName() %></td>
 	        <td><%= s.getAddress() %></td>
@@ -50,11 +51,12 @@
 	        <td><%= s.getPayPalID() %></td>
 	        <td><%= s.getBankAccount() %></td>
 	        <td><%= s.getRoutingNumber() %></td>
+	        <td><input type="checkbox" id="myToggleButton"
+						<%=s.isAuthorized() ? "checked" : ""%>
+						onclick="location.href = 'AdminServlet?action=AuthorizeSeller&ID=<%=s.getID()%>&email+<%=s.getEmail() %>&auth=<%=s.isAuthorized() %>';" />
+						<label for="myToggleButton">Authorized</label></td>
 	        <td><%= s.isStatus() %></td>
-	        <td>
-			<input type="checkbox" id="myToggleButton" />
-			<label for="myToggleButton">Authorization</label>
-			</td>
+	        
 	      </tr>
 	 
 	    <%
