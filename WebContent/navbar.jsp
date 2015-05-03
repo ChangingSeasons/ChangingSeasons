@@ -10,7 +10,7 @@
 						function() { 
 						var search = $("#search").val();
 						url = "SearchServlet?search="+search;
-						$.get(url);
+						window.location.replace(url);
 				});
 			});
 						
