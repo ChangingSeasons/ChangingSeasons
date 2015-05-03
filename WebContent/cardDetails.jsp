@@ -16,7 +16,7 @@
 		if(msg == null) msg="";
 		if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">"+msg+"</div>");
 	%>
-	<form class="form-horizontal" action="/ChangingSeasons/CardDetailsServlet" method="post">
+	<form class="form-horizontal" action="/ChangingSeasons/CardDetailsServlet" method="get">
 		<fieldset>
 
 			<!-- Form Name -->
@@ -28,13 +28,17 @@
 			</div>
 			
 			<h3>PayPal Account &nbsp&nbsp<img src="imgs/Paypal.jpg" alt="" width="100" height="30"></h3>
+			
 			<div class="form-group">
 				<label class="col-md-4 control-label" name ="paypal" for="paypal">Paypal ID: 
-				</label> <%=user.getPayPalID() != null ? user.getPayPalID() : "Not Entered"%> 
+				</label> <p class="form-control-static"> <%=user.getPayPalID() != null ? user.getPayPalID() : "Not Entered"%>  </p>
 			</div>
 			
 			<!--  Hidden input for userId -->
 			<input type="hidden" name = "user" id="user" value="<%=user.getID()%>" />
+			
+			<!--  Hidden input for userId -->
+			<input type="hidden" name = "hidden-paypal" id="user" value="<%=user.getPayPalID() != null ? user.getPayPalID() : "Not Entered"%>" />
 			
 			<!-- Button -->
 			<div class="form-group">
@@ -44,9 +48,11 @@
 					class="btn btn-primary">Confirm Payment</button>
 				</div>
 			</div>
-			
+			</fieldset>
+			</form>
 			<hr>
-			
+			<form class="form-horizontal" action="/ChangingSeasons/CardDetailsServlet" method="post">
+		<fieldset>
 			<h3> Enter your card details &nbsp&nbsp<img src="imgs/Cards.jpg" alt="" width="250" height="30"></h3>
 			
 			<!-- Text input-->

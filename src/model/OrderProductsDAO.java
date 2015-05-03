@@ -44,6 +44,7 @@ public class OrderProductsDAO {
 			String q0 = "SELECT productID, quantity, size, color FROM CartProducts WHERE cartID="+cartID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
+			System.out.println("Insertin into order products with orderId: "+orderID);
 			String q1 = "INSERT into OrderProducts (orderID, productID, quantity, OrderProductID, size, color) values (?, ?, ?, ?, ?, ?)";
 			while(rs.next()){
 				Connect();

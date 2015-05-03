@@ -97,10 +97,13 @@
 			<div class="col-md-4">
 				<button type="button" id="lproducts" name="lproducts"
 					onclick="location.href = 'base_index.jsp';"
-					class="btn btn-defaulty">Continue Shopping</button>
+					class="btn btn-default">Continue Shopping</button>
+					
+					<% String disabled = cart.getNoOfProducts() == 0 ? "disabled=\"disabled\"" : ""; %>
+					
 				<button type="button" id="checkout" name="checkout"
 					onclick="location.href = 'checkout.jsp?cart=<%=cart.getCartID()%>';"
-					class="btn btn-primary">Checkout</button>
+					class="btn btn-primary" <%=disabled %>>Checkout</button>
 			</div>
 		</div>
 

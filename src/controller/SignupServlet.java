@@ -171,7 +171,7 @@ public class SignupServlet extends HttpServlet {
 				}
 				
 				if(status == true){
-					sendMail(email, "Welcome to Changing Seasons", "Thank you for registering with Us. We wish you a pleasant shopping experience!","register");
+					//sendMail(email, "Welcome to Changing Seasons", "Thank you for registering with Us. We wish you a pleasant shopping experience!","register");
 					createCart(userId); // Generate a new cart for the user
 					msg = "Account Created Successfully";
 					request.setAttribute("msg", msg);
