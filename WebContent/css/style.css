@@ -12,6 +12,10 @@ h1 {
 	text-align: center;
 }
 
+h4 {
+	text-decoration: bold;
+}
+
 .form-group.required .control-label:after { 
    content:"*";
    color:red;

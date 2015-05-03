@@ -65,17 +65,17 @@ public class OrderDAO {
 
 			float amount = (1.08f * price); // Including tax
 
-			String q1 = "INSERT into Orders (orderID, dateOfOrder, customerID, orderStatus, shippingAddress, total_price, tax, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?)";
+			String q1 = "INSERT into Orders (orderID, dateOfOrder, dateOfShipping, customerID, orderStatus, shippingAddress, total_price, tax, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = cn.prepareStatement(q1);
 			ps.setInt(1, orderID);
 			ps.setDate(2, dateOfOrder);
-			//ps.setDate(3, dateOfShipping);		// Not setting Date of Shipping at start
-			ps.setInt(3, customerID);
-			ps.setString(4, orderStatus);
-			ps.setString(5, shippingAddress);
-			ps.setFloat(6, amount); // Total Price includes 8% tax
-			ps.setFloat(7, 8); // tax = 8% of total
-			ps.setBoolean(8, true);
+			ps.setDate(3, dateOfShipping);		// Setting date of shipping same as order data
+			ps.setInt(4, customerID);
+			ps.setString(5, orderStatus);
+			ps.setString(6, shippingAddress);
+			ps.setFloat(7, amount); // Total Price includes 8% tax
+			ps.setFloat(8, 8); // tax = 8% of total
+			ps.setBoolean(9, true);
 			ps.executeUpdate();
 
 			ps.close();
@@ -235,6 +235,24 @@ public class OrderDAO {
 		DB_close();
 		return true;
 	}
+	
+	public static boolean updateStatus(int orderID, String status){
+		Connect();
+
+		try{
+			String q = "UPDATE Orders SET orderStatus='"+status+"' WHERE orderID="+orderID;
+			Statement st = cn.createStatement();
+			st.executeUpdate(q);
+
+			st.close();
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+
+		DB_close();
+		return true;
+	}
 
 	public static Order viewOrder(int orderID){
 		Connect();
@@ -250,7 +268,7 @@ public class OrderDAO {
 				o.setDateOfShipping(rs.getDate("dateOfShipping"));
 				o.setCustomerID(rs.getInt("customerID"));
 				o.setOrderStatus(rs.getString("orderStatus"));
-				if(rs.getString("shippingAddress")!= null) o.setShippingAddress(rs.getString("shippingAddress"));
+				o.setShippingAddress(rs.getString("shippingAddress"));
 				o.setTotal_price(rs.getFloat("total_price"));
 				o.setTax(rs.getFloat("tax"));
 			}
