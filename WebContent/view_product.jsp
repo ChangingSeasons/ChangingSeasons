@@ -121,7 +121,9 @@
 						</div>
 
 						<p class="text-center">
-							
+								<%
+									if (user.getType().equals("buy")) {
+								%>
 							<script type="text/javascript">
 											$("#input-id").rating();
 											 
@@ -143,6 +145,7 @@
 									    });
 									});
 								</script>
+								<% }	 %>
 						</p>
 					</div>
 				</div>

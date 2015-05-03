@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="model.AdminDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="header.jsp"%>
@@ -5,6 +7,11 @@
 
 <div class="container">
 
+<% 
+	List<User> sellers  = AdminDAO.listSellers();
+	if (sellers != null) {
+%>
+	
 	<!-- Welcome -->
 	<div class="page-header">
 		<h1>
@@ -28,32 +35,35 @@
 	        <th >Status</th>
 	      </tr>
 	    </thead>
+	     <tbody>
 	    <%
-				for (int i = 1; i < 4; i++) {
+	  			for (User s : sellers) {
 		%>
-	    <tbody>
+	   
 	      <tr>
-	        <td><% out.write(i*1+""); %></td>
-	        <td>bb</td>
-	        <td>DC</td>
-	        <td>New York</td>
-	        <td>xyz@gmail.com</td>
-	        <td>5188947655</td>
-	        <td>000998</td>
-	        <td>237hjdy2389</td>
-	        <td>bofa456</td>
+		        <td><%  %></td>
+	        <td><%= s.getUsername() %></td>
+	        <td><%= s.getCompanyName() %></td>
+	        <td><%= s.getAddress() %></td>
+	        <td><%= s.getEmail() %></td>
+	        <td><%= s.getPhone() %></td>
+	        <td><%= s.getPayPalID() %></td>
+	        <td><%= s.getBankAccount() %></td>
+	        <td><%= s.getRoutingNumber() %></td>
+	        <td><%= s.isStatus() %></td>
 	        <td>
 			<input type="checkbox" id="myToggleButton" />
 			<label for="myToggleButton">Authorization</label>
 			</td>
 	      </tr>
-	    </tbody>
+	 
 	    <%
 				}
 			%>
+			   </tbody>
   </table>
-	
 </div>
+<% } else out.write("No Sellers found"); %>
 </div>
 
 <%@ include file="footer.jsp"%>
