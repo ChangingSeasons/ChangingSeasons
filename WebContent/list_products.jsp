@@ -9,6 +9,7 @@
 			function() { // When the HTML DOM is ready loading, then execute the following function...
 				$('#somebutton').click(
 						function() { // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
+							
 							var brandcheckValues = $('.brand:checked').map(
 									function() {
 										return $(this).val();
@@ -26,11 +27,14 @@
 									+ brandcheckValues + "&type="
 									+ typecheckValues + "&price="
 									+ pricecheckValues;
-							alert(url);
 
 							$.get(url, function(responseJson) { // Execute Ajax GET request on URL of "ProductFilterServlet" and execute the following function with Ajax response JSON...
-								$.each(responseJson, function(index, item) { // Iterate over the JSON array.
-									$( "."+item ).remove();
+								
+								$.each(responseJson, function(outer, lists) { // Iterate over the JSON array.
+									$.each(lists, function(inner, item) { // Iterate over the Lists 
+										if(outer == 0) $( "."+item ).show();
+										else $( "."+item ).hide();
+									});
 								});
 							});
 						});
@@ -45,6 +49,7 @@
 				<button type="button" class="btn btn-primary" id="somebutton">Update</button>
 				<h3>Sort by</h3>
 				<br />
+				<!-- 
 				<h4>Size</h4>
 				<input type="checkbox" class="size" name="size" value="XS">
 				XS <br /> <input type="checkbox" class="size" name="size" value="S">
@@ -63,6 +68,8 @@
 				Brown <br /> <input type="checkbox" class="color" name="color"
 					value="Grey"> Grey <br /> <input type="checkbox"
 					class="color" name="color" value="Blue"> Blue <br /> <br />
+					
+				 -->
 
 				<h4>Brand</h4>
 				<input type="checkbox" class="brand" name="color" value="Burberry">
@@ -82,24 +89,30 @@
 				Tommy Hilfiger <br /> <br />
 
 				<h4>Type</h4>
-				<input type="checkbox" class="type" value="Leather"> Leather
-				<br /> <input type="checkbox" class="type" name="color"
-					value="Denim"> Denim<br /> <input type="checkbox"
-					class="type" name="color" value="Parka"> Parka <br /> <input
-					type="checkbox" class="type" name="color" value="Peacoat">
-				Peacoat <br /> <input type="checkbox" class="type" name="color"
-					value="Windblockers"> Wind blockers <br /> <input
-					type="checkbox" class="type" name="color" value="SnowJackets">
-				Snow Jackets <br /> <br />
+				<input type="checkbox" class="type" value="Leather" checked> Leather
+				<br /> 
+				<input type="checkbox" class="type" name="color"
+					value="Denim" checked> Denim<br /> 
+				<input type="checkbox" class="type"
+					name="color" value="Parka" checked> Parka <br /> 
+				<input type="checkbox"
+					class="type" name="color" value="Peacoat" checked> Peacoat <br /> 
+				<input type="checkbox" class="type" name="color" value="Windblockers" checked>
+				Wind blockers <br /> 
+				<input type="checkbox" class="type"
+					name="color" value="SnowJackets" checked> Snow Jackets <br /> <br />
 
 				<h4>Prices</h4>
-				<input type="checkbox" class="price" name="color" value="25">
-				Under $25 <br /> <input type="checkbox" class="price" name="color"
-					value="50"> $25 to $50<br /> <input type="checkbox"
-					class="price" name="color" value="100"> $50 to $100 <br />
-				<input type="checkbox" class="price" name="color" value="200">
-				$100 to $200 <br /> <input type="checkbox" class="price"
-					name="color" value="250"> $200 to Above <br /> </br>
+				<input type="checkbox" class="price" name="color" value="25" checked>
+				Under $25 <br /> 
+				<input type="checkbox" class="price" name="color"
+					value="50" checked> $25 to $50<br /> 
+				<input type="checkbox"
+					class="price" name="color" value="100" checked> $50 to $100 <br />
+				<input type="checkbox" class="price" name="color" value="200" checked>
+				$100 to $200 <br /> 
+				<input type="checkbox" class="price"
+					name="color" value="9999" checked> $200 to Above <br /> </br>
 			</div>
 		</div>
 	</div>

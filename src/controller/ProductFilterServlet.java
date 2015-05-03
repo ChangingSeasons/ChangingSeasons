@@ -45,26 +45,33 @@ public class ProductFilterServlet extends HttpServlet {
 		
 		Map<String, String[]>  choices = request.getParameterMap();
 
-		List<Integer> filterList = new ArrayList<Integer>();
+		List<Integer> showItems = new ArrayList<Integer>();
 	
+		
 		//filtering by type
 		for (String filter : choices.get("type")[0].split("\\s*,\\s*")){
 			System.out.println("Filerting for type: "+filter);
 			System.out.println("Got matching list: "+filterType(totalProducts, filter));
-			filterList.addAll(filterType(totalProducts, filter));
+			showItems.addAll(filterType(totalProducts, filter));
 		}
 
 		//filtering by price
 		for (String filter : choices.get("price")[0].split("\\s*,\\s*")){
-			filterList.addAll(filterType(totalProducts, filter));
+			showItems.addAll(filterType(totalProducts, filter));
 		}
 		
-		filteredIDs.removeAll(filterList);
+		filteredIDs.removeAll(showItems);
 		
 		
 		System.out.println("Returning filter: "+filteredIDs);
-
-		String json = new Gson().toJson(filteredIDs);
+		
+		List<List> result = new ArrayList<List>();
+		
+		result.add(showItems);
+		result.add(filteredIDs);
+		
+		
+		String json = new Gson().toJson(result);
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
