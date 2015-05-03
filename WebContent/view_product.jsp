@@ -107,7 +107,7 @@
 							<label class="col-md-4 control-label" for="price"> </label>
 							<div class="col-md-4">
 								<%
-									if (!user.getType().equals("buy")) {
+									if (user.getType().equals("adm") || user.getType().equals("sel")) {
 								%>
 								<button type="button" class="btn btn-info"
 									onclick="location.href = 'editProduct.jsp?editProductID=<%=product.getProductID()%>'">Edit</button>

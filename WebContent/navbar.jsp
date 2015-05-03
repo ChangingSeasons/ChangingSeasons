@@ -2,6 +2,21 @@
 <%@page import="model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+	<script>
+	$(document).ready(
+			function() { // When the HTML DOM is ready loading, then execute the following function...
+				$("#searchButton").click(
+						function() { 
+						var search = $("#search").val();
+						url = "SearchServlet?search="+search;
+						$.get(url);
+				});
+			});
+						
+						
+   </script>
+	
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -47,9 +62,9 @@
 			%>
 			<ul class="nav navbar-nav">
 			
-				<li class="active"><a href="base_index.jsp">Link <span
+				<li><a href="AboutUs.jsp">About Us <span
 						class="sr-only">(current)</span></a></li>
-				<li><a href="base_index.jsp">Home</a></li>
+				<li><a href="contactUs.jsp">Contact Us</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-expanded="false">Actions
 						<span class="caret"></span>
@@ -57,46 +72,46 @@
 					<ul class="dropdown-menu" role="menu">
 						<% if (user.getType().equals("buy")) { %>
 						<li><a href="buyerAccount.jsp">My Account</a></li>
+						<li class="divider"></li>
 						<li><a href="editBuyer.jsp">Update Account</a></li>
 						<li><a href="viewOrder.jsp">View Orders</a></li>
 						<li><a href="shoppingCart.jsp">Shopping Cart</a></li>
-						<li class="divider"></li>
-						<li><a href="AboutUs.jsp">About Us</a></li>
-						<li><a href="contactUs.jsp">Contact Us</a></li>
 						<% } else if(user.getType().equals("sel")) { %>
 						<li><a href="sellerAccount.jsp">My Account</a></li>
+						<li class="divider"></li>
 						<li><a href="editSeller.jsp">Update Account</a></li>
 						<li><a href="viewOrder.jsp">View Customer Orders</a></li>
 						<li><a href="addProducts.jsp">Add Products</a></li>
-						<li class="divider"></li>
-						<li><a href="AboutUs.jsp">About Us</a></li>
 						<li><a href="contactUs.jsp">Contact Us</a></li>
 						<% } else if(user.getType().equals("adm")) { %>
 						<li><a href="viewSeller.jsp">Seller Authentication</a></li>
 						<li><a href="viewBuyer.jsp">View Customer</a></li>
-						<li><a href="viewSeller.jsp">View Sellers</a></li>
 						<li><a href="viewOrder.jsp">View Orders</a></li>
-						<li class="divider"></li>
-						<li><a href="AboutUs.jsp">About Us</a></li>
 						<% } %>
 					</ul></li>
-				<% 
+					<% 
         		if (user.getType().equals("buy")) { 
         			int productsCount = ShoppingCartDAO.noOfproductsIncart(user.getID());
         		%>
+					<li> <a> 
+					<input id="search" type="text" class="form-control input-sm" placeholder="Search">					
+					</a></li>
+					<li><a><button id="searchButton" class="btn btn-default btn-sm" role="button">Search</button></a></li>
+				
 				<li><a><button class="btn btn-primary btn-sm" type="button"
 						onclick="location.href = 'shoppingCart.jsp'">
 						Shopping Cart <span class="badge"><%=productsCount%></span>
 					</button></a></li>
 				<%} %>
 			</ul>
+
 			<%
 				}
 			%>
 
 			<ul class="nav navbar-nav navbar-right">
-	
-				<li><a> <%
+				
+				<li> <a> <%
 						if (!loggedIn.equals("")) {
 					%>
 
