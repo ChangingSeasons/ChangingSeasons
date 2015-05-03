@@ -1,3 +1,4 @@
+<%@page import="model.RankDAO"%>
 <%@page import="model.Product"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -31,10 +32,10 @@
 								<p class="form-control-static"><%=product.getProductDesc()%></p>
 							</div>
 						</div>
-						
+
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="type">
-								Jacket Type</label>
+							<label class="col-md-4 control-label" for="type"> Jacket
+								Type</label>
 							<div class="col-md-4">
 								<p class="form-control-static"><%=product.getType()%></p>
 							</div>
@@ -90,17 +91,17 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="price"> Price</label> 
+							<label class="col-md-4 control-label" for="price"> Price</label>
 							<div class="col-md-4">
 								<p class="form-control-static">
-									$ <%=product.getPrice()%>
+									<%=product.getPrice()%>
 								</p>
 							</div>
 						</div>
 
-						<input type="hidden" name="userID" value="<%=user.getID() + ""%>">
+						<input type="hidden" name="userID" value="<%=user.getID()%>">
 						<input type="hidden" name="productID"
-							value="<%=product.getProductID() + ""%>">
+							value="<%=product.getProductID()%>">
 
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="price"> </label>
@@ -108,7 +109,8 @@
 								<%
 									if (!user.getType().equals("buy")) {
 								%>
-								<button type="button" class="btn btn-info" onclick="location.href = 'editProduct.jsp?editProductID=<%=product.getProductID()%>'">Edit</button>
+								<button type="button" class="btn btn-info"
+									onclick="location.href = 'editProduct.jsp?editProductID=<%=product.getProductID()%>'">Edit</button>
 								<%
 									} else {
 								%>
@@ -121,31 +123,30 @@
 						</div>
 
 						<p class="text-center">
-								<%
-									if (user.getType().equals("buy")) {
-								%>
+							<%
+								if (user.getType().equals("buy")) {
+
+										int rank = RankDAO.viewRank(product.getProductID(),
+												user.getID());
+										String value = rank != -1 ? "value=\""+rank+"\"" : "";
+							%>
+
+							<input id="input-1" class="rating" data-size="sm" data-min="0"
+								data-max="5" data-step="1" <%=value  %>>
+
 							<script type="text/javascript">
-											$("#input-id").rating();
-											 
-											// with plugin options
-											$("#input-id").rating(['min'=>1, 'max'=>5, 'step'=>1, 'size'=>'sm']);
-											</script>
-							<input id="input-id" type="number" class="rating" min=1 max=5
-								step=1 data-size="sm" data-ltr="true">
-							<script type="text/javascript">
-											$(function(){
-						    				$("#rating_1").rating({
-						       				 static: false,
-									        score: 2,
-									        stars: 5,
-									        showHint: true,
-									        hints: ['bad', 'poor', 'regular', 'good', 'gorgeous'],
-									        showScore: true,
-									        scoreHint: "Current score: ",
-									    });
-									});
-								</script>
-								<% }	 %>
+							var oldRank = <%=rank %>;
+							var productID = <%=product.getProductID() %>;
+							var userID = <%=user.getID() %>
+							 $('#input-1').on('rating.change', function(event, value, caption) {
+								 url = "UpdateRankServlet?rank="+value+"&oldRank="+oldRank+"&customerID="+userID+"&productID="+productID;
+								 $.get(url, function(response) {
+								 });
+					        });
+							</script>
+							<%
+								}
+							%>
 						</p>
 					</div>
 				</div>
