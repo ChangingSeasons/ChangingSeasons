@@ -111,7 +111,7 @@ public class AuthDAO {
 			}
 
 			else{ // Admin
-				q0 = "SELECT username FROM User WHERE id="+userID;
+				q0 = "SELECT * FROM User WHERE id="+userID;
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
 				while(rs.next()){

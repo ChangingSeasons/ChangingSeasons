@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.OrderDAO;
-import model.OrderProductsDAO;
-import model.ShoppingCartDAO;
+import static model.OrderDAO.*;
+import static model.OrderProductsDAO.*;
+import static model.ShoppingCartDAO.*;
 import model.User;
 
 /**
@@ -101,10 +102,10 @@ public class CardDetailsServlet extends HttpServlet {
 					shippingAddress = currentUser.getAddress();
 				}
 
-				int orderID = OrderDAO.addOrder(customerID, orderStatus, shippingAddress);
+				int orderID = addOrder(customerID, orderStatus, shippingAddress);
 
-				OrderProductsDAO.insertIntoOrderProducts(customerID, orderID);
-				ShoppingCartDAO.initShoppingCart(customerID);
+				insertIntoOrderProducts(customerID, orderID);
+				initShoppingCart(customerID);
 
 				url = "/final.jsp?orderID="+orderID;
 				msg = "";
@@ -129,10 +130,10 @@ public class CardDetailsServlet extends HttpServlet {
 					shippingAddress = currentUser.getAddress();
 				}
 
-				int orderID = OrderDAO.addOrder(customerID, orderStatus, shippingAddress);
+				int orderID = addOrder(customerID, orderStatus, shippingAddress);
 
-				OrderProductsDAO.insertIntoOrderProducts(customerID, orderID);
-				ShoppingCartDAO.initShoppingCart(customerID);
+				insertIntoOrderProducts(customerID, orderID);
+				initShoppingCart(customerID);
 
 				url = "/final.jsp?orderID="+orderID;
 				msg = "";
