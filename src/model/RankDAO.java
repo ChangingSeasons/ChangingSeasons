@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class RankDAO {
 
-	public boolean addRank(int productID, int customerID, int rank){
+	public static boolean addRank(int productID, int customerID, int rank){
 		Connect();
 
 		try{
@@ -27,7 +27,7 @@ public class RankDAO {
 		return true;
 	}
 
-	public boolean editRank(int... args){
+	public static boolean editRank(int... args){
 		Connect();
 		int productID = args[0], customerID = args[1], rank = args[2];
 
@@ -47,7 +47,7 @@ public class RankDAO {
 	
 	public static int viewRank(int productID, int customerID){
 		Connect();
-		int rank = 0;
+		int rank = -1;
 		try{
 			String q0 = "SELECT rank FROM productRank WHERE productID="+productID+" AND customerID="+customerID;
 			Statement st = cn.createStatement();
