@@ -7,8 +7,8 @@
 <script>
 	$(document).ready(
 			function() { // When the HTML DOM is ready loading, then execute the following function...
-				$('#somebutton').click(
-						function() { // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
+				$(":checkbox").click(
+						function() { 
 							
 							var brandcheckValues = $('.brand:checked').map(
 									function() {
@@ -41,13 +41,12 @@
 			});
 </script>
 <div class="container" style="width: 100%">
-	<div id="somediv"></div>
+
 	<div class="col-md-4"
 		style="float: left; width: 20%; height: 1000px; margin-left: 10px; margin-right: 10px;">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<button type="button" class="btn btn-primary" id="somebutton">Update</button>
-				<h3>Sort by</h3>
+				<h3>Filter by</h3>
 				<br />
 				<!-- 
 				<h4>Size</h4>
@@ -112,7 +111,7 @@
 				<input type="checkbox" class="price" name="color" value="200" checked>
 				$100 to $200 <br /> 
 				<input type="checkbox" class="price"
-					name="color" value="9999" checked> $200 to Above <br /> </br>
+					name="color" value="9999" checked> $200 to Above <br /> <br/>
 			</div>
 		</div>
 	</div>
