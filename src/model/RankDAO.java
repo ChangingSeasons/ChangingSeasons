@@ -2,6 +2,7 @@ package model;
 import static model.ConnectDB.*;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -42,6 +43,28 @@ public class RankDAO {
 		}
 		DB_close();
 		return true;
+	}
+	
+	public static int viewRank(int productID, int customerID){
+		Connect();
+		int rank = 0;
+		try{
+			String q0 = "SELECT rank FROM productRank WHERE productID="+productID+" AND customerID="+customerID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+
+			while(rs.next())
+				rank = rs.getInt("rank");
+			
+			rs.close();
+			st.close();
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+		
+		return rank;
 	}
 
 }
