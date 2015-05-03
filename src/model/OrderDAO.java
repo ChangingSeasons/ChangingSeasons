@@ -148,21 +148,21 @@ public class OrderDAO {
 			st.close();
 			rs.close();
 			
-			Iterator<Integer> itr = productID.iterator();
-			while(itr.hasNext()){
-				int temp_id = (int)itr.next();
-				q0 = "SELECT DISTINCT orderID FROM OrderProducts WHERE productID="+temp_id;
+			for(Integer z : productID){
+				q0 = "SELECT DISTINCT orderID FROM OrderProducts WHERE productID="+z;
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
 				while(rs.next()){
 					orders.add(rs.getInt("orderID"));
 				}
 			}
+			
 			st.close();
 			rs.close();
 			
 			for(Integer z:orders){
 				Order o = viewOrder(z);
+				
 				List<OrderProducts> op = viewOrderProducts(z);
 				
 				orderDetails.put(o, op);

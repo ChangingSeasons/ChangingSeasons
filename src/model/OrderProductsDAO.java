@@ -96,6 +96,7 @@ public class OrderProductsDAO {
 	}
 
 	public static List<OrderProducts> viewOrderProducts(int orderID){
+		
 		List<OrderProducts> op = new ArrayList<OrderProducts>();
 
 		try{
@@ -114,6 +115,7 @@ public class OrderProductsDAO {
 				o.setQuantity(rs.getInt("quantity"));
 				o.setSize(rs.getString("size"));
 				o.setName(getProductnamebyProductID(rs.getInt("productID")));
+				Connect();
 				op.add(o);
 			}
 
