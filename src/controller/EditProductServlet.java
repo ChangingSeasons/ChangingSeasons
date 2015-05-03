@@ -1,6 +1,5 @@
 package controller;
 
-import static model.ProductDAO.insertProduct;
 
 import java.io.IOException;
 
@@ -12,8 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.ProductDAO;
-
+import static model.ProductDAO.*;
 /**
  * Servlet implementation class EditProductServlet
  */
@@ -108,11 +106,10 @@ public class EditProductServlet extends HttpServlet {
 			int sellerID = (int)se.getAttribute("ID");
 			float prPrice = Float.parseFloat(price);
 			float shipCost = Float.parseFloat(shippingCost);
-			int id = ProductDAO.editProduct(productID, prPrice, shippingCost, productName, productDesc, imagepath, imageName);
-					//(productName, productDesc, sellerID, prPrice, imagepath, shipCost, imageName, type);
-			if(id>0){
-				url = "/upload.jsp";
-				msg = "Product Added Successfully";
+			boolean status = editProduct(productID, prPrice, shipCost, productName, productDesc, imageName, type);
+			if(status == true){
+				url = "/base_index.jsp";
+				msg = "Product Updated Successfully";
 				request.setAttribute("msg", msg);
 			}
 			else{

@@ -83,14 +83,12 @@ public class ProductDAO {
 		return productID;
 	}
 
-	public static boolean editProduct(int productID, float price, float shippingCost, String... args){
+	public static boolean editProduct(int productID, float price, float shippingCost, String productName, String productDesc, String imageName, String type){
 		Connect();
 		try{
 
-			String productName = args[0], productDesc = args[1], imagepath = args[2], imageName = args[3];
-			String type = args[6];
 			String q = "UPDATE Product SET productName='"+productName+"', productDesc='"+productDesc
-					+"', price="+price+", imagePath='"+imagepath+"', shippingCost="+shippingCost+", imageName='"+imageName+"', type='"+type+"' WHERE productID="+productID;
+					+"', price="+price+", shippingCost="+shippingCost+", imageName='"+imageName+"', type='"+type+"' WHERE productID="+productID;
 
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);
