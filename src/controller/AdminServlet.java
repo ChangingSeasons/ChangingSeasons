@@ -51,17 +51,14 @@ public class AdminServlet extends HttpServlet {
 
 		if(action.equals("AuthorizeSeller")){
 			int ID = Integer.parseInt(request.getParameter("ID"));
-			System.out.println("auth: "+request.getParameter("auth"));
 			String status = (request.getParameter("auth"));
 		
 			if(status.equals("false")){
-				System.out.println("Should set auth to true "+ status);
 				String email = (String)request.getParameter("email");
 				authorizeSeller(true, ID);
 				msg = "Seller Authorized!";
 				//sendMail(email, "Authorization Status", "Thank you for Registering with Us. You have been Authorized by the Admin. We wish you a pleasant selling experience!","authorization");
 			} else{
-				System.out.println("Should set auth to false"+ status);
 				authorizeSeller(false, ID);
 				msg = "Seller De-Authorized!";
 			}

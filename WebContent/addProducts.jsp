@@ -85,7 +85,7 @@ if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">
 			</div>
 			
 			
-			<!--			<!-- Text input-->
+			<!--			
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="size">Size</label>
 				<div class="col-md-4">
@@ -99,7 +99,7 @@ if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">
 				
 			</div>
 			
-			<!-- Text input-->
+			
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="color">Color</label>
 				<div class="col-md-4">

@@ -23,8 +23,10 @@
 			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="productName">Product Name: </label> 
+				<div class="col-md-4">
 				<input id="productName" name="productName" type="text"class="form-control input-md"
 					value="<%=product.getProductName() %>">
+					</div>
 			</div>
 			
 			<!-- Text input-->
