@@ -89,15 +89,21 @@
 						<li><a href="viewOrder.jsp">View Orders</a></li>
 						<% } %>
 					</ul></li>
-					<% 
-        		if (user.getType().equals("buy")) { 
-        			int productsCount = ShoppingCartDAO.noOfproductsIncart(user.getID());
+					
+						<% 
+        		if (user.getType().equals("buy") || user.getType().equals("adm")) { 
+        			
         		%>
+				
 					<li> <a> 
 					<input id="search" type="text" class="form-control input-sm" placeholder="Search">					
 					</a></li>
 					<li><a><button id="searchButton" class="btn btn-default btn-sm" role="button">Search</button></a></li>
 				
+					<% }
+        		if (user.getType().equals("buy")) { 
+        			int productsCount = ShoppingCartDAO.noOfproductsIncart(user.getID());
+        		%>
 				<li><a><button class="btn btn-primary btn-sm" type="button"
 						onclick="location.href = 'shoppingCart.jsp'">
 						Shopping Cart <span class="badge"><%=productsCount%></span>

@@ -87,11 +87,10 @@ public class ProductDAO {
 		Connect();
 		try{
 
-			String productName = args[0], productDesc = args[1], imagepath = args[2], size = args[3], color = args[4], imageName = args[5];
+			String productName = args[0], productDesc = args[1], imagepath = args[2], imageName = args[3];
 			String type = args[6];
 			String q = "UPDATE Product SET productName='"+productName+"', productDesc='"+productDesc
-					+"', price="+price+", imagePath='"+imagepath+"', shippingCost="+shippingCost+", size='"+size
-					+"', color='"+color+"', imageName='"+imageName+"', type='"+type+"' WHERE productID="+productID;
+					+"', price="+price+", imagePath='"+imagepath+"', shippingCost="+shippingCost+", imageName='"+imageName+"', type='"+type+"' WHERE productID="+productID;
 
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);

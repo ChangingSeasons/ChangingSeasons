@@ -33,9 +33,7 @@ public class SearchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String search = request.getParameter("search");
-		System.out.println("Got search string: "+search);
 		List<Product> searchProducts = ProductDAO.search(search);
-		System.out.println("got result of "+searchProducts.size());
 		request.setAttribute("searchProducts", searchProducts);
 		
 		String url = "/base_index.jsp";

@@ -11,7 +11,7 @@
 		int productID = Integer.parseInt(request.getParameter("editProductID"));
 		Product product = ProductDAO.viewProduct(productID);
 	%>
-	<form class="form-horizontal" action="/ChangingSeasons/UpdateServlet" method="post">
+	<form class="form-horizontal" action="EditProductServlet" method="post">
 		<fieldset>
 
 			<!-- Form Name -->
@@ -91,6 +91,8 @@
 					value="<%=product.getImageName() %>">
 				</div>
 			</div>
+			
+			<input type="hidden" id="hiddenId" name="hiddenId" value="<%=productID %>">
 
 			<!-- Button -->
 			<div class="form-group">
