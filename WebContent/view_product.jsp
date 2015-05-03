@@ -31,6 +31,14 @@
 								<p class="form-control-static"><%=product.getProductDesc()%></p>
 							</div>
 						</div>
+						
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="type">
+								Jacket Type</label>
+							<div class="col-md-4">
+								<p class="form-control-static"><%=product.getType()%></p>
+							</div>
+						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="color">Color</label>
@@ -100,7 +108,7 @@
 								<%
 									if (!user.getType().equals("buy")) {
 								%>
-								<button type="button" class="btn btn-info" onclick="location.href = 'editProduct.jsp';">Edit</button>
+								<button type="button" class="btn btn-info" onclick="location.href = 'editProduct.jsp?editProductID=<%=product.getProductID()%>'">Edit</button>
 								<%
 									} else {
 								%>

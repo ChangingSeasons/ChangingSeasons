@@ -49,6 +49,8 @@ public class AddProduct extends HttpServlet {
 
 		String imagepath = "zzz";
 		String shippingCost = request.getParameter("shippingCost");
+		
+		/*** 
 
 		String sizearray[] = request.getParameterValues("size"); // User input
 		String colorarray[] = request.getParameterValues("color"); // User input
@@ -118,6 +120,8 @@ public class AddProduct extends HttpServlet {
 		}
 		else
 			color = "false false false false false";
+			
+		***/
 
 		String imageName = request.getParameter("imageName");
 
@@ -150,6 +154,7 @@ public class AddProduct extends HttpServlet {
 			msg = msg + "Please fill-in Product Shipping-Cost";
 			request.setAttribute("msg", msg);
 		}
+		/**
 		if(color.length()==0){
 			url = "/addProducts.jsp";
 			msg = msg + "Please fill-in Product Color";
@@ -160,6 +165,7 @@ public class AddProduct extends HttpServlet {
 			msg = msg + "Please fill-in Product Size";
 			request.setAttribute("msg", msg);
 		}
+		**/
 		if(imageName.length()==0){
 			url = "/addProducts.jsp";
 			msg = msg + "Please fill-in Product Image name";
@@ -168,7 +174,7 @@ public class AddProduct extends HttpServlet {
 		
 		
 		if(productName.length()!=0 && productDesc.length()!=0 && price.length()!=0 && shippingCost.length()!=0 &&
-				color.length()!=0 && size.length()!=0 && imageName.length()!=0 && type.length()!=0)
+				 imageName.length()!=0 && type.length()!=0)
 			flag = 1;
 
 		if(flag == 1){ // Everything is filled in
@@ -176,7 +182,7 @@ public class AddProduct extends HttpServlet {
 			int sellerID = (int)se.getAttribute("ID");
 			float prPrice = Float.parseFloat(price);
 			float shipCost = Float.parseFloat(shippingCost);
-			int id = insertProduct(productName, productDesc, sellerID, prPrice, imagepath, shipCost, size, color, imageName, type);
+			int id = insertProduct(productName, productDesc, sellerID, prPrice, imagepath, shipCost, imageName, type);
 			if(id>0){
 				url = "/upload.jsp";
 				msg = "Product Added Successfully";

@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -20,35 +22,70 @@ import model.Product;
 @WebServlet("/ProductFilterServlet")
 public class ProductFilterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ProductFilterServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ProductFilterServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Product> total_products = (List<Product>) request.getSession().getAttribute("products");
-		System.out.println("GETTING AJAX!!!");
-		Map<String, String[]>  choices = request.getParameterMap();
+		List<Product> totalProducts = (List<Product>) request.getSession().getAttribute("products");
 		
-		for (String s: choices.keySet()){
-			System.out.println("Key: "+s);
-			for (String s2 : choices.get(s)){
-				System.out.println("Object: "+s2);
-			}
+		List<Integer> filteredIDs = new ArrayList<Integer>();
+		
+		for (Product p : totalProducts) {
+			filteredIDs.add(p.getProductID());
 		}
 		
-	    String json = new Gson().toJson(total_products);
+		Map<String, String[]>  choices = request.getParameterMap();
 
-	    response.setContentType("application/json");
-	    response.setCharacterEncoding("UTF-8");
-	    response.getWriter().write(json);
+		List<Integer> filterList = new ArrayList<Integer>();
+	
+		//filtering by type
+		for (String filter : choices.get("type")[0].split("\\s*,\\s*")){
+			System.out.println("Filerting for type: "+filter);
+			System.out.println("Got matching list: "+filterType(totalProducts, filter));
+			filterList.addAll(filterType(totalProducts, filter));
+		}
+
+		//filtering by price
+		for (String filter : choices.get("price")[0].split("\\s*,\\s*")){
+			filterList.addAll(filterType(totalProducts, filter));
+		}
+		
+		filteredIDs.removeAll(filterList);
+		
+		
+		System.out.println("Returning filter: "+filteredIDs);
+
+		String json = new Gson().toJson(filteredIDs);
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(json);
+	}
+
+	public List<Integer> filterType(List<Product> products, String type) {
+		List<Integer> output = new ArrayList<Integer>();
+		for (Product p : products) {
+			if (p.getType().equals(type)) output.add(p.getProductID()); 
+		}
+		return output;
+	}
+
+	public List<Integer> filterPrice(List<Product> products,  String price) {
+		List<Integer> output = new ArrayList<Integer>();
+		float fPrice = Float.parseFloat(price);
+		for (Product p : products) {
+			if (p.getPrice() < fPrice) output.add(p.getProductID()); 
+		}
+		return output;
 	}
 
 	/**

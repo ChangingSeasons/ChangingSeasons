@@ -84,7 +84,8 @@ if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">
 				</div>
 			</div>
 			
-			<!-- Text input-->
+			
+			<!--			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="size">Size</label>
 				<div class="col-md-4">
@@ -110,6 +111,7 @@ if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">
 					<input type="checkbox" name="color" value="Blue"> Blue &nbsp
 				</div>
 			</div>
+			 - -->
 			
 			<!-- Image Upload-->
 			<div class="form-group required">

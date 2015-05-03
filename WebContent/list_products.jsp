@@ -9,15 +9,6 @@
 			function() { // When the HTML DOM is ready loading, then execute the following function...
 				$('#somebutton').click(
 						function() { // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
-
-							var sizecheckValues = $('.size:checked').map(
-									function() {
-										return $(this).val();
-									}).get();
-							var colorcheckValues = $('.color:checked').map(
-									function() {
-										return $(this).val();
-									}).get();
 							var brandcheckValues = $('.brand:checked').map(
 									function() {
 										return $(this).val();
@@ -31,9 +22,7 @@
 										return $(this).val();
 									}).get();
 
-							url = "ProductFilterServlet" + "?size="
-									+ sizecheckValues + "&color="
-									+ colorcheckValues + "&brand="
+							url = "ProductFilterServlet" + "?brand="
 									+ brandcheckValues + "&type="
 									+ typecheckValues + "&price="
 									+ pricecheckValues;
@@ -41,7 +30,7 @@
 
 							$.get(url, function(responseJson) { // Execute Ajax GET request on URL of "ProductFilterServlet" and execute the following function with Ajax response JSON...
 								$.each(responseJson, function(index, item) { // Iterate over the JSON array.
-									console.log(item);
+									$( "."+item ).remove();
 								});
 							});
 						});
@@ -128,7 +117,8 @@ List<Product> products = (List<Product>) session.getAttribute("products");
 			for (Product p : products) {
 				int id = p.getProductID();
 		%>
-		<div class="col-sm-5 col-md-3">
+		<div id="<%=p.getProductID() %>" class="<%=p.getProductID()%>">
+		<div class="col-sm-2 col-md-2" ">
 			<div class="thumbnail">
 				<img src="<%=p.getImagePath()%>" alt="<%=p.getImageName()%>">
 				<div class="caption">
@@ -146,7 +136,7 @@ List<Product> products = (List<Product>) session.getAttribute("products");
 						
 							if (!listUser.getType().equals("buy")) {
 						%>
-							<a href="#" class="btn btn-default btn-xs" role="button" onclick="location.href = 'editProduct.jsp';">Edit
+							<a href="#" class="btn btn-default btn-xs" role="button" onclick="location.href = 'editProduct.jsp?editProductID=<%=p.getProductID()%>'">Edit
 								Product</a>
 								<%
 										}
@@ -155,6 +145,7 @@ List<Product> products = (List<Product>) session.getAttribute("products");
 					</p>
 				</div>
 			</div>
+		</div>
 		</div>
 
 		<%

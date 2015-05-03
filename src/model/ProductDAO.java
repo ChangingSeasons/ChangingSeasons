@@ -50,10 +50,12 @@ public class ProductDAO {
 		return true;
 	}
 
-	public static int insertProduct(String productName, String productDesc, int sellerID, float price, String imagepath, float shippingCost, String size, String color, String imageName, String type){
+	public static int insertProduct(String productName, String productDesc, int sellerID, float price, String imagepath, float shippingCost,  String imageName, String type){
 		int productID = getID();
 		try{
-
+			
+			String size= "false false false false false", color = "false false false false false";
+			
 			Connect();
 			String q1 = "INSERT into Product (productID, productName, productDesc, sellerID, price, imagePath, shippingCost, size, color, imageName, type, status)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = cn.prepareStatement(q1);

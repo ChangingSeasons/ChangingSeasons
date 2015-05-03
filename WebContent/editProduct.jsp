@@ -1,3 +1,4 @@
+<%@page import="model.ProductDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="header.jsp"%>
@@ -5,9 +6,10 @@
 <%@page import="model.Product"%>
 
 <div class="container">
-<%
-		Product product = (Product) request.getAttribute("product");
-		if (product != null) {
+<%		
+	if(request.getParameter("editProductID")!=null) {
+		int productID = Integer.parseInt(request.getParameter("editProductID"));
+		Product product = ProductDAO.viewProduct(productID);
 	%>
 	<form class="form-horizontal" action="/ChangingSeasons/UpdateServlet" method="post">
 		<fieldset>
