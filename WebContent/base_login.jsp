@@ -1,35 +1,34 @@
+<%@page import="model.Product"%>
+<%@page import="java.util.List"%>
+<%@page import="model.ProductDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="header.jsp"%>
 <%@ include file="navbar.jsp"%>
+
+<%
+	// Getting last 4 added products
+	List<Product> lastFour = ProductDAO.lastFour();
+	int count = 0;
+%>
 <div id="carousel-example-generic" class="carousel slide" style="height:310px; width: x 880px;" align="middle"
 		data-ride="carousel">
 		<!-- Indicators -->
 		<ol class="carousel-indicators">
-			<li data-target="#carousel-example-generic" data-slide-to="0"
-				class="active"></li>
+			<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
 			<li data-target="#carousel-example-generic" data-slide-to="1"></li>
 			<li data-target="#carousel-example-generic" data-slide-to="2"></li>
 		</ol>
 
 		<!-- Wrapper for slides -->
 		<div class="carousel-inner" role="listbox">
-			<div class="item active">
-				<img src="imgs/CKCotton.png" alt="..." style="height:310px; width:x 880px" align="middle">
-				<div class="carousel-caption">Amaing jacket CK Cotton</div>
+			
+				<% for (Product product : lastFour) { %>
+			<div class="item <%= count == 0 ? "active" : "" %>">
+				<img src="<%=product.getImagePath() %>" alt="<%=product.getImageName() %>" style="height:310px; width:x 880px" align="middle">
 			</div>
-			<div class="item">
-				<img src="imgs/CKLeatherJacket.png" alt="..." style="height:310px; width:x 880px" align="middle">
-				<div class="carousel-caption">Awsome CK Leather </div>
-			</div>
-			<div class="item">
-				<img src="imgs/CKLightWeightJacket.png" alt="..." style="height:310px; width:x 880px" align="middle">
-				<div class="carousel-caption">Mindblowing CK Leight Weight</div>
-			</div>
-			<div class="item">
-				<img src="imgs/DD1.png" alt="..." style="height:310px; width:x 880px" align="middle">
-				<div class="carousel-caption">Kinda ok DD1</div>
-			</div>
+				<% count++; } %>
+	
 		</div>
 
 		<!-- Controls -->
@@ -139,38 +138,21 @@
 <div class="container">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">Best Sellers</h3>
+			<h3 class="panel-title">Latest Products</h3>
 		</div>
 		<div class="panel-body">
 			<div class="row">
+			<% for (Product product : lastFour) { %>
 				<div class="col-xs-6 col-md-3">
-					<a href="#" class="thumbnail"> <img src="imgs/CKCotton.png"
-						alt="CKCotton">
+					<a href="guestViewProduct.jsp?productId=<%=product.getProductID() %>" class="thumbnail"> <img src="<%=product.getImagePath() %>"
+						alt="<%=product.getImageName() %>">
 					</a>
 				</div>
-				<div class="col-xs-6 col-md-3">
-					<a href="#" class="thumbnail"> <img
-						src="imgs/CKLeatherJacket.png" alt="CKLeatherJacket">
-					</a>
-				</div>
-				<div class="col-xs-6 col-md-3">
-					<a href="#" class="thumbnail"> <img
-						src="imgs/CKLightWeightJacket.png" alt="CKLightWeightJacket">
-					</a>
-				</div>
-				<div class="col-xs-6 col-md-3">
-					<a href="#" class="thumbnail"> <img src="imgs/DD1.png"
-						alt="DD1">
-					</a>
-				</div>
+				<% } %>
+
 			</div>
 		</div>
 	</div>
-
-	
 </div>
-
-
-
 
 <%@ include file="footer.jsp"%>
