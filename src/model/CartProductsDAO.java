@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import static model.ShoppingCartDAO.*;
 public class CartProductsDAO {
 
 	private static int getID(){
@@ -71,8 +70,8 @@ public class CartProductsDAO {
 
 				if(tempsize.equals(size) && tempcolor.equals(color)){
 					isDuplicate = true;
-					String q1 = "UPDATE CartProducts SET quantity="+(quan+quantity)+" WHERE size="+size+
-							" AND color='"+color+"' AND productID="+productID+" AND cartID="+cartID;
+					String q1 = "UPDATE CartProducts SET quantity="+(quan+quantity)+" WHERE size='"+size+
+							"' AND color='"+color+"' AND productID="+productID+" AND cartID="+cartID;
 					Statement st2 = cn.createStatement();
 					st2.executeUpdate(q1);
 					st2.close();

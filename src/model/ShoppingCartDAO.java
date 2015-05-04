@@ -167,7 +167,8 @@ public class ShoppingCartDAO {
 		float price = 0.0f;
 
 		price = totalPrice(customerID);
-
+		System.out.println("Total price before QWuery: "+price);
+		
 		if(price>0){ // Its 0 by default, hence a check
 			try{
 				Connect();
@@ -183,6 +184,8 @@ public class ShoppingCartDAO {
 		}
 		
 		DB_close();
+		
+		System.out.println("Total Price after Query:"+price);
 		return price;
 	}
 	
@@ -223,6 +226,7 @@ public class ShoppingCartDAO {
 			e.printStackTrace();
 		}
 		DB_close();
+		System.out.println("No of product:"+count);
 		return count;
 	}
 
@@ -301,6 +305,7 @@ public class ShoppingCartDAO {
 		}
 
 		DB_close();
+		System.out.println("AMount"+amount);
 		return amount;
 	}
 	
