@@ -7,8 +7,8 @@
 	pageEncoding="UTF-8"%>
 
 <script>
-	$(document).ready(
-			function() { // When the HTML DOM is ready loading, then execute the following function...
+	$(document).ready(function() { 
+		    
 				$(":checkbox").click(
 						function() { 
 							var brandcheckValues = $('.brand:checked').map(
@@ -42,9 +42,10 @@
 
 	<div class="col-md-4"
 		style="float: left; width: 20%; height: 1000px; margin-left: 10px; margin-right: 10px;">
+		
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<h3>Filter by</h3>
+				<h3>Filter by </h3>
 				<br />
 				<!-- 
 				<h4>Size</h4>
@@ -111,16 +112,11 @@
 					name="color" value="SnowJackets" checked> Snow Jackets <br /> <br />
 
 				<h4>Prices</h4>
-				<input type="checkbox" class="price" name="color" value="25" checked>
-				Under $25 <br /> 
-				<input type="checkbox" class="price" name="color"
-					value="50" checked> $25 to $50<br /> 
-				<input type="checkbox"
-					class="price" name="color" value="100" checked> $50 to $100 <br />
-				<input type="checkbox" class="price" name="color" value="200" checked>
-				$100 to $200 <br /> 
-				<input type="checkbox" class="price"
-					name="color" value="9999" checked> $200 to Above <br /> <br/>
+				<input type="checkbox" class="price" name="color" value="25" checked> Under $25 <br /> 
+				<input type="checkbox" class="price" name="color" value="50" checked> Under $50 <br /> 
+				<input type="checkbox" class="price" name="color" value="100" checked> Under $100 <br />
+				<input type="checkbox" class="price" name="color" value="200" checked> Under $200 <br /> 
+				<input type="checkbox" class="price" name="color" value="9999" checked> Under $999 <br /> <br/>
 			</div>
 		</div>
 	</div>
@@ -142,6 +138,7 @@
 			for (Product p : products) {
 				int id = p.getProductID();
 		%>
+	
 		<div id="<%=p.getProductID() %>" class="<%=p.getProductID()%>">
 		<div class="col-sm-2 col-md-2" ">
 			<div class="thumbnail">

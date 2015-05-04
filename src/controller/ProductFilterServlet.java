@@ -53,8 +53,6 @@ public class ProductFilterServlet extends HttpServlet {
 			showItems.addAll(filterBrand(totalProducts, filter));
 		}
 		
-		System.out.println("after brand items: "+showItems);
-		
 		//filtering by type
 		for (String filter : choices.get("type")[0].split("\\s*,\\s*")){
 			showItems.addAll(filterType(totalProducts, filter));
@@ -63,7 +61,7 @@ public class ProductFilterServlet extends HttpServlet {
 		//filtering by price
 		for (String filter : choices.get("price")[0].split("\\s*,\\s*")){
 			//System.out.println("Prices for filtering: "+filter);
-			showItems.addAll(filterType(totalProducts, filter));
+			showItems.addAll(filterPrice(totalProducts, filter));
 		}
 		filteredIDs.removeAll(showItems);
 		List<List> result = new ArrayList<List>();
@@ -81,9 +79,8 @@ public class ProductFilterServlet extends HttpServlet {
 	
 	public List<Integer> filterBrand(List<Product> products, String brand) {
 		List<Integer> output = new ArrayList<Integer>();
-		System.out.println("Adding products who have brand "+brand);
 		for (Product p : products) {
-			System.out.println("Company name: "+p.getCompanyName() + " brand:"+brand);
+			//System.out.println("Company name:"+p.getCompanyName() + " brand:"+brand);
 			if (p.getCompanyName().equals(brand)) {
 				
 				output.add(p.getProductID()); 
@@ -104,7 +101,7 @@ public class ProductFilterServlet extends HttpServlet {
 
 	public List<Integer> filterPrice(List<Product> products,  String price) {
 		List<Integer> output = new ArrayList<Integer>();
-		float fPrice = Float.parseFloat(price);
+		float fPrice = price.equals("") ? 0f : Float.parseFloat(price);
 		for (Product p : products) {
 			if (p.getPrice() < fPrice) {
 				output.add(p.getProductID()); 
