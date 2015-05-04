@@ -10,6 +10,13 @@
 <% 
 	List<User> buyers  = AdminDAO.listCustomers();
 	%>
+	<%
+	String msg = (String) request.getAttribute("msg");
+	if(msg == null)
+		msg="";
+	out.write("<div class=\"alert alert-success\" role=\"alert\">"+msg+"</div>");
+	
+	%>
 
 	<!-- Welcome -->
 	<div class="page-header">
@@ -22,7 +29,7 @@
 	  <table class="table table-bordered" align="center">
 	    <thead>
 	      <tr>
-	        <th>Sl no</th>
+	        <th>User ID</th>
 	        <th>User Name</th>
 	        <th>First Name</th>
 	        <th>Last Name</th>
@@ -31,7 +38,7 @@
 	        <th>Phone Number</th>
 	        <th>PayPal ID</th>
 	        <th>Status</th>
-	        <th></th>
+	        <th> Delete User</th>
 	      </tr>
 	    </thead>
 	     <tbody>
@@ -40,7 +47,7 @@
 		%>
 	   
 	      <tr>
-	        <td><%  %></td>
+	        <td><%= b.getID()  %></td>
 	        <td><%= b.getUsername() %></td>
 	        <td><%= b.getFirstname() %></td>
 	        <td><%= b.getLastname() %></td>
@@ -51,6 +58,7 @@
 	        <td><%= b.isStatus() %></td>
 	        <td>
 	        <button type="submit" id="submit" name="submit"
+	        				onclick="location.href = 'AdminServlet?action=DeleteUser&ID=<%=b.getID() %>'"
 							class="btn btn-default">Deactivate</button></td>
 	      </tr>
 	   

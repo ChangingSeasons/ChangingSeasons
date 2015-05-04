@@ -34,6 +34,7 @@
 	        <th>Routing Number</th>
 	        <th>Authorization </th>
 	        <th >Status</th>
+	        <th> Delete User</th>
 	      </tr>
 	    </thead>
 	     <tbody>
@@ -56,7 +57,10 @@
 						onclick="location.href = 'AdminServlet?action=AuthorizeSeller&ID=<%=s.getID()%>&email+<%=s.getEmail() %>&auth=<%=s.isAuthorized() %>';" />
 						<label for="myToggleButton">Authorized</label></td>
 	        <td><%= s.isStatus() %></td>
-	        
+	        <td>
+	        <button type="submit" id="submit" name="submit"
+	        				onclick="location.href = 'AdminServlet?action=DeleteUser&ID=<%=s.getID() %>'"
+							class="btn btn-default">Deactivate</button></td>
 	      </tr>
 	 
 	    <%

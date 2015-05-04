@@ -69,7 +69,7 @@ public class AdminServlet extends HttpServlet {
 			int ID = Integer.parseInt(request.getParameter("ID"));
 			deleteUser(ID);
 			msg = "User Deleted";
-			url = "/base_index.jsp";
+			url = "/viewBuyer.jsp";
 			request.setAttribute("msg", msg);
 		}
 		else if(action.equals("ListCustomers")){
