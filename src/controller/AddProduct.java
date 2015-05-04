@@ -1,5 +1,6 @@
 package controller;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Product;
+import model.ProductDAO;
 import static model.ProductDAO.*;
 
 /**
@@ -183,7 +186,15 @@ public class AddProduct extends HttpServlet {
 			float prPrice = Float.parseFloat(price);
 			float shipCost = Float.parseFloat(shippingCost);
 			int id = insertProduct(productName, productDesc, sellerID, prPrice, imagepath, shipCost, imageName, type);
+			
+			
+			
 			if(id>0){
+				Product product = ProductDAO.viewProduct(id);
+				List<Product> currentProducts = (List<Product>) se.getAttribute("products");
+				currentProducts.add(product);
+				se.setAttribute("products",currentProducts);
+				
 				url = "/upload.jsp";
 				msg = "Product Added Successfully";
 				request.setAttribute("msg", msg);

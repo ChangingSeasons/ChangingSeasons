@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="model.RankDAO"%>
 <%@page import="model.Product"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -140,6 +141,7 @@
 							var userID = <%=user.getID() %>
 							 $('#input-1').on('rating.change', function(event, value, caption) {
 								 url = "UpdateRankServlet?rank="+value+"&oldRank="+oldRank+"&customerID="+userID+"&productID="+productID;
+								 
 								 $.get(url, function(response) {
 								 });
 					        });
@@ -147,7 +149,39 @@
 							<%
 								}
 							%>
+							
 						</p>
+						
+						<!-- 
+						<div class="form-group" id="userReview">
+							<label class="col-md-4 control-label">Review</label>
+							<div class="col-md-7">
+								<textarea class="form-control" rows="3" id="review"></textarea>
+							</div>
+						</div>
+							
+						<div class="form-group" id="userReview">
+							<label class="col-md-4 control-label"></label>
+							<div class="col-md-7">
+								<button type="button"> Save Review</button>
+							</div>
+						</div>
+						 
+						
+						<% 
+							List<String> reviews = RankDAO.viewReview(product.getProductID()); 
+							for (String review : reviews) { %>
+							<div class="form-group">
+							<label class="col-md-4 control-label"></label>
+							<div class="col-md-7">
+								<p class="form-control-static"><%=review%></p>
+							</div>
+						</div>
+								
+						<%
+							}
+						%>
+						-->
 					</div>
 				</div>
 			</fieldset>
@@ -155,7 +189,11 @@
 
 
 	</div>
-	<%
+
+
+
+</div>
+<%
 		} else
 			out.write("No product found");
 	%>
