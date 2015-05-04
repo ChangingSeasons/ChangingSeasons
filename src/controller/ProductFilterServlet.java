@@ -49,8 +49,8 @@ public class ProductFilterServlet extends HttpServlet {
 	
 		//filtering by brand 
 		for (String filter : choices.get("brand")[0].split("\\s*,\\s*")){
-			System.out.println("Brands for filtering: "+filter);
-			showItems.addAll(filterType(totalProducts, filter));
+			//System.out.println("Brands for filtering: "+filter);
+			showItems.addAll(filterBrand(totalProducts, filter));
 		}
 		
 		System.out.println("after brand items: "+showItems);
@@ -62,7 +62,7 @@ public class ProductFilterServlet extends HttpServlet {
 
 		//filtering by price
 		for (String filter : choices.get("price")[0].split("\\s*,\\s*")){
-			System.out.println("Prices for filtering: "+filter);
+			//System.out.println("Prices for filtering: "+filter);
 			showItems.addAll(filterType(totalProducts, filter));
 		}
 		filteredIDs.removeAll(showItems);

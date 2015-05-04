@@ -153,7 +153,7 @@
 											 url = "UpdateRankServlet?rank="+value+"&oldRank="+oldRank+"&customerID="+userID+"&productID="+productID;
 											 $('.userReview').show();
 											 $.get(url, function(response) {
-												 location.reload(true);
+												 //location.reload(true);
 											 });
 								        });
 										 $('#saveReview').click (function () {
