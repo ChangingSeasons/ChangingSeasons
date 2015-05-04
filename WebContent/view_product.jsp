@@ -10,6 +10,7 @@
 <div class="container">
 	<%
 		Product product = (Product) request.getAttribute("product");
+		
 		if (product != null) {
 	%>
 	<div class="container">
@@ -160,18 +161,10 @@
 										 });
 										 
 									});
-							</script>
-							<%
-								}
-							%>
-							
-						</p>
-						
-						
-						<div class="form-group userReview" id=>
+							</script></p><div class="form-group userReview" id=>
 							<label class="col-md-4 control-label">Review</label>
 							<div class="col-md-7">
-								<textarea class="form-control" rows="3" id="reviewText"></textarea>
+								<textarea class="form-control" rows="3" id="reviewText"><%=review %></textarea>
 							</div>
 						</div>
 							
@@ -181,21 +174,26 @@
 								<button type="button" id="saveReview"> Save Review</button>
 							</div>
 						</div>
-						 
+						 	<%
+								}
+							double averageRank = RankDAO.averageRank(product.getProductID());
+							String averageRankValue = averageRank != -1 ? "value=\""+averageRank+"\"" : "";
+							%>
 						
+						<hr />
+						<h5> All User Reviews    <small>Average Rank<input id="averageStars" class="rating" data-size="xs" data-min="0"
+								data-max="5" data-step="1" <%=averageRankValue %> data-disabled="true"> </small></h5>
+						<ul class="list-group">
 						<% 
 							List<String> reviews = RankDAO.viewReview(product.getProductID()); 
 							for (String review : reviews) { %>
-							<div class="form-group">
-							<label class="col-md-4 control-label"></label>
-							<div class="col-md-7">
-								<p class="form-control-static"><%=review%></p>
-							</div>
-						</div>
-								
+							<li class="list-group-item">
+							<%=review%>
+							</li>
 						<%
 							}
 						%>
+						</ul>	
 					
 					</div>
 				</div>

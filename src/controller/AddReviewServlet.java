@@ -2,12 +2,14 @@ package controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Product;
 import model.RankDAO;
 
 /**
@@ -33,7 +35,14 @@ public class AddReviewServlet extends HttpServlet {
 		int productID = Integer.parseInt(request.getParameter("productID"));
 		int customerID = Integer.parseInt(request.getParameter("customerID"));
 		
-		RankDAO.addReview(productID, customerID, reviewText);
+		RankDAO.updateReview(productID, customerID, reviewText);
+		
+		Product p = (Product) request.getAttribute("product");
+		request.setAttribute("product", p);
+		
+		String url = "/view_product.jsp";
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+		dispatcher.forward(request, response);
 		
 	}
 

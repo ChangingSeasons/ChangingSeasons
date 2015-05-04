@@ -30,17 +30,15 @@ public class RankDAO {
 		return true;
 	}
 
-	public static boolean addReview(int productID, int customerID, String review){
+	public static boolean updateReview(int productID, int customerID, String review){
 		Connect();
 
 		try{
-			String q1 = "INSERT into productRank (productID, customerID, review)" + " values (?, ?, ?)";
-			PreparedStatement ps = cn.prepareStatement(q1);
-			ps.setInt(1, productID);
-			ps.setInt(2, customerID);
-			ps.setString(3, review);
-			ps.executeUpdate();
-			ps.close();
+			String q = "UPDATE productRank SET review='"+review+"' WHERE productID="+productID+" AND customerID="+customerID;
+			Statement st = cn.createStatement();
+			st.executeUpdate(q);
+			
+			st.close();
 		}catch(SQLException e){
 			System.err.println(e.getMessage());
 			e.printStackTrace();

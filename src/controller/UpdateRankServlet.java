@@ -35,8 +35,13 @@ public class UpdateRankServlet extends HttpServlet {
 		int oldRank = Integer.parseInt(request.getParameter("oldRank"));
 		int productID = Integer.parseInt(request.getParameter("productID"));
 		int customerID = Integer.parseInt(request.getParameter("customerID"));
-		if(oldRank == -1) RankDAO.addRank(productID, customerID, rank);
-		else RankDAO.editRank(productID, customerID, rank);
+		if(oldRank == -1) {
+			//System.out.println("Rank has not been set, inserting oldRank: "+oldRank+" and newRank:"+rank);
+			RankDAO.addRank(productID, customerID, rank);
+		} else {
+			//System.out.println("Rank has been set, updating oldRank: "+oldRank+" and newRank:"+rank);
+			RankDAO.editRank(productID, customerID, rank);
+		}
 		
 		String url = "/view_product.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

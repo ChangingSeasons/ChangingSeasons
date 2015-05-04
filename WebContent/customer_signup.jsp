@@ -7,7 +7,8 @@
 	<% 
 		String msg = (String)request.getAttribute("msg");
 		if(msg == null) msg="";
-		if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\">"+msg+"</div>");
+		if(!msg.equals("")) out.write("<div class=\"alert alert-danger\" role=\"alert\"> "+
+		"<span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span><span class=\"sr-only\">Error:</span>"+msg+"</div>");
 		
 		String logIn = (String) session.getAttribute("loggedIn");
 		if(loggedIn != null){
