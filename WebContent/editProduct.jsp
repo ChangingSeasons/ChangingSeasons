@@ -65,7 +65,7 @@
 				</div>
 			</div>
 
-			<!-- Text area -->
+			<!--  
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="size">Size: </label>
 				<div class="col-md-4">
@@ -74,7 +74,6 @@
 				</div>
 			</div>
 
-			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="color">Color: </label>
 				<div class="col-md-4">
@@ -82,7 +81,7 @@
 					value="<%=product.getColor() %>">
 				</div>
 			</div>
-			
+			 -->
 			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="imageName">Image Name: </label>
