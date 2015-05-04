@@ -66,6 +66,11 @@ public class EmailDAO {
 				msg.setSubject(subject); // Order Details
 				msg.setText(message);
 			}
+			else if(type.equalsIgnoreCase("contactSeller")){
+				msg.setSubject(subject); // Contact Seller
+				msg.setText(message);
+			}
+
 			msg.setSentDate(new Date());
 			Transport.send(msg);
 
