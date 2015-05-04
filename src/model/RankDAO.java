@@ -29,7 +29,7 @@ public class RankDAO {
 		DB_close();
 		return true;
 	}
-	
+
 	public static boolean addReview(int productID, int customerID, String review){
 		Connect();
 
@@ -66,7 +66,7 @@ public class RankDAO {
 		DB_close();
 		return true;
 	}
-	
+
 	public static int viewRank(int productID, int customerID){
 		Connect();
 		int rank = -1;
@@ -77,7 +77,7 @@ public class RankDAO {
 
 			while(rs.next())
 				rank = rs.getInt("rank");
-			
+
 			rs.close();
 			st.close();
 		}catch(SQLException se){
@@ -85,10 +85,10 @@ public class RankDAO {
 			se.printStackTrace();
 		}
 		DB_close();
-		
+
 		return rank;
 	}
-	
+
 	public static List<String> viewReview(int productID){ // View all Reviews of a Single Product
 		Connect();
 		List<String> review = new ArrayList<String>();
@@ -99,7 +99,7 @@ public class RankDAO {
 
 			while(rs.next())
 				review.add(rs.getString("review"));
-			
+
 			rs.close();
 			st.close();
 		}catch(SQLException se){
@@ -109,11 +109,11 @@ public class RankDAO {
 		DB_close();
 		return review;
 	}
-	
-	public static List<String> viewCustomerSpecificReview(int customerID){ // Customer can See all products reviewed
+
+	public static List<String> viewCustomerSpecificReviews(int customerID){ // Customer can See all products reviewed
 		List<String> reviews = new ArrayList<String>();
 		Connect();
-		
+
 		try{
 			String q0 = "SELECT review FROM productRank WHERE customerID="+customerID;
 			Statement st = cn.createStatement();
@@ -131,6 +131,26 @@ public class RankDAO {
 		return reviews;
 	}
 
+	public static String customerViewProductReview(int customerID, int productID) {
+		String review="";
+		Connect();
+		try{
+			String q0 = "SELECT review FROM productRank WHERE customerID="+customerID+" AND productID="+productID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+
+			while(rs.next())
+				review = rs.getString("review");
+			rs.close();
+			st.close();
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+		return review;
+	}
+
 	public static double averageRank(int productID){
 		List<Integer> rank = new ArrayList<Integer>();
 		Connect();
@@ -144,10 +164,10 @@ public class RankDAO {
 				rank.add(rs.getInt("rank"));
 			rs.close();
 			st.close();
-			
+
 			for(Integer i : rank)
 				average += i;
-			
+
 		}catch(SQLException se){
 			System.err.println(se.getMessage());
 			se.printStackTrace();

@@ -130,21 +130,36 @@
 										int rank = RankDAO.viewRank(product.getProductID(),
 												user.getID());
 										String value = rank != -1 ? "value=\""+rank+"\"" : "";
+										String review = RankDAO.customerViewProductReview(user.getID(), product.getProductID());
 							%>
 
 							<input id="input-1" class="rating" data-size="sm" data-min="0"
 								data-max="5" data-step="1" <%=value  %>>
 
 							<script type="text/javascript">
-							var oldRank = <%=rank %>;
-							var productID = <%=product.getProductID() %>;
-							var userID = <%=user.getID() %>
-							 $('#input-1').on('rating.change', function(event, value, caption) {
-								 url = "UpdateRankServlet?rank="+value+"&oldRank="+oldRank+"&customerID="+userID+"&productID="+productID;
-								 
-								 $.get(url, function(response) {
-								 });
-					        });
+							$(document).ready(
+									function() { // When the HTML DOM is ready loading, then execute the following function...
+										var oldRank = <%=rank %>;
+										var productID = <%=product.getProductID() %>;
+										var userID = <%=user.getID()   %>;
+										var review = <%=review.equals("") ? "\"\"" : "'"+review+"'"%>
+										if (review === "") {
+											$('.userReview').hide();
+										}
+										 $('#input-1').on('rating.change', function(event, value, caption) {
+											 url = "UpdateRankServlet?rank="+value+"&oldRank="+oldRank+"&customerID="+userID+"&productID="+productID;
+											 $('.userReview').show();
+											 $.get(url, function(response) {
+											 });
+								        });
+										 $('#saveReview').click (function () {
+											 var reviewText = $('#reviewText').val();
+											 url = "AddReviewServlet?review="+reviewText+"&customerID="+userID+"&productID="+productID;
+											 $.get(url, function(response) {
+											 });
+										 });
+										 
+									});
 							</script>
 							<%
 								}
@@ -152,18 +167,18 @@
 							
 						</p>
 						
-						<!-- 
-						<div class="form-group" id="userReview">
+						
+						<div class="form-group userReview" id=>
 							<label class="col-md-4 control-label">Review</label>
 							<div class="col-md-7">
-								<textarea class="form-control" rows="3" id="review"></textarea>
+								<textarea class="form-control" rows="3" id="reviewText"></textarea>
 							</div>
 						</div>
 							
-						<div class="form-group" id="userReview">
+						<div class="form-group userReview" id="userReview">
 							<label class="col-md-4 control-label"></label>
 							<div class="col-md-7">
-								<button type="button"> Save Review</button>
+								<button type="button" id="saveReview"> Save Review</button>
 							</div>
 						</div>
 						 
@@ -181,7 +196,7 @@
 						<%
 							}
 						%>
-						-->
+					
 					</div>
 				</div>
 			</fieldset>
