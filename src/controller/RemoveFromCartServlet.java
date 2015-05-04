@@ -45,14 +45,7 @@ public class RemoveFromCartServlet extends HttpServlet {
 		//int userID = Integer.parseInt(request.getParameter("userID"));
 		//int cartId = getCartID(userID);
 		int ID = (int)request.getSession().getAttribute("ID");
-		float totalPrice = ShoppingCartDAO.totalPrice(ID);
-		System.out.println("Before removing total Price: "+totalPrice);
-		
-		removeProductfromCart(productToBeRemoved);
-		System.out.println("After removing total Price: "+totalPrice);
-		
-		totalPrice = ShoppingCartDAO.totalPrice(ID);
-		
+		removeProductfromCart(productToBeRemoved);	
 		updateTotalPrice(ID);
 		String url = "/shoppingCart.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
