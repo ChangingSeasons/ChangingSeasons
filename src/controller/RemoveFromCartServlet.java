@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.ShoppingCart;
+import model.ShoppingCartDAO;
 import static model.CartProductsDAO.removeProductfromCart;
 import static model.ShoppingCartDAO.getCartID;
 import static model.ShoppingCartDAO.updateTotalPrice;
@@ -42,8 +44,15 @@ public class RemoveFromCartServlet extends HttpServlet {
 		int productToBeRemoved = Integer.parseInt(request.getParameter("cartProductID"));
 		//int userID = Integer.parseInt(request.getParameter("userID"));
 		//int cartId = getCartID(userID);
-		removeProductfromCart(productToBeRemoved);
 		int ID = (int)request.getSession().getAttribute("ID");
+		float totalPrice = ShoppingCartDAO.totalPrice(ID);
+		System.out.println("Before removing total Price: "+totalPrice);
+		
+		removeProductfromCart(productToBeRemoved);
+		System.out.println("After removing total Price: "+totalPrice);
+		
+		totalPrice = ShoppingCartDAO.totalPrice(ID);
+		
 		updateTotalPrice(ID);
 		String url = "/shoppingCart.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

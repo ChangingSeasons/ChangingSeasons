@@ -41,11 +41,12 @@
 			</thead>
 			<tbody>
 			<%
+				double cartTotalPrice = 0;
 	    		if (cartProducts != null) {
 					for (Product p : cartProducts) {
-						double total_price = p.getPrice() * p.getQuantity();
+						double totalProductPrice = p.getPrice() * p.getQuantity();
+						cartTotalPrice += totalProductPrice;
 		%>
-			
 				<tr>
 					<td><%=p.getProductName() %></td>
 					<td> <%=p.getColor() %> </td>
@@ -65,7 +66,7 @@
 							</select>
 					 -->
 					</td>
-					<td>$ <%=total_price%></td>
+					<td>$ <%=totalProductPrice%></td>
 					<td><a
 						href="RemoveFromCartServlet?cartProductID=<%=p.getCartProductID()%>&userID=<%=user.getID() %>">
 							<button type="submit" id="submit" name="submit"
@@ -77,10 +78,9 @@
 					}
 				} else out.write("No Cart Product found");
 			
-			double money = cart.getTotalPrice()*1.08f;
+			double totalAfterTax = cartTotalPrice*1.08f;
 			NumberFormat formatter = NumberFormat.getCurrencyInstance();
-			String moneyString = formatter.format(money);
-			System.out.print("Money: "+moneyString);
+			String moneyString = formatter.format(totalAfterTax);
 			%>
 			</tbody>
 		</table>
@@ -89,7 +89,7 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<h4>
-						Sub Total: $<%=cart.getTotalPrice() %><br/> Sales Tax: 8.00%<br/>
+						Sub Total: $<%=cartTotalPrice %><br/> Sales Tax: 8.00%<br/>
 						<hr/>
 						Order Total: <%=moneyString %>
 					</h4>
