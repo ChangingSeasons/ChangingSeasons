@@ -71,7 +71,8 @@ public class CartProductsDAO {
 
 				if(tempsize.equals(size) && tempcolor.equals(color)){
 					isDuplicate = true;
-					String q1 = "UPDATE CartProducts SET quantity="+(quan+quantity);
+					String q1 = "UPDATE CartProducts SET quantity="+(quan+quantity)+" WHERE size="+size+
+							" AND color='"+color+"' AND productID="+productID+" AND cartID="+cartID;
 					Statement st2 = cn.createStatement();
 					st2.executeUpdate(q1);
 					st2.close();
