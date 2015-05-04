@@ -1,3 +1,4 @@
+<%@page import="model.ProductDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="model.RankDAO"%>
 <%@page import="model.Product"%>
@@ -9,7 +10,8 @@
 
 <div class="container">
 	<%
-		Product product = (Product) request.getAttribute("product");
+	int productID = Integer.parseInt(request.getParameter("productID"));
+	Product product = ProductDAO.viewProduct(productID);
 		
 		if (product != null) {
 	%>
@@ -151,12 +153,14 @@
 											 url = "UpdateRankServlet?rank="+value+"&oldRank="+oldRank+"&customerID="+userID+"&productID="+productID;
 											 $('.userReview').show();
 											 $.get(url, function(response) {
+												 location.reload(true);
 											 });
 								        });
 										 $('#saveReview').click (function () {
 											 var reviewText = $('#reviewText').val();
 											 url = "AddReviewServlet?review="+reviewText+"&customerID="+userID+"&productID="+productID;
 											 $.get(url, function(response) {
+												 location.reload(true);
 											 });
 										 });
 										 

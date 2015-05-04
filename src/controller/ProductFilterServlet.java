@@ -47,6 +47,13 @@ public class ProductFilterServlet extends HttpServlet {
 
 		List<Integer> showItems = new ArrayList<Integer>();
 	
+		//filtering by brand 
+		for (String filter : choices.get("brand")[0].split("\\s*,\\s*")){
+			System.out.println("Brands for filtering: "+filter);
+			showItems.addAll(filterType(totalProducts, filter));
+		}
+		
+		System.out.println("after brand items: "+showItems);
 		
 		//filtering by type
 		for (String filter : choices.get("type")[0].split("\\s*,\\s*")){
@@ -55,6 +62,7 @@ public class ProductFilterServlet extends HttpServlet {
 
 		//filtering by price
 		for (String filter : choices.get("price")[0].split("\\s*,\\s*")){
+			System.out.println("Prices for filtering: "+filter);
 			showItems.addAll(filterType(totalProducts, filter));
 		}
 		filteredIDs.removeAll(showItems);
@@ -70,11 +78,26 @@ public class ProductFilterServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(json);
 	}
+	
+	public List<Integer> filterBrand(List<Product> products, String brand) {
+		List<Integer> output = new ArrayList<Integer>();
+		System.out.println("Adding products who have brand "+brand);
+		for (Product p : products) {
+			System.out.println("Company name: "+p.getCompanyName() + " brand:"+brand);
+			if (p.getCompanyName().equals(brand)) {
+				
+				output.add(p.getProductID()); 
+			}
+		}
+		return output;
+	}
 
 	public List<Integer> filterType(List<Product> products, String type) {
 		List<Integer> output = new ArrayList<Integer>();
 		for (Product p : products) {
-			if (p.getType().equals(type)) output.add(p.getProductID()); 
+			if (p.getType().equals(type)) {
+				output.add(p.getProductID()); 
+			}
 		}
 		return output;
 	}
@@ -83,7 +106,9 @@ public class ProductFilterServlet extends HttpServlet {
 		List<Integer> output = new ArrayList<Integer>();
 		float fPrice = Float.parseFloat(price);
 		for (Product p : products) {
-			if (p.getPrice() < fPrice) output.add(p.getProductID()); 
+			if (p.getPrice() < fPrice) {
+				output.add(p.getProductID()); 
+			}
 		}
 		return output;
 	}

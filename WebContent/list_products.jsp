@@ -1,3 +1,5 @@
+<%@page import="model.AdminDAO"%>
+<%@page import="model.AuthDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="model.User"%>
 <%@page import="model.Product"%>
@@ -65,10 +67,8 @@
 					class="color" name="color" value="Blue"> Blue <br /> <br />
 					
 				 -->
-
-				<h4>Brand</h4>
-				<input type="checkbox" class="brand" name="color" value="Burberry">
-				Burberry <br /> <input type="checkbox" class="brand" name="color"
+				 
+				 <!--   <input type="checkbox" class="brand" name="color"
 					value="CalvinKlein"> Calvin Klein<br /> <input
 					type="checkbox" class="brand" name="color" value="Columbia">
 				Columbia <br /> <input type="checkbox" class="brand" name="color"
@@ -82,6 +82,19 @@
 					value="NorthFace"> The North Face <br /> <input
 					type="checkbox" class="brand" name="color" value="TommyHilfiger">
 				Tommy Hilfiger <br /> <br />
+				
+				-->
+				 
+				 <h4>Brand</h4>
+				 <%
+				 List<User> sellers = AdminDAO.listSellers();
+				 for (User seller : sellers) {
+				 %>
+				<input type="checkbox" class="brand" name="color" checked value="<%=seller.getCompanyName() %>">
+				<%=seller.getCompanyName() %> <br />
+				<%} %>
+				
+				
 
 				<h4>Type</h4>
 				<input type="checkbox" class="type" value="Leather" checked> Leather
@@ -140,7 +153,7 @@
 						Price: $<%=p.getPrice()+""%>
 					</p>
 					<p>
-					<form action="/ChangingSeasons/ViewProductServlet" method="post">
+					<form action="view_product.jsp?productID=<%=p.getProductID() %>" method="post">
 						<input type="hidden" name="productID" value="<%=(id+"")%>">
 						<input type="submit" class="btn btn-primary btn-xs" role="button"
 							value="View Product" />
