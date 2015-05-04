@@ -17,7 +17,7 @@
 			<small>Send Email <%=seller.getCompanyName() %></small>
 		</h1>
 	</div>
-<form class="form-horizontal" action="" method="post">
+<form class="form-horizontal" action="/ChangingSeasons/ContactSellerServlet" method="post">
 		<fieldset>
 			<div style="float:left; width:100%;">
 			
