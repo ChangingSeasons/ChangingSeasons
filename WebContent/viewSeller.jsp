@@ -33,7 +33,8 @@
 	        <th>Bank Account Number</th>
 	        <th>Routing Number</th>
 	        <th>Authorization </th>
-	        <th >Status</th>
+	        <th>Status</th>
+	        <th>Contact Seller</th>
 	        <th> Delete User</th>
 	      </tr>
 	    </thead>
@@ -57,10 +58,14 @@
 						onclick="location.href = 'AdminServlet?action=AuthorizeSeller&ID=<%=s.getID()%>&email+<%=s.getEmail() %>&auth=<%=s.isAuthorized() %>';" />
 						<label for="myToggleButton">Authorized</label></td>
 	        <td><%= s.isStatus() %></td>
+	        <td> <button type="button" id="contact" name="contact"
+	        				onclick="location.href = 'contactSeller.jsp?sellerID=<%=s.getID() %>'"
+							class="btn btn-default btn-sm">Contact Seller</button></td>
+							<%String disabled =  s.isStatus() ? "" : "disabled=\"disabled\""; %>
 	        <td>
-	        <button type="submit" id="submit" name="submit"
+	        <button type="button" id="delete" name="delete"
 	        				onclick="location.href = 'AdminServlet?action=DeleteUser&ID=<%=s.getID() %>'"
-							class="btn btn-default">Deactivate</button></td>
+							class="btn btn-primary btn-sm" <%=disabled %>>Deactivate</button></td>
 	      </tr>
 	 
 	    <%

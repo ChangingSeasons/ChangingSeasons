@@ -34,15 +34,6 @@
      	User user = null;
      	if (!loggedIn.equals("")) user = (User) session.getAttribute("user");
      	
-     	// Setting test user for checking!
-     	
-     	if(user == null){
-     		user = new User();
-     		user.setFirstname("TEST");
-     		user.setLastname("USER");
-     		user.setType("buy");
-     	}
-     	
      		
       	String homeURL = "base_login.jsp";
     	if (!loggedIn.equals("")) homeURL = "base_index.jsp";%>
@@ -50,9 +41,6 @@
 				class="header"><img src="imgs/logo.jpg" alt="logo" width="80" />
 					Changing Seasons</span></a>
 		</div>
-
-
-
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse"
@@ -84,9 +72,9 @@
 						<li><a href="addProducts.jsp">Add Products</a></li>
 						<li><a href="contactUs.jsp">Contact Us</a></li>
 						<% } else if(user.getType().equals("adm")) { %>
-						<li><a href="viewSeller.jsp">Seller Authentication</a></li>
-						<li><a href="viewBuyer.jsp">View Customer</a></li>
-						<li><a href="viewOrder.jsp">View Orders</a></li>
+						<li><a href="viewSeller.jsp">Manage Sellers</a></li>
+						<li><a href="viewBuyer.jsp">Manage Customer</a></li>
+						<li><a href="viewOrder.jsp">Manage Orders</a></li>
 						<% } %>
 					</ul></li>
 					
