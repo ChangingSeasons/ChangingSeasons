@@ -175,7 +175,7 @@ public class OrderDAO {
 			rs.close();
 
 			for(Integer z : productID){
-				q0 = "SELECT DISTINCT orderID FROM OrderProducts WHERE productID="+z;
+				q0 = "SELECT DISTINCT orderID FROM OrderProducts WHERE productID="+z+" Order by orderID desc";
 				st = cn.createStatement();
 				rs = st.executeQuery(q0);
 				while(rs.next()){
@@ -214,10 +214,10 @@ public class OrderDAO {
 			Connect();
 			if(ID.length>0){ // List orders by Customer
 				customerID = ID[0];
-				q0="SELECT orderID FROM Orders WHERE customerID="+customerID+" AND status <> 0";
+				q0="SELECT orderID FROM Orders WHERE customerID="+customerID+" AND status <> 0 Order by orderID desc";
 			}
 			else // List all Orders (For Admin)
-				q0="SELECT orderID FROM Orders WHERE status <> 0";
+				q0="SELECT orderID FROM Orders WHERE status <> 0 Order by orderID desc";
 
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
