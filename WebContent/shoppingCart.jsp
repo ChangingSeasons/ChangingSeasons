@@ -1,3 +1,4 @@
+<%@page import="java.text.NumberFormat"%>
 <%@page import="model.Product"%>
 <%@page import="model.ShoppingCart"%>
 <%@page import="java.util.List"%>
@@ -75,6 +76,11 @@
 			<%
 					}
 				} else out.write("No Cart Product found");
+			
+			double money = cart.getTotalPrice()*1.08f;
+			NumberFormat formatter = NumberFormat.getCurrencyInstance();
+			String moneyString = formatter.format(money);
+			System.out.print("Money: "+moneyString);
 			%>
 			</tbody>
 		</table>
@@ -83,9 +89,9 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<h4>
-						Sub Total: $ <%=cart.getTotalPrice() %></br> Sales Tax: 8.00%</br>
-						<hr>
-						Order Total: $ <%=cart.getTotalPrice() *1.08f %>
+						Sub Total: $<%=cart.getTotalPrice() %><br/> Sales Tax: 8.00%<br/>
+						<hr/>
+						Order Total: <%=moneyString %>
 					</h4>
 				</div>
 			</div>
