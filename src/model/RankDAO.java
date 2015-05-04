@@ -131,5 +131,29 @@ public class RankDAO {
 		return reviews;
 	}
 
+	public static double averageRank(int productID){
+		List<Integer> rank = new ArrayList<Integer>();
+		Connect();
+		double average = 0;
+		try{
+			String q0 = "SELECT rank FROM productRank WHERE productID="+productID;
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(q0);
+
+			while(rs.next())
+				rank.add(rs.getInt("rank"));
+			rs.close();
+			st.close();
+			
+			for(Integer i : rank)
+				average += i;
+			
+		}catch(SQLException se){
+			System.err.println(se.getMessage());
+			se.printStackTrace();
+		}
+		DB_close();
+		return (average/rank.size());
+	}
 
 }
