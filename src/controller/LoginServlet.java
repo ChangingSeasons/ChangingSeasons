@@ -83,10 +83,8 @@ public class LoginServlet extends HttpServlet {
 					/** Getting products depending on user type **/
 					List<Product> product_list = new ArrayList<Product>();
 					if (getUserbyId(ID).getType().equals("sel")){
-						System.out.println("Getting products for seller "+getUserbyId(ID).getFirstname());
 						product_list = getProducts(ID);
 					} else {
-						System.out.println("No seller getting all products");
 						product_list = getProducts();
 					}
 

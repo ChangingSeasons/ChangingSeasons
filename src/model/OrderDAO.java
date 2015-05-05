@@ -157,7 +157,7 @@ public class OrderDAO {
 	}
 
 	public static HashMap<Order, List<OrderProducts>> orderSellers(int sellerID){
-
+		
 		List<Integer> orders = new ArrayList<Integer>();
 		List<Integer> productID = new ArrayList<Integer>();
 		HashMap<Order, List<OrderProducts>> orderDetails = new HashMap<Order, List<OrderProducts>>();
@@ -204,7 +204,7 @@ public class OrderDAO {
 	}
 
 	public static HashMap<Order, List<OrderProducts>> orderDetails(int... ID){
-
+		
 		HashMap<Order, List<OrderProducts>> orderDetails = new HashMap<Order, List<OrderProducts>>();
 		ArrayList<Integer> orders = new ArrayList<Integer>();
 

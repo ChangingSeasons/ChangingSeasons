@@ -10,14 +10,15 @@
 
 <div class="container">
 	<%
-		HashMap<Order, List<OrderProducts>> orders;
+		HashMap<Order, List<OrderProducts>> orders = null;
 
-		if (user.getType().equals("sel"))
+		if (user.getType().equals("sel")) {
 			orders = OrderDAO.orderSellers(user.getID());
-		if (user.getType().equals("buy"))
+		} else if (user.getType().equals("buy")) {
 			orders = OrderDAO.orderDetails(user.getID());
-		else
+		} else if (user.getType().equals("adm")) {
 			orders = OrderDAO.orderDetails();
+		}
 	%>
 
 	<!-- Welcome -->
@@ -118,14 +119,15 @@
 
 		</div>
 
-
+		<%
+			String buttonText = user.getType().equals("buy") ? "Continue Shopping" : "Return to Stock Page";
+		%>
 		<!-- Button -->
 		<div class="form-group">
 			<label class="col-md-4 control-label" for="cart"></label>
 			<div class="col-md-4">
 				<button type="button" id="lproducts" name="lproducts"
-					onclick="location.href = 'base_index.jsp';" class="btn btn-primary">Continue
-					Shopping</button>
+					onclick="location.href = 'base_index.jsp';" class="btn btn-primary"><%=buttonText %></button>
 			</div>
 		</div>
 

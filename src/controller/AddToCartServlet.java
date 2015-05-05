@@ -48,8 +48,6 @@ public class AddToCartServlet extends HttpServlet {
 		String size = request.getParameter("size");
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		
-		System.out.println("INserting into cart product "+productID + " "+color+" "+ size+ " "+quantity);
-		
 		insertIntoCartProducts(cartId, productID, quantity,size,color);
 		updateTotalPrice(userID);
 		url = "/shoppingCart.jsp";
