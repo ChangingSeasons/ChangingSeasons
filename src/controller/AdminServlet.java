@@ -1,4 +1,5 @@
 package controller;
+import model.AuthDAO;
 import model.Order;
 import model.OrderProducts;
 import model.Product;
@@ -54,10 +55,11 @@ public class AdminServlet extends HttpServlet {
 			String status = (request.getParameter("auth"));
 		
 			if(status.equals("false")){
-				String email = (String)request.getParameter("email");
+				//String email = (String)request.getParameter("email");
 				authorizeSeller(true, ID);
+				User u = AuthDAO.getUserbyId(ID);
 				msg = "Seller Authorized!";
-				sendMail(email, "Authorization Status", "Thank you for Registering with Us. You have been Authorized by the Admin. We wish you a pleasant selling experience!","authorization");
+				sendMail(u.getEmail(), "Authorization Status", "Thank you for Registering with Us. You have been Authorized by the Admin. We wish you a pleasant selling experience!","authorization");
 			} else{
 				authorizeSeller(false, ID);
 				msg = "Seller De-Authorized!";
